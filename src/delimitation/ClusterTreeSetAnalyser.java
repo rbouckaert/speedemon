@@ -37,7 +37,7 @@ public class ClusterTreeSetAnalyser extends beast.core.Runnable {
 			+ "all available data will be printed). Ignored if printTail=true", -1);
 
 	final static private String SPECIES_SEPARATOR = "___";
-	final static public double EPSILON = 0;
+	static public double EPSILON = 0;
 	
 	@Override
 	public void initAndValidate() {
