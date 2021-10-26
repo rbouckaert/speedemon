@@ -1,0 +1,237 @@
+<!-- Build delimitation. It is also used by Hudson delimitation project. JUnit test is available for this build. -->
+<project basedir="." default="addon" name="BUILD_delimitation">
+	<description>
+	    Build delimitation. 
+            Also used by Hudson delimitation project. 
+	    JUnit test is available for this build.
+	    $Id: build_delimitation.xml $
+	</description>
+
+	<!-- set global properties for this build -->
+	<property name="srcdelimitation" location="src" />
+	<property name="builddelimitation" location="build" />
+	<property name="libdelimitation" location="lib" />
+	<property name="release_dir" value="release" />
+	<property name="distdelimitation" location="${builddelimitation}/dist" />
+	<property name="beast2path" location="../beast2" />
+	<property name="libBeast2" location="${beast2path}/lib" />
+	<property name="srcBeast2" location="${beast2path}/src" />
+	<property name="beast2classpath" location="${beast2path}/build" />
+	<property name="bicepsclasspath" location="../biceps/build" />
+	<property name="BEASTLabsclasspath" location="../BEASTLabs/build" />
+	<property name="delimitationclasspath" location="../delimitation/build" />
+	<property name="boosterclasspath" location="../beastbooster/build" />
+	<property name="SNAPPclasspath" location="../SNAPP/build" />
+	<property name="Add_on_dir" value="${release_dir}/add-on" />
+	<property name="delimitationdir" location="." />
+
+    <import file="${beast2path}/build.xml" />
+
+	<property name="main_class_BEAST" value="beast.app.BeastMCMC" />
+	<property name="report" value="${builddelimitation}/junitreport"/>
+
+	<path id="classpath">
+        <pathelement path="${builddelimitation}"/>
+		<fileset dir="${libBeast2}" includes="junit-4.8.2.jar"/>
+	    <fileset dir="${libBeast2}" includes="commons-math3-3.1.1.jar"/>
+		<fileset dir="${libBeast2}" includes="jam.jar"/>
+		<fileset dir="${libBeast2}" includes="colt.jar"/>
+		<fileset dir="${libBeast2}" includes="antlr-runtime-4.7.jar"/>
+		<fileset dir="${libBeast2}" includes="beagle.jar"/>
+		<fileset dir="../Babel/lib" includes="itextpdf-5.5.9.jar"/>
+        <pathelement path="${beast2classpath}"/>
+        <pathelement path="${BEASTLabsclasspath}"/>
+        <pathelement path="${bicepsclasspath}"/>
+        <pathelement path="${delimitationclasspath}"/>        
+	</path>
+
+	<!-- start -->
+	<target name="initdelimitation">
+		<echo message="${ant.project.name}: ${ant.file}" />
+        <available file="${delimitationdir}/version.xml" property="versionAvailable"/>
+        <fail unless="versionAvailable">
+              ** Required file version.xml does not exist. **
+        </fail>
+
+        <!-- Read package name and version from xml file -->
+        <xmlproperty file="${delimitationdir}/version.xml" prefix="fromVersionFile" />
+        <property name="delimitationversion" value="${fromVersionFile.package(version)}" />
+	</target>
+
+	<target name="cleandelimitation">
+    	<delete dir="${builddelimitation}" />
+	</target>
+
+	<!-- clean previous build, and then compile Java source code, and Juint test -->
+	<target name="build_all_delimitation" depends="cleandelimitation,compile-alldelimitation,junitdelimitation"
+        description="Clean and Build all run-time stuff">
+	</target>
+
+	<!-- clean previous build, compile Java source code, and Junit test, and make the beast.jar and beauti.jar -->
+	<target name="build_jar_all_delimitation" depends="cleandelimitation,compile-alldelimitation,junitdelimitation,dist_all_delimitation"
+        description="Clean and Build all run-time stuff">
+	</target>
+
+
+	<!-- No JUnit Test, clean previous build, compile Java source code, and make the delimitation.jar and beauti.jar -->
+	<target name="build_jar_all_delimitation_NoJUnitTest" depends="cleandelimitation,compile-alldelimitation,dist_all_delimitation"
+        description="Clean and Build all run-time stuff">
+	</target>
+
+	<!-- compile Java source code -->
+	<target name="compile-alldelimitation" depends="initdelimitation,compile-all">
+
+
+	    <!-- Capture the path as a delimited property using the refid attribute -->
+	    <property name="myclasspath" refid="classpath"/>
+	    <!-- Emit the property to the ant console -->
+	    <echo message="Classpath = ${myclasspath}"/>
+
+		<mkdir dir="${builddelimitation}" />
+
+		<!-- Compile the java code from ${srcdelimitation} into ${builddelimitation} /bin -->
+		<javac srcdir="${srcdelimitation}" destdir="${builddelimitation}" classpathref="classpath" 
+		       fork="true"
+		       memoryinitialsize="256m"
+		       memorymaximumsize="256m"
+			   source="1.8"
+		       target="1.8">
+			<include name="delimitation/*.java" />
+			<!-- compile JUnit test classes -->
+			<include name="test/**" />
+		</javac>
+		<copy todir="${builddelimitation}">
+			<fileset dir="${srcdelimitation}" includes="**/*.properties" />
+			<fileset dir="${srcdelimitation}" includes="**/*.png" />
+		</copy>
+		<echo message="Successfully compiled." />
+	</target>
+
+	<!-- make the beast.jar and beauti.jar -->
+<!--
+	<target name="dist_all_delimitation" depends="compile-alldelimitation" description="create delimitation jar">
+-->
+	<target name="dist_all_delimitation" description="create delimitation jar">
+		<!-- Create the distribution directory -->
+		<mkdir dir="${distdelimitation}" />
+
+		<!-- Put everything in ${builddelimitation} into the beast.jar file -->
+		<jar jarfile="${distdelimitation}/delimitation.jar">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Main-Class" value="${main_class_BEAST}" />
+			</manifest>
+			<fileset dir="${builddelimitation}">
+				<include name="**/*.class" />
+			</fileset>
+			<fileset dir="${beast2classpath}">
+				<include name="beast/**/*.class" />
+				<include name="beast/**/*.properties" />
+				<include name="beast/**/*.png" />
+				<include name="beagle/**/*.class" />
+				<include name="org/**/*.class" />
+			</fileset>
+		</jar>
+		<jar jarfile="${distdelimitation}/delimitation.src.jar">
+			<fileset dir="${srcdelimitation}">
+				<include name="**/*.java" />
+				<include name="beast/**/*.png" />
+				<include name="beast/**/*.xsl" />
+			</fileset>
+        </jar>
+		<jar jarfile="${distdelimitation}/delimitation.addon.jar">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+			</manifest>
+			<fileset dir="${builddelimitation}">
+				<include name="beast/**/*.png" />
+				<exclude name="delimitation/tools/*.class"/>
+				<include name="**/*.class" />
+				<include name="**/*.properties" />
+			</fileset>
+		</jar>
+	</target>
+
+	<!-- run beast.jar -->
+	<target name="run_delimitation">
+		<java jar="${distdelimitation}/delimitation.jar" fork="true" />
+	</target>
+
+	
+	<!-- JUnit test -->
+	<target name="junitdelimitation">
+		<mkdir dir="${report}" />
+		<junit printsummary="yes"> <!--showoutput='yes'-->
+			<classpath>
+				<path refid="classpath" />
+				<path location="${builddelimitation}" />
+			</classpath>
+
+			<formatter type="xml" />
+
+			<batchtest fork="yes" todir="${report}">
+				<fileset dir="${srcdelimitation}">
+                    <include name="test/**/*Test.java"/>                                         
+				</fileset>
+				<fileset dir="${srcBeast2}">
+                    <include name="test/beast/integration/**/*Test.java"/>                                         
+                    <exclude name="test/beast/integration/**/ResumeTest.java"/>                                         
+				</fileset>
+			</batchtest>
+		</junit>
+		<echo message="JUnit test finished." />
+	</target>
+    
+    <target name="junitreport">
+		<junitreport todir="${report}">
+			<fileset dir="${report}" includes="*.xml"/>
+			<report format="frames" todir="${report}"/>
+		</junitreport>
+		<echo message="JUnit test report finished." />
+	</target>
+
+
+	<target name="addon"
+	        depends="build_jar_all_delimitation_NoJUnitTest"
+	        description="release BEAST 2 add-on version of delimitation">
+
+		<delete dir="${Add_on_dir}" />
+		<!-- Create the release directory -->
+		<mkdir dir="${Add_on_dir}" />
+		<mkdir dir="${Add_on_dir}/doc" />
+		<mkdir dir="${Add_on_dir}/lib" />
+		<mkdir dir="${Add_on_dir}/examples" />
+		<mkdir dir="${Add_on_dir}/templates" />
+
+		<copy todir="${Add_on_dir}">
+			<fileset file="version.xml"/>
+		</copy>
+		<copy todir="${Add_on_dir}/examples">
+			<fileset file="examples/hcv_delimitation.xml" />
+			<fileset file="examples/hcv_yule_skyline.xml" />
+		</copy>
+<!--
+		<copy todir="${Add_on_dir}/doc">
+			<fileset file="doc/readme.txt"/>
+		</copy>
+-->		
+		<copy todir="${Add_on_dir}/lib">
+			<fileset dir="${distdelimitation}" includes="delimitation.addon.jar" />
+		</copy>
+		<copy todir="${Add_on_dir}">
+			<fileset dir="${distdelimitation}" includes="delimitation.src.jar" />
+		</copy>
+		<copy todir="${Add_on_dir}/templates">
+			<fileset file="templates/delimitation.xml" />
+			<fileset file="templates/YuleSkyline.xml" />
+		</copy>
+
+		<jar jarfile="${distdelimitation}/delimitation.addon.v${delimitationversion}.zip">
+			<fileset dir="${Add_on_dir}">
+				<include name="**/*" />
+			</fileset>
+        </jar>
+		<echo message="Add-on version v${delimitationversion} release is finished." />
+	</target>
+
+</project>
