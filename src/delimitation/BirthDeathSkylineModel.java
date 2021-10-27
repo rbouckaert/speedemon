@@ -41,7 +41,7 @@ import java.util.*;
         "If sampled ancestors are used then please also cite: Gavryushkina A, Welch D, Stadler T, Drummond AJ (2014) \n" +
         "Bayesian inference of sampled ancestor trees for epidemiology and fossil calibration. \n" +
         "PLoS Comput Biol 10(12): e1003919. doi:10.1371/journal.pcbi.1003919")
-public class BirthDeathSkylineModel extends SpeciesTreeDistribution implements TreePriorAboveThreshold {
+public class BirthDeathSkylineModel extends SpeciesTreeDistribution {
 
     // the interval times for the birth rate
     public Input<RealParameter> birthRateChangeTimesInput =
@@ -1180,15 +1180,4 @@ public class BirthDeathSkylineModel extends SpeciesTreeDistribution implements T
         throw new RuntimeException("This is not an SIR");
     }
 
-    
-    /**
-     * threshold value -- everything below can be ignored
-     */
-    private double epsilon = 0;
-    
-    @Override
-	public double calculateLogPabove(double epsilon) {
-		this.epsilon = epsilon;
-		return calculateLogP();
-	}
 }

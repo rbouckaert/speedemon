@@ -16,7 +16,7 @@ import beast.evolution.tree.TreeInterface;
 public class CollapseModel extends SpeciesTreeDistribution {
 	final public Input<RealParameter> collapseHeightInput = new Input<>("epsilon", "collapse height value below wich taxa are considered to be the same species.", Validate.REQUIRED);
     final public Input<RealParameter> collapseWeightInput =  new Input<>("weight", "mixture weight between Yule and spike density.", Validate.REQUIRED);
-	final public Input<TreePriorAboveThreshold> treepriorInput = new Input<>("treePrior", "Tree prior to be used above threshold", Validate.REQUIRED);
+	final public Input<SpeciesTreeDistribution> treepriorInput = new Input<>("treePrior", "Tree prior to be used on tree filtered to be above threshold", Validate.REQUIRED);
 
     private RealParameter weight;
     private RealParameter epsilon;
@@ -40,8 +40,10 @@ public class CollapseModel extends SpeciesTreeDistribution {
 	public double calculateLogP() {
 		double epsilon = this.epsilon.getValue();
 
-		
-		logP = treepriorInput.get().calculateLogPabove(epsilon);
+		TreeAboveThreshold treeAboveThreshold = new TreeAboveThreshold();
+		treeAboveThreshold.assignFrom((Tree) tree);
+		treeAboveThreshold.filterTree(tree, epsilon);
+		logP = treepriorInput.get().calculateTreeLogLikelihood(treeAboveThreshold);
 		
 		double w = this.weight.getValue();
 		
