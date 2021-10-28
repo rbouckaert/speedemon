@@ -12,7 +12,7 @@ import beast.evolution.tree.TreeInterface;
 
 @Description("Mixture of birth-death skyline model "
 		   + "and spike distribution on internal node heights")
-public class BirthDeathSkylinCollapseModel extends BirthDeathSkylineModel {
+public class BirthDeathSkylineCollapseModel extends BirthDeathSkylineModel {
     final public Input<RealParameter> collapseHeightInput = new Input<>("epsilon", "collapse height value below wich taxa are considered to be the same species.", Validate.REQUIRED);
     final public Input<RealParameter> collapseWeightInput =  new Input<>("weight", "mixture weight between Yule and spike density.", Validate.REQUIRED);
 
