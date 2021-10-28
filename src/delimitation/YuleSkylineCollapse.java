@@ -2,13 +2,18 @@ package delimitation;
 
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 import beast.app.beauti.Beauti;
 import beast.core.*;
 import beast.core.Input.Validate;
 import beast.core.parameter.RealParameter;
 import beast.evolution.tree.Node;
+import beast.evolution.tree.Tree;
 import beast.evolution.tree.TreeInterface;
 import biceps.YuleSkyline;
 
@@ -120,6 +125,167 @@ public class YuleSkylineCollapse extends YuleSkyline {
 		out.append(clusterCount + "\t");
 	}
 	
+	
+	
+	
+	
+	
+	
+
+	
+    @Override
+    public List<String> getConditions() {
+    	List<String> conditions = new ArrayList<>();
+    	conditions.add(treeInput.get().getID());
+    	conditions.add(birthRateShapeInput.get().getID());
+    	conditions.add(birthRateRateInput.get().getID());
+    	conditions.add(collapseWeightInput.get().getID());
+    	conditions.add(collapseHeightInput.get().getID());
+    	return conditions;
+    }
+	
+	@Override
+	public void sample(State state, Random random) {
+		
+
+
+        if (sampledFlag) return;
+        sampledFlag = true;
+        
+    	
+		if (useEqualEpochs) {
+			throw new IllegalArgumentException(YuleSkylineCollapse.class.getCanonicalName() + ": please ensure that non equal epochs are used (set equalEpochs to false)");
+		}
+        
+        if (!isPrepared) {
+            prepare();
+        }
+
+        // Cause conditional parameters to be sampled
+        sampleConditions(state, random);
+
+        Tree tree = (Tree) treeInput.get();
+        double w = collapseWeightInput.get().getValue();
+        double epsilon = collapseHeightInput.get().getValue();
+
+        
+        // Simulate tree conditional on new parameters
+        List<Node> activeLineages = new ArrayList<>();
+        for (Node oldLeaf : tree.getExternalNodes()) {
+            Node newLeaf = new Node(oldLeaf.getID());
+            newLeaf.setNr(oldLeaf.getNr());
+            newLeaf.setHeight(0.0);
+            activeLineages.add(newLeaf);
+
+        }
+        
+        
+        
+        // How many of the internal nodes will be below epsilon? Binomial(n-1, w) distribution. Assuming binary tree
+        List<Double> collapseHeights = new ArrayList<>();
+        int n = activeLineages.size();
+        for (int i = 0; i < n-1; i ++) {
+        	if (random.nextDouble() < w) {
+        	
+        		// Sample a collapse height
+        		double h = random.nextDouble() * epsilon;
+        		collapseHeights.add(h);
+        		
+        	}
+        	
+        }
+	
+	
+        int nextNr = activeLineages.size();
+	
+		// Create collapse epoch
+		Collections.sort(collapseHeights);
+		for (int i = 0; i < collapseHeights.size(); i ++) {
+			
+			
+			double t = collapseHeights.get(i);
+			int k = activeLineages.size();
+			
+			// Sample 2 nodes
+			Node node1 = activeLineages.get(random.nextInt(k));
+            Node node2;
+            do {
+                node2 = activeLineages.get(random.nextInt(k));
+            } while (node2.equals(node1));
+            
+            
+            
+            // Join them
+            Node newParent = new Node();
+            newParent.setNr(nextNr++);
+            newParent.setHeight(t);
+            newParent.addChild(node1);
+            newParent.addChild(node2);
+
+            activeLineages.remove(node1);
+            activeLineages.remove(node2);
+            activeLineages.add(newParent);
+  
+			
+		}
+
+        
+
+		// Sample Yule birth rates
+		double[][] rates = this.sampleBirthRates();
+	    double[] birthRates = rates[0];
+	    
+	    // Epoch 0
+	    int epochNumber = 0;
+	    double birthRate = birthRates[epochNumber];
+        int groupSize = (int)groupSizes.getArrayValue(epochNumber);
+	    
+	    
+        
+		// Sample from Yule beginning at time epsilon
+        double t = epsilon;
+        while (activeLineages.size() > 1) {
+            int k = activeLineages.size();
+            
+            
+            // Proceed to the next epoch
+            if (k <= groupSize) {
+            	epochNumber++;
+            	birthRate = birthRates[epochNumber];
+                groupSize = (int)groupSizes.getArrayValue(epochNumber);
+            }
+    
+    		
+  
+    		// Sample from Yule (exponential distribution)
+			double a = birthRate * k;
+			double t_ = -Math.log(random.nextDouble())/a;
+            t += t_;
+
+            Node node1 = activeLineages.get(random.nextInt(k));
+            Node node2;
+            do {
+                node2 = activeLineages.get(random.nextInt(k));
+            } while (node2.equals(node1));
+
+            Node newParent = new Node();
+            newParent.setNr(nextNr++);
+            newParent.setHeight(t);
+            newParent.addChild(node1);
+            newParent.addChild(node2);
+
+            activeLineages.remove(node1);
+            activeLineages.remove(node2);
+            activeLineages.add(newParent);
+        }
+
+        tree.assignFromWithoutID(new Tree(activeLineages.get(0)));
+		
+
+		
+		
+	}
+
 	
 	
 }

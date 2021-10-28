@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="build/dist/delimitation.addon.jar"/>
+	<classpathentry kind="lib" path="build/dist/delimitation.jar"/>
+	<classpathentry kind="lib" path="build/dist/delimitation.src.jar"/>
+	<classpathentry kind="lib" path="release/add-on/delimitation.src.jar"/>
+	<classpathentry kind="lib" path="release/add-on/lib/delimitation.addon.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/beast2"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/biceps"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/BEASTLabs"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
