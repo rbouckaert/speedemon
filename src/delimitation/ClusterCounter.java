@@ -53,13 +53,13 @@ public class ClusterCounter extends BEASTObject implements Loggable {
 		int k = 0;
 		for (int i = 0; i < tree.getLeafNodeCount(); i++) {
 			if (!done[i]) {
-				if (nodes[i].getLength() > 0) {
+				if (nodes[i].getHeight() > ClusterTreeSetAnalyser.EPSILON) {
 					map[i] = k;
 					done[i] = true;
 				} else {
 					// nodes[i] is part of a cluster
 					Node node = nodes[i];
-					while (!node.getParent().isRoot() && node.getLength() <= 0) {
+					while (!node.getParent().isRoot() && node.getHeight() <= ClusterTreeSetAnalyser.EPSILON) {
 						node = node.getParent();
 					}
 					visit(node,k,map,done);

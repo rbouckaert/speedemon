@@ -124,6 +124,9 @@ public class YuleSkylineCollapse extends YuleSkyline {
 		int clusterCount = countClusters(tree, map, done, epsilon.getValue());
 		out.append(clusterCount + "\t");
 	}
+
+
+
 	
 	
 	
