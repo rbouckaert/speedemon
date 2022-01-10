@@ -157,8 +157,19 @@ public class YuleSkylineCollapse extends YuleSkyline {
         
     	
 		if (useEqualEpochs) {
-			throw new IllegalArgumentException(YuleSkylineCollapse.class.getCanonicalName() + ": please ensure that non equal epochs are used (set equalEpochs to false)");
+			//throw new IllegalArgumentException(YuleSkylineCollapse.class.getCanonicalName() + ": please ensure that non equal epochs are used (set equalEpochs to false)");
 		}
+		
+		if (linkedMeanInput.get()) {
+			throw new IllegalArgumentException(YuleSkylineCollapse.class.getCanonicalName() + ": please ensure that linkedMean is false");
+		}
+		
+		if (groupCount != 1) {
+			throw new IllegalArgumentException(YuleSkylineCollapse.class.getCanonicalName() + ": please ensure that groupCount is 1");
+		}
+		
+		
+		
         
         if (!isPrepared) {
             prepare();
