@@ -1,6 +1,8 @@
 package speedemon;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import beast.app.beauti.Beauti;
 import beast.core.Description;
@@ -68,9 +70,23 @@ public class CollapseModel extends SpeciesTreeDistribution {
 	@Override
 	public void init(PrintStream out) {
 		super.init(out);
-		
 		out.append("clusterCount\t");
 	}
+	
+
+    
+    @Override
+    public List<String> getConditions() {
+    	List<String> conditions = new ArrayList<>();
+    	conditions.add(treeInput.get().getID());
+    	conditions.add(collapseWeightInput.get().getID());
+    	conditions.add(collapseHeightInput.get().getID());
+    	if (treepriorInput.get().getConditions() != null) {
+    		conditions.addAll(treepriorInput.get().getConditions());
+    	}
+    	
+    	return conditions;
+    }
 	
 	@Override
 	public void log(long sampleNr, PrintStream out) {

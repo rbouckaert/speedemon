@@ -7,6 +7,97 @@
 	
 	
 	
+	
+	
+        <!-- Birth Collapse -->
+        <subtemplate id='BirthCollapse' class='speedemon.CollapseModel' mainid='BirthCollapse.t:$(n)'>
+<![CDATA[
+            <parameter id="YuleCollapseBirthRate.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="stateNode">1.0</parameter>
+            <parameter id="collapseWeightBirthCollapse.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="stateNode" upper="1.0">0.5</parameter>
+             
+            <distribution id="BirthCollapse.t:$(n)" spec="speedemon.CollapseModel" 
+                        epsilon="1.0E-4" 
+                        weight="@collapseWeightBirthCollapse.t:$(n)"
+                        tree="@Tree.t:$(n)">
+						
+
+				<treePrior id="YuleCollapseModel.t:$(n)" spec="beast.evolution.speciation.YuleModel" tree="@Tree.t:$(n)" birthDiffRate="@YuleCollapseBirthRate.t:$(n)" />
+						
+			</distribution>
+
+            <prior id="YuleCollapseBirthRatePrior.t:$(n)" name="distribution" x="@YuleCollapseBirthRate.t:$(n)">
+                    <LogNormal meanInRealSpace="true" name="distr" M="1.0" S="1.25"/>
+            </prior>
+
+            <prior id="collapseWeightBirthCollapse.prior.t:$(n)" name="distribution" x="@collapseWeightBirthCollapse.t:$(n)">
+                    <Beta name="distr" alpha="1.0" beta="3.0"/>
+            </prior>
+
+
+			<operator id="AdaptableOperatorSampler.YuleCollapseBirthRate.t:$(n)" spec="orc.operators.AdaptableOperatorSampler" weight="3.0">
+				<parameter idref="YuleCollapseBirthRate.t:$(n)"/>
+				<operator id="Scale.YuleCollapseBirthRate.t:$(n)" spec="BactrianScaleOperator" parameter="@YuleCollapseBirthRate.t:$(n)" weight="1.0"/>
+				<operator id="SampleFromPriorOperator.YuleCollapseBirthRate.t:$(n)" spec="orc.operators.SampleFromPriorOperator" parameter="@YuleCollapseBirthRate.t:$(n)" prior2="@YuleCollapseBirthRatePrior.t:$(n)" weight="1.0"/>
+			</operator>
+			
+			<operator id="AdaptableOperatorSampler.collapseWeightBirthCollapse.t:$(n)" spec="orc.operators.AdaptableOperatorSampler" weight="3.0">
+				<parameter idref="collapseWeightBirthCollapse.t:$(n)"/>
+				<operator id="Scale.collapseWeightBirthCollapse.t:$(n)" spec="BactrianIntervalOperator" parameter="@collapseWeightBirthCollapse.t:$(n)" weight="1.0"/>
+				<operator id="SampleFromPriorOperator.collapseWeightBirthCollapse.t:$(n)" spec="orc.operators.SampleFromPriorOperator" parameter="@collapseWeightBirthCollapse.t:$(n)" prior2="@collapseWeightBirthCollapse.prior.t:$(n)" weight="1.0"/>
+			</operator>
+	
+			
+			
+]]>
+
+
+
+            <connect srcID='BirthCollapse.t:$(n)' targetID='prior' inputName='distribution'
+                     if='inposterior(BirthCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Yule
+						Birth collapse speciation prior on tree t:$(n)
+            </connect>
+            <connect srcID='YuleCollapseBirthRate.t:$(n)' targetID='state' inputName='stateNode'
+                     if='inposterior(BirthCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and inposterior(YuleCollapseBirthRate.t:$(n)) and YuleCollapseBirthRate.t:$(n)/estimate=true'>
+					 Birth collapse speciation process birth rate of t:$(n)
+			</connect>
+            <connect srcID='collapseWeightBirthCollapse.t:$(n)' targetID='state' inputName='stateNode'
+                     if='inposterior(BirthCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and inposterior(collapseWeightBirthCollapse.t:$(n)) and collapseWeightBirthCollapse.t:$(n)/estimate=true'>
+					 Birth collapse weight of t:$(n)
+			</connect>
+
+            <connect srcID='YuleCollapseBirthRatePrior.t:$(n)' targetID='prior' inputName='distribution'
+                     if='inposterior(BirthCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and YuleCollapseBirthRate.t:$(n)/estimate=true'>
+						Birth collapse speciation process birth rate of t:$(n)
+            </connect>
+			
+			 <connect srcID='collapseWeightBirthCollapse.prior.t:$(n)' targetID='prior' inputName='distribution'
+                     if='inposterior(BirthCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and collapseWeightBirthCollapse.t:$(n)/estimate=true'>
+                Birth collapse weight prior of t:$(n)
+            </connect>
+			
+            <connect srcID='AdaptableOperatorSampler.YuleCollapseBirthRate.t:$(n)' targetID='mcmc' inputName='operator'
+                     if='inposterior(BirthCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and YuleCollapseBirthRate.t:$(n)/estimate=true'>
+                Adaptively operate on speciation rate gamma-rate for Yule Skyline Collapse prior of tree t:$(n)
+            </connect>
+			<connect srcID='AdaptableOperatorSampler.collapseWeightBirthCollapse.t:$(n)' targetID='mcmc' inputName='operator'
+                     if='inposterior(BirthCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and collapseWeightBirthCollapse.t:$(n)/estimate=true'>
+                Adaptively operate on collapse weight for Yule Skyline Collapse prior of tree t:$(n)
+            </connect>
+           
+
+            <connect srcID='BirthCollapse.t:$(n)' targetID='tracelog' inputName='log'
+                     if='inposterior(BirthCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'/>
+            <connect srcID='collapseWeightBirthCollapse.t:$(n)' targetID='tracelog' inputName='log'
+                     if='inposterior(BirthCollapse.t:$(n)) and collapseWeightBirthCollapse.t:$(n)/estimate=true'/>
+            <connect srcID='YuleCollapseBirthRate.t:$(n)' targetID='tracelog' inputName='log'
+                     if='inposterior(BirthCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and YuleCollapseBirthRate.t:$(n)/estimate=true'/>
+
+        </subtemplate>
+		
+		
+		
+	
+	
         <!-- YuleSkylineCollapse -->
         <subtemplate id='YuleSkylineCollapse' class='speedemon.YuleSkylineCollapse' mainid='YuleSkylineCollapse.t:$(n)'>
 <![CDATA[
@@ -27,13 +118,9 @@
             </prior>
 
             <prior id="collapseWeight.prior.t:$(n)" name="distribution" x="@collapseWeight.t:$(n)">
-                    <Beta name="distr" alpha="1.0" beta="1.0"/>
+                    <Beta name="distr" alpha="1.0" beta="3.0"/>
             </prior>
 
-       		<operator id="ysCollapseWeightScaler.t:$(n)" spec="ScaleOperator" optimise="false" parameter="@collapseWeight.t:$(n)" scaleFactor="0.1" weight="0.2"/>
-        	<operator id="ysCollapseWeightRW.t:$(n)" spec="RealRandomWalkOperator" parameter="@collapseWeight.t:$(n)" weight="0.3" windowSize="1.0E-4"/>
-        	<operator id="YuleSkylineCollapseBirthRateRateScaler.s:$(n)" spec="ScaleOperator" parameter="@YuleSkylineCollapseBirthRateRate.t:$(n)" scaleFactor="0.5" weight="0.1"/>
-			
 			
 			<operator id="AdaptableOperatorSampler.YuleSkylineCollapseBirthRateRate.t:$(n)" spec="orc.operators.AdaptableOperatorSampler" weight="3.0">
 				<parameter idref="YuleSkylineCollapseBirthRateRate.t:$(n)"/>
@@ -90,6 +177,12 @@
                      if='inposterior(YuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and YuleSkylineCollapseBirthRateRate.t:$(n)/estimate=true'/>
 
         </subtemplate>
+		
+		
+		
+		
+		
+
 
 
     </mergewith>
