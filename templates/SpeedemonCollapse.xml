@@ -11,7 +11,8 @@
 	
 	
         <!-- YuleSkylineCollapse -->
-        <subtemplate id='YuleSkylineCollapse' class='speedemon.YuleSkylineCollapse' mainid='YuleSkylineCollapse.t:$(n)'>
+        <subtemplate id='YuleSkylineCollapse' class='speedemon.YuleSkylineCollapse' mainid='YuleSkylineCollapse.t:$(n)'  
+						suppressInputs='biceps.EpochTreeDistribution.groupSizes'>
 <![CDATA[
             <parameter id="YuleSkylineCollapseBirthRateRate.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="stateNode">1.0</parameter>
             <parameter id="collapseWeight.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="stateNode" upper="1.0">0.5</parameter>

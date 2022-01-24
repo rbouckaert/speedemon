@@ -11,12 +11,8 @@ Species boundaries are applied under the tree collapse model, which acts as a pr
 
 
 
-## Installation instructions
+## Preparing an xml file using BEAUti
 
-Both installation pathways assume you have BEAST 2 already installed on your machine https://www.beast2.org/
-
-
-### BEAUti
 
 
 1. Launch BEAUti
@@ -31,13 +27,24 @@ If SPEEDEMON is not in the list of packages, you may need to add an extra packag
 * click `Done`
 * After a short delay, the SPEEDEMON package should appear in the list of packages.
 
-4. TODO
+4. SPEEDEMON can be run on top of StarBeast3 or SNAPPER. This step depend on which data type you will be using
 
-#### Multilocus sequences (StarBeast3)
-TODO
+	#### If using Multilocus sequences (StarBeast3)
+    Open the StarBeast3 template and configure your beauti session as described [here](https://github.com/rbouckaert/starbeast3)
 
-#### SNP data (SNAPPER)
-TODO
+
+	#### IF using SNP data (SNAPPER)
+    TODO
+
+5. Before saving the xml template, open the 'Priors' tab and select the Yule Skyline Collapse model as the species tree prior. Two new prior distributions will appear: for the collapse weight and the birth rate *rate*. The threshold epsilon can also be adjusted here.
+![](figs/Fig1.png)
+
+## Preparing an xml file by hand
+
+
+
+## Post-processing
+
 
 ## References
 
