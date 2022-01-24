@@ -1,4 +1,4 @@
-package delimitation.snapper;
+package speedemon.snapper;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -12,8 +12,8 @@ import beast.core.Input.Validate;
 import beast.evolution.tree.Node;
 import beast.evolution.tree.TreeInterface;
 import beast.util.Randomizer;
-import delimitation.ClusterCounter;
-import delimitation.ClusterTreeSetAnalyser;
+import speedemon.ClusterCounter;
+import speedemon.ClusterTreeSetAnalyser;
 
 @Description("Reversible jump a tree to collapse/expand its leaf branches")
 public class ClusterOperator extends Operator {

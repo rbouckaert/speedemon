@@ -1,4 +1,4 @@
-package delimitation.snapper;
+package speedemon.snapper;
 
 
 import java.util.*;
@@ -9,7 +9,7 @@ import beast.evolution.operators.TreeOperator;
 import beast.evolution.tree.Node;
 import beast.evolution.tree.Tree;
 import beast.util.Randomizer;
-import delimitation.ClusterTreeSetAnalyser;
+import speedemon.ClusterTreeSetAnalyser;
 
 /*
  * KNOWN BUGS: WIDE operator cannot be used on trees with 4 or less tips!

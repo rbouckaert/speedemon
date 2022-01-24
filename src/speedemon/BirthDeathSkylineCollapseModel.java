@@ -1,4 +1,4 @@
-package delimitation;
+package speedemon;
 
 import java.io.PrintStream;
 

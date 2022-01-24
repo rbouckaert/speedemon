@@ -1,4 +1,4 @@
-package delimitation;
+package speedemon;
 
 import java.io.PrintStream;
 import java.text.DecimalFormat;
@@ -14,7 +14,7 @@ import beast.core.Input;
 import beast.core.util.Log;
 import beast.evolution.tree.Node;
 import beast.evolution.tree.Tree;
-import delimitation.snapper.ClusterOperator;
+import speedemon.snapper.ClusterOperator;
 
 @Description("Analyses the tree set, and compares with a tree if provided (e.g. the original used to simulate data from)\n" +
 		   "-tree <newick tree>: tree in newick format on command line\n" +

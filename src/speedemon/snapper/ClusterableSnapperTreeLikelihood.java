@@ -1,11 +1,11 @@
-package delimitation.snapper;
+package speedemon.snapper;
 
 import java.util.Arrays;
 
 import beast.core.Description;
 import beast.evolution.tree.TreeInterface;
-import delimitation.ClusterCounter;
 import snapper.SnapperTreeLikelihood;
+import speedemon.ClusterCounter;
 
 
 @Description("As SnapperTreeLikelihood but the likelihood correction is updated when "

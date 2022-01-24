@@ -1,11 +1,11 @@
-package delimitation.snapper;
+package speedemon.snapper;
 
 import beast.core.Description;
 import beast.evolution.operators.TreeOperator;
 import beast.evolution.tree.Node;
 import beast.evolution.tree.Tree;
 import beast.util.Randomizer;
-import delimitation.ClusterTreeSetAnalyser;
+import speedemon.ClusterTreeSetAnalyser;
 
 
 @Description("Randomly selects true internal tree node (i.e. not the root) and move node height uniformly in interval " +

@@ -1,4 +1,4 @@
-package delimitation;
+package speedemon;
 
 import beast.evolution.tree.Node;
 import beast.evolution.tree.Tree;

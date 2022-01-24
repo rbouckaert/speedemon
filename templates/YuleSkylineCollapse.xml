@@ -1,60 +1,57 @@
-<beast version='2.0'
-       namespace='beast.app.beauti:beast.core:beast.evolution.branchratemodel:beast.evolution.speciation:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.evolution.likelihood:beast.evolution:beast.math.distributions'>
+<beast version="2.0" namespace="beast.app.beauti:beast.core:beast.evolution.branchratemodel:beast.evolution.speciation:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.evolution.likelihood:beast.evolution:beast.math.distributions">
+
 
        
-    <mergewith point='misc'>
-        <fragment id='BetterTreeOperators' spec="beast.app.beauti.Fragment">
-            <![CDATA[
-            <operator id='$(m)TreeStretcher.t:$(n)' spec='biceps.operators.TreeStretchOperator' scaleFactor="0.1" weight="1.5" tree="@Tree.t:$(n)"/>
-            <operator id='$(m)EpochFlexer.t:$(n)' spec='biceps.operators.EpochFlexOperator' scaleFactor="0.1" weight="1.5" tree="@Tree.t:$(n)"/>
-            <operator id='$(m)TreeRootScaler.t:$(n)' spec='ScaleOperator' scaleFactor="0.5" weight="3" tree="@Tree.t:$(n)" rootOnly='true'/>
-            <operator id='$(m)UniformOperator.t:$(n)' spec='Uniform' weight="30" tree="@Tree.t:$(n)"/>
-            <operator id='$(m)SubtreeSlide.t:$(n)' spec='SubtreeSlide' weight="15" gaussian="true" size="1.0" tree="@Tree.t:$(n)"/>
-            <operator id='$(m)Narrow.t:$(n)' spec='Exchange' isNarrow='true' weight="15" tree="@Tree.t:$(n)"/>
-            <operator id='$(m)Wide.t:$(n)' spec='Exchange' isNarrow='false' weight="3" tree="@Tree.t:$(n)"/>
-            <operator id='$(m)WilsonBalding.t:$(n)' spec='WilsonBalding' weight="3" tree="@Tree.t:$(n)"/>
-            ]]>
-            <connect srcID='$(m)TreeStretcher.t:$(n)'             targetID='mcmc' inputName='operator' if='inposterior($(m).t:$(n)) and Tree.t:$(n)/estimate=true'>Stretches all internal nodes for tree t:$(n)</connect>
-            <connect srcID='$(m)EpochFlexer.t:$(n)'               targetID='mcmc' inputName='operator' if='inposterior($(m).t:$(n)) and Tree.t:$(n)/estimate=true'>Flexes internal nodes in epoch for tree t:$(n)</connect>
-            <connect srcID='$(m)TreeRootScaler.t:$(n)'            targetID='mcmc' inputName='operator' if='inposterior($(m).t:$(n)) and Tree.t:$(n)/estimate=true'>Scales root node for tree t:$(n)</connect>
-            <connect srcID='$(m)UniformOperator.t:$(n)'           targetID='mcmc' inputName='operator' if='inposterior($(m).t:$(n)) and Tree.t:$(n)/estimate=true'>Draws new internal node heights uniformally for tree t:$(n)</connect>
-            <connect srcID='$(m)SubtreeSlide.t:$(n)'              targetID='mcmc' inputName='operator' if='inposterior($(m).t:$(n)) and Tree.t:$(n)/estimate=true'>Performs subtree slide rearrangement of tree t:$(n)</connect>
-            <connect srcID='$(m)Narrow.t:$(n)'                    targetID='mcmc' inputName='operator' if='inposterior($(m).t:$(n)) and Tree.t:$(n)/estimate=true'>Narrow exchange performs local rearrangement of tree t:$(n)</connect>
-            <connect srcID='$(m)Wide.t:$(n)'                      targetID='mcmc' inputName='operator' if='inposterior($(m).t:$(n)) and Tree.t:$(n)/estimate=true'>Wide exchange performs global rearrangement of tree t:$(n)</connect>
-            <connect srcID='$(m)WilsonBalding.t:$(n)'             targetID='mcmc' inputName='operator' if='inposterior($(m).t:$(n)) and Tree.t:$(n)/estimate=true'>Performs Wilson-Balding global rearrangement of tree t:$(n)</connect>
-        </fragment>
-    </mergewith>
-       
     <!-- tree priors -->
-    <mergewith point='treePriorTemplates'>
+    <mergewith point='sb3TreePriorTemplates'>
+	
+	
+	
         <!-- YuleSkylineCollapse -->
-        <subtemplate id='YuleSkylineCollapse' class='delimitation.YuleSkylineCollapse' mainid='YuleSkylineCollapse.t:$(n)'>
+        <subtemplate id='YuleSkylineCollapse' class='speedemon.YuleSkylineCollapse' mainid='YuleSkylineCollapse.t:$(n)'>
 <![CDATA[
             <parameter id="YuleSkylineCollapseBirthRateRate.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="stateNode">1.0</parameter>
             <parameter id="collapseWeight.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="stateNode" upper="1.0">0.5</parameter>
              
-            <distribution id="YuleSkylineCollapse.t:$(n)" spec="delimitation.YuleSkylineCollapse" 
+            <distribution id="YuleSkylineCollapse.t:$(n)" spec="speedemon.YuleSkylineCollapse" 
                         epsilon="1.0E-4" 
                         weight="@collapseWeight.t:$(n)"
                         linkedMean="true"
                         birthRateShape="2"
                         birthRateRate="@YuleSkylineCollapseBirthRateRate.t:$(n)"
                         equalEpochs="true" tree="@Tree.t:$(n)"                       
-                        groupCount="2"/>
+                        groupCount="4"/>
 
             <prior id="YuleSkylineCollapseBirthRateRatePrior.t:$(n)" name="distribution" x="@YuleSkylineCollapseBirthRateRate.t:$(n)">
                     <LogNormal meanInRealSpace="true" name="distr" M="1.0" S="1.25"/>
             </prior>
 
-            <prior id="collapseWeight.prior" name="distribution" x="@collapseWeight.t:$(n)">
-                    <Beta name="distr" alpha="1.0" beta="5.0"/>
+            <prior id="collapseWeight.prior.t:$(n)" name="distribution" x="@collapseWeight.t:$(n)">
+                    <Beta name="distr" alpha="1.0" beta="1.0"/>
             </prior>
 
        		<operator id="ysCollapseWeightScaler.t:$(n)" spec="ScaleOperator" optimise="false" parameter="@collapseWeight.t:$(n)" scaleFactor="0.1" weight="0.2"/>
         	<operator id="ysCollapseWeightRW.t:$(n)" spec="RealRandomWalkOperator" parameter="@collapseWeight.t:$(n)" weight="0.3" windowSize="1.0E-4"/>
         	<operator id="YuleSkylineCollapseBirthRateRateScaler.s:$(n)" spec="ScaleOperator" parameter="@YuleSkylineCollapseBirthRateRate.t:$(n)" scaleFactor="0.5" weight="0.1"/>
+			
+			
+			<operator id="AdaptableOperatorSampler.YuleSkylineCollapseBirthRateRate.t:$(n)" spec="orc.operators.AdaptableOperatorSampler" weight="3.0">
+				<parameter idref="YuleSkylineCollapseBirthRateRate.t:$(n)"/>
+				<operator id="Scale.BirthDeathCollapseModel.t:$(n)" spec="BactrianScaleOperator" parameter="@YuleSkylineCollapseBirthRateRate.t:$(n)" weight="1.0"/>
+				<operator id="SampleFromPriorOperator.BirthDeathCollapseModel.t:$(n)" spec="orc.operators.SampleFromPriorOperator" parameter="@YuleSkylineCollapseBirthRateRate.t:$(n)" prior2="@YuleSkylineCollapseBirthRateRatePrior.t:$(n)" weight="1.0"/>
+    	</operator>
+			
+			<operator id="AdaptableOperatorSampler.collapseWeight.t:$(n)" spec="orc.operators.AdaptableOperatorSampler" weight="3.0">
+				<parameter idref="collapseWeight.t:$(n)"/>
+				<operator id="Scale.collapseWeight.t:$(n)" spec="BactrianIntervalOperator" parameter="@collapseWeight.t:$(n)" weight="1.0"/>
+				<operator id="SampleFromPriorOperator.collapseWeight.t:$(n)" spec="orc.operators.SampleFromPriorOperator" parameter="@collapseWeight.t:$(n)" prior2="@collapseWeight.prior.t:$(n)" weight="1.0"/>
+			</operator>
+	
+			
+			
 ]]>
-			<plate fragment="BetterTreeOperators" var="m" range="YuleSkylineCollapse"/>
+
+
 
             <connect srcID='YuleSkylineCollapse.t:$(n)' targetID='prior' inputName='distribution'
                      if='inposterior(YuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Yule
@@ -67,20 +64,23 @@
 
             <connect srcID='YuleSkylineCollapseBirthRateRatePrior.t:$(n)' targetID='prior' inputName='distribution'
                      if='inposterior(YuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and YuleSkylineCollapseBirthRateRate.t:$(n)/estimate=true'>
-                Yule Skyline Collapse speciation process birth rate of partition t:$(n)
+                Yule Skyline Collapse speciation process birth rate of t:$(n)
             </connect>
-            <connect srcID='YuleSkylineCollapseBirthRateRateScaler.t:$(n)' targetID='mcmc' inputName='operator'
+			
+			 <connect srcID='collapseWeight.prior.t:$(n)' targetID='prior' inputName='distribution'
+                     if='inposterior(YuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and collapseWeight.t:$(n)/estimate=true'>
+                Yule Skyline Collapse weight prior of t:$(n)
+            </connect>
+			
+            <connect srcID='AdaptableOperatorSampler.YuleSkylineCollapseBirthRateRate.t:$(n)' targetID='mcmc' inputName='operator'
                      if='inposterior(YuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and YuleSkylineCollapseBirthRateRate.t:$(n)/estimate=true'>
-                Scale birth rate of Yule Skyline Collapse prior of tree t:$(n)
+                Adaptively operate on speciation rate gamma-rate for Yule Skyline Collapse prior of tree t:$(n)
             </connect>
-            <connect srcID='ysCollapseWeightScaler.t:$(n)' targetID='mcmc' inputName='operator'
+			<connect srcID='AdaptableOperatorSampler.collapseWeight.t:$(n)' targetID='mcmc' inputName='operator'
                      if='inposterior(YuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and collapseWeight.t:$(n)/estimate=true'>
-                Scale collapse weight of Yule Skyline Collapse prior of tree t:$(n)
+                Adaptively operate on collapse weight for Yule Skyline Collapse prior of tree t:$(n)
             </connect>
-            <connect srcID='ysCollapseWeightRW.t:$(n)' targetID='mcmc' inputName='operator'
-                     if='inposterior(YuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and collapseWeight.t:$(n)/estimate=true'>
-                Random walk of Yule Skyline Collapse prior of tree t:$(n)
-            </connect>
+           
 
             <connect srcID='YuleSkylineCollapse.t:$(n)' targetID='tracelog' inputName='log'
                      if='inposterior(YuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'/>

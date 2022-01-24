@@ -1,9 +1,11 @@
-<package name='delimitation' version='0.0.1'>
+<package name='speedemon' version='0.0.1'>
 	<depends on='beast2' atleast='2.6.6'/>
 	<depends on='BEASTLabs' atleast='1.9.5'/>
 	<depends on='BICEPS' atleast='0.0.2'/>
-	<!--depends on='SNAPP' atleast='1.5.2'/-->
-	<!--depends on='snapper' atleast='1.0.2'/-->
+	<depends on='ORC' atleast='1.0.2'/>
+	<depends on='starbeast3' atleast='0.1.0'/>
+	<depends on='SNAPP' atleast='1.5.2'/>
+	<depends on='snapper' atleast='1.0.2'/>
 
 	<map from="biceps.ClusterCounter" to="delimitation.ClusterCounter"/>
 
