@@ -67,10 +67,7 @@ There are also MCMC operators and prior distributions for the two new parameters
 
 The ``ClusterTreeSetAnalyser`` tool can be used to analyse the posterior distribution of species boundaries from a posterior distribution of species trees. This can be run as follows:
 
-	/path/to/beast/bin/applauncher ClusterTreeSetAnalyser   -trees species.trees
-															-out species.txt
-															-burnin 10
-															-epsilon 1e-4
+	/path/to/beast/bin/applauncher ClusterTreeSetAnalyser -trees species.tree -out species.txt -burnin 10 -epsilon 1e-4
 
 As an example, we ran BEAST 2 on the gecko XML [example session](https://github.com/rbouckaert/speedemon/blob/master/examples/leache.xml) by Leaché et al. Some snippets from a resulting [output file](https://github.com/rbouckaert/speedemon/blob/master/examples/leacheClusters.txt) are below.
 
