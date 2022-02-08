@@ -118,13 +118,13 @@ public class UniformThresholdOperator extends Uniform {
     	  
         // Get list of internal nodes above threshold, whose children are all below threshold
     	List<Node> eligibleNodes = new ArrayList<>();
-    	for (Node node : tree.getInternalNodes()) {
+    	for (Node parent : tree.getInternalNodes()) {
     		
-    		if (node.getHeight() < epsilon) continue;
+    		if (parent.getHeight() < epsilon) continue;
     		
     		
     		boolean allChildrenBelowEpsilon = true;
-    		for (Node c : node.getChildren()) {
+    		for (Node c : parent.getChildren()) {
     			if (c.getHeight() > epsilon) {
     				allChildrenBelowEpsilon = false;
     			}else if (!startAboveThreshold && !c.isLeaf()) {
@@ -133,7 +133,7 @@ public class UniformThresholdOperator extends Uniform {
     		}
     		
     		
-    		if (startAboveThreshold && allChildrenBelowEpsilon) eligibleNodes.add(node);
+    		if (startAboveThreshold && allChildrenBelowEpsilon) eligibleNodes.add(parent);
     		
     		
     	}
