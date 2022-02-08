@@ -8,17 +8,17 @@ import beast.core.Input;
 import beast.core.StateNode;
 import beast.core.Input.Validate;
 import beast.core.parameter.RealParameter;
-import beast.evolution.operators.BactrianNodeOperator;
+import beast.evolution.operators.Uniform;
 import beast.evolution.tree.Node;
 import beast.evolution.tree.Tree;
 import beast.util.Randomizer;
 
 
 /*
- * Selects a node whose parent or child is on other side of threshold (at height epsilon) and moves the node across the threshold
+ * Selects a node whose parent or child is on other side of threshold (at height epsilon) and moves the node across the threshold to a position uniformly at random
  * This will add/remove a cluster
  */
-public class BactrianThresholdOperator extends BactrianNodeOperator {
+public class UniformThresholdOperator extends Uniform {
 	
 	
 
@@ -45,6 +45,9 @@ public class BactrianThresholdOperator extends BactrianNodeOperator {
         List<Node> eligibleNodesBefore = getCandidates(tree, epsilon, startAboveThreshold);
         int nOptionsBefore = eligibleNodesBefore.size();
     	
+        
+       // System.out.println("nOptionsBefore " + nOptionsBefore + " " + startAboveThreshold);
+        
     	
     	// If not possible, then reject proposal
     	if (nOptionsBefore == 0) return Double.NEGATIVE_INFINITY;
@@ -58,42 +61,44 @@ public class BactrianThresholdOperator extends BactrianNodeOperator {
     	
     	
     	// Moving up or down?
-        double upper, lower;
+        double upperBefore, lowerBefore;
         if (startAboveThreshold) {
-        	upper = epsilon;
-        	lower = Math.max(node.getLeft().getHeight(), node.getRight().getHeight());
+        	upperBefore = epsilon;
+        	lowerBefore = Math.max(node.getLeft().getHeight(), node.getRight().getHeight());
         }else {
-        	upper = node.getParent().getHeight();
-        	lower = epsilon;
+        	upperBefore = node.getParent().getHeight();
+        	lowerBefore = epsilon;
         }
     	
 
         
-        // Scale into range, using Bactrian distribution and a logit transformation
-        double scale = kernelDistribution.getScaler(0, Double.NaN, scaleFactor);
+       
 
-        // transform value
-        double value = node.getHeight();
-        double y = (upper - value) / (value - lower);
-        y *= scale;
-        double newValue = (upper + lower * y) / (y + 1.0);
-        
-        if (newValue < lower || newValue > upper) {
-        	return Double.NEGATIVE_INFINITY;
-        }
-        
+        // Move value into range uniformly at random
+        final double newValue = (Randomizer.nextDouble() * (upperBefore - lowerBefore)) + lowerBefore;
         node.setHeight(newValue);
         
         
         
-        // Hastings ratio contribution from random walk
-        double logHR = Math.log(scale) + 2.0 * Math.log((newValue - lower)/(value - lower));
+        // Hastings ratio contribution from uniform height sampling
+        double upperAfter, lowerAfter;
+        if (startAboveThreshold) {
+        	upperAfter = node.getParent().getHeight();
+        	lowerAfter = epsilon;
+        }else {
+        	upperAfter = epsilon;
+        	lowerAfter = Math.max(node.getLeft().getHeight(), node.getRight().getHeight());
+        }
+        double logHR = Math.log(upperBefore-lowerBefore) - Math.log(upperAfter-lowerAfter);
         
         
         // Hastings ratio contribution from node sampling
         List<Node> eligibleNodesAfter = getCandidates(tree, epsilon, !startAboveThreshold);
         int nOptionsAfter = eligibleNodesAfter.size();
         logHR += Math.log(nOptionsBefore) - Math.log(nOptionsAfter);
+        
+        
+       // System.out.println("nOptionsAfter " + nOptionsAfter);
         
         
         
