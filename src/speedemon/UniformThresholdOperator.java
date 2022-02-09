@@ -133,7 +133,7 @@ public class UniformThresholdOperator extends Uniform {
     		}
     		
     		
-    		if (startAboveThreshold && allChildrenBelowEpsilon) eligibleNodes.add(parent);
+    		if (startAboveThreshold && allChildrenBelowEpsilon && !parent.isRoot()) eligibleNodes.add(parent);
     		
     		
     	}
