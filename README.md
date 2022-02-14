@@ -114,6 +114,11 @@ Finally, the posterior support that every (observed) pairwise combination of ind
 	100%	1288	fas_GH1_14_S + kya_GH3_43_S 
 	...
 
+## Supplementary data
+
+Supplementary data for SPEEDEMON can be found at [https://github.com/jordandouglas/speedemon_SI](https://github.com/jordandouglas/speedemon_SI).
+
+
 ## References
 
 **StarBeast3:** Douglas, Jordan, Cinthy Jimenez-Silva, and Remco Bouckaert. "StarBeast3: Adaptive Parallelised Bayesian Inference of the Multispecies Coalescent." _bioRxiv_ (2021).
