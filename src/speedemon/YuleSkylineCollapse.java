@@ -22,11 +22,11 @@ import biceps.YuleSkyline;
 		+ " and spike distribution on internal node heights")
 public class YuleSkylineCollapse extends YuleSkyline {
 
-    final public Input<RealParameter> collapseHeightInput = new Input<>("epsilon", "collapse height value below wich taxa are considered to be the same species.", Validate.REQUIRED);
+    final public Input<Function> collapseHeightInput = new Input<>("epsilon", "collapse height value below wich taxa are considered to be the same species.", Validate.REQUIRED);
     final public Input<RealParameter> collapseWeightInput =  new Input<>("weight", "mixture weight between Yule and spike density.", Validate.REQUIRED);
 
     private RealParameter weight;
-    private RealParameter epsilon;
+    private Function epsilon;
     private TreeInterface tree;
 
     @Override
@@ -36,7 +36,7 @@ public class YuleSkylineCollapse extends YuleSkyline {
     	}
     	super.initAndValidate();
     	epsilon = collapseHeightInput.get();
-    	ClusterTreeSetAnalyser.EPSILON = epsilon.getValue();
+    	ClusterTreeSetAnalyser.EPSILON = epsilon.getArrayValue();
     	weight = collapseWeightInput.get();
 		tree = treeInput.get() == null ?
 				treeIntervalsInput.get().treeInput.get():
@@ -47,7 +47,7 @@ public class YuleSkylineCollapse extends YuleSkyline {
     
 	@Override
 	public double calculateLogP() {
-		double epsilon = this.epsilon.getValue();
+		double epsilon = this.epsilon.getArrayValue();
 
 		logP = super.calculateLogPbyEqualEpochs(epsilon);
 		
@@ -121,7 +121,7 @@ public class YuleSkylineCollapse extends YuleSkyline {
 		
 		int [] map = new int[tree.getLeafNodeCount()];
 		boolean [] done = new boolean[tree.getLeafNodeCount()];
-		int clusterCount = countClusters(tree, map, done, epsilon.getValue());
+		int clusterCount = countClusters(tree, map, done, epsilon.getArrayValue());
 		out.append(clusterCount + "\t");
 	}
 
@@ -143,7 +143,7 @@ public class YuleSkylineCollapse extends YuleSkyline {
     	conditions.add(birthRateShapeInput.get().getID());
     	conditions.add(birthRateRateInput.get().getID());
     	conditions.add(collapseWeightInput.get().getID());
-    	conditions.add(collapseHeightInput.get().getID());
+    	// conditions.add(collapseHeightInput.get().getID());
     	return conditions;
     }
 	
@@ -180,7 +180,7 @@ public class YuleSkylineCollapse extends YuleSkyline {
 
         Tree tree = (Tree) treeInput.get();
         double w = collapseWeightInput.get().getValue();
-        double epsilon = collapseHeightInput.get().getValue();
+        double epsilon = collapseHeightInput.get().getArrayValue();
 
         
         // Simulate tree conditional on new parameters
