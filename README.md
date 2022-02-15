@@ -30,13 +30,13 @@ If SPEEDEMON is not in the list of packages, you may need to add an extra packag
 4. SPEEDEMON can be run on top of StarBeast3 or SNAPPER. This step depends on which data type you will be using
 
 	#### If using Multilocus sequences (StarBeast3)
-    Open the StarBeast3 template and configure your beauti session as described [here](https://github.com/rbouckaert/starbeast3)
+    Open the StarBeast3 template and configure your BEAUti session as described in the tutorial [here](https://github.com/rbouckaert/starbeast3)
 
 
-	#### IF using SNP data (SNAPPER)
-    TODO
+	#### If using SNP data (SNAPPER)
+   Open the SNAPPER template and configure your BEAUti session as described in the tutorial [here](https://github.com/BEAST2-Dev/beast-docs/releases/download/v1.0/snapper-delimitation-tutorial-2021.zip)
 
-5. Before saving the xml template, open the 'Priors' tab and select the Yule Skyline Collapse model as the species tree prior. Two new prior distributions will appear: for the collapse weight and the birth rate *rate*. The threshold epsilon can also be adjusted here. The 'Group Count' is the number of epochs in the skyline. Set this to 1 to attain the birth collapse model. The birth rate of the first epoch is drawn from a Gamma distribution with a shape of 'shape' and a rate of 'birth rate rate'.
+5. Before saving the xml template, open the 'Priors' tab and select the Yule Skyline Collapse model as the species tree prior. Two new prior distributions will appear: for the collapse weight and the birth rate *rate*. The threshold epsilon can also be adjusted here. The 'Group Count' is the number of epochs in the skyline. This can be set to 1 to attain the birth collapse model. The birth rate of the first epoch is drawn from a Gamma distribution with a shape of 'shape' and a rate of 'birth rate rate'.
 ![](figs/Fig1.png)
 
 ## What the XML file looks like
