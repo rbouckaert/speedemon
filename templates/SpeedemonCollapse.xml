@@ -18,13 +18,14 @@
             <parameter id="collapseWeight.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="stateNode" upper="1.0">0.5</parameter>
              
             <distribution id="YuleSkylineCollapse.t:$(n)" spec="speedemon.YuleSkylineCollapse" 
-                        epsilon="1.0E-4" 
                         weight="@collapseWeight.t:$(n)"
                         linkedMean="true"
                         birthRateShape="2"
                         birthRateRate="@YuleSkylineCollapseBirthRateRate.t:$(n)"
                         equalEpochs="true" tree="@Tree.t:$(n)"                       
-                        groupCount="4"/>
+                        groupCount="4">
+					<parameter id="epsilon.speedemon.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="epsilon" upper="0.0">1.0E-4</parameter>
+			</distribution>
 
             <prior id="YuleSkylineCollapseBirthRateRatePrior.t:$(n)" name="distribution" x="@YuleSkylineCollapseBirthRateRate.t:$(n)">
                     <LogNormal meanInRealSpace="true" name="distr" M="1.0" S="1.25"/>
@@ -39,13 +40,16 @@
 				<parameter idref="YuleSkylineCollapseBirthRateRate.t:$(n)"/>
 				<operator id="Scale.BirthDeathCollapseModel.t:$(n)" spec="BactrianScaleOperator" parameter="@YuleSkylineCollapseBirthRateRate.t:$(n)" weight="1.0"/>
 				<operator id="SampleFromPriorOperator.BirthDeathCollapseModel.t:$(n)" spec="orc.operators.SampleFromPriorOperator" parameter="@YuleSkylineCollapseBirthRateRate.t:$(n)" prior2="@YuleSkylineCollapseBirthRateRatePrior.t:$(n)" weight="1.0"/>
-    	</operator>
+			</operator>
 			
 			<operator id="AdaptableOperatorSampler.collapseWeight.t:$(n)" spec="orc.operators.AdaptableOperatorSampler" weight="3.0">
 				<parameter idref="collapseWeight.t:$(n)"/>
 				<operator id="Scale.collapseWeight.t:$(n)" spec="BactrianIntervalOperator" parameter="@collapseWeight.t:$(n)" weight="1.0"/>
 				<operator id="SampleFromPriorOperator.collapseWeight.t:$(n)" spec="orc.operators.SampleFromPriorOperator" parameter="@collapseWeight.t:$(n)" prior2="@collapseWeight.prior.t:$(n)" weight="1.0"/>
 			</operator>
+			
+			
+			<operator id="UniformThresholdOperator.speedemon.t:$(n)" spec="speedemon.UniformThresholdOperator" epsilon="@epsilon.speedemon.t:$(n)" tree="@Tree.t:$(n)" weight="5.0"/>
 	
 			
 			
@@ -57,6 +61,12 @@
                      if='inposterior(YuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Yule
                 Skyline Collapse speciation prior on tree t:$(n)
             </connect>
+			
+			<connect srcID='YuleSkylineCollapse.t:$(n)' targetID='tracelog' inputName='log'
+                     if='inposterior(YuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Yule
+                Skyline Collapse speciation prior on tree t:$(n)
+            </connect>
+			
             <connect srcID='YuleSkylineCollapseBirthRateRate.t:$(n)' targetID='state' inputName='stateNode'
                      if='inposterior(YuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and inposterior(YuleSkylineCollapseBirthRateRate.t:$(n)) and YuleSkylineCollapseBirthRateRate.t:$(n)/estimate=true'/>
             <connect srcID='collapseWeight.t:$(n)' targetID='state' inputName='stateNode'
@@ -79,6 +89,11 @@
 			<connect srcID='AdaptableOperatorSampler.collapseWeight.t:$(n)' targetID='mcmc' inputName='operator'
                      if='inposterior(YuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and collapseWeight.t:$(n)/estimate=true'>
                 Adaptively operate on collapse weight for Yule Skyline Collapse prior of tree t:$(n)
+            </connect>
+			
+			<connect srcID='UniformThresholdOperator.speedemon.t:$(n)' targetID='mcmc' inputName='operator'
+                     if='inposterior(YuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n))'>
+                Move a species tree node across the boundary at epsilon to lump/split clusters
             </connect>
            
 
