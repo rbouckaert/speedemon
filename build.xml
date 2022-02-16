@@ -95,6 +95,7 @@
 			   source="1.8"
 		       target="1.8">
 			<include name="speedemon/*.java" />
+			<include name="beast/app/draw/*.java" />
 			<!-- compile JUnit test classes -->
 			<include name="test/**" />
 		</javac>
