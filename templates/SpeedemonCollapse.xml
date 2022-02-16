@@ -8,7 +8,10 @@
 	
         <!-- YuleSkylineCollapse -->
         <subtemplate id='YuleSkylineCollapse' class='speedemon.YuleSkylineCollapse' mainid='SPEEDEMONYuleSkylineCollapse.t:$(n)'  
-						suppressInputs='speedemon.YuleSkylineCollapse.groupSizes'>
+						suppressInputs='speedemon.YuleSkylineCollapse.groupSizes,
+						speedemon.YuleSkylineCollapse.tree,
+						speedemon.YuleSkylineCollapse.treeIntervals,
+						speedemon.YuleSkylineCollapse.logMeans'>
 <![CDATA[
             <parameter id="SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="stateNode">1.0</parameter>
             <parameter id="SPEEDEMONcollapseWeight.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="stateNode" upper="1.0">0.5</parameter>
@@ -20,7 +23,7 @@
                         birthRateRate="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)"
                         equalEpochs="true" tree="@Tree.t:$(n)"                       
                         groupCount="4">
-					<parameter id="epsilon.speedemon.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="epsilon" upper="0.0">1.0E-4</parameter>
+					<epsilon spec="beast.core.Function$Constant" id="epsilon.speedemon.t:$(n)">1.0E-4</epsilon>
 			</distribution>
 
             <prior id="YuleSkylineCollapseBirthRateRatePrior.t:$(n)" name="distribution" x="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)">
@@ -151,7 +154,10 @@
 	
         <!-- YuleSkylineCollapse -->
         <subtemplate id='YuleSkylineCollapse' class='speedemon.YuleSkylineCollapse' mainid='SPEEDEMONYuleSkylineCollapse.t:$(n)'  
-						suppressInputs='speedemon.YuleSkylineCollapse.groupSizes'>
+						suppressInputs='speedemon.YuleSkylineCollapse.groupSizes,
+						speedemon.YuleSkylineCollapse.tree,
+						speedemon.YuleSkylineCollapse.treeIntervals,
+						speedemon.YuleSkylineCollapse.logMeans'>
 <![CDATA[
             <parameter id="SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="stateNode">1.0</parameter>
             <parameter id="SPEEDEMONcollapseWeight.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="stateNode" upper="1.0">0.5</parameter>
@@ -163,7 +169,7 @@
                         birthRateRate="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)"
                         equalEpochs="true" tree="@Tree.t:$(n)"                       
                         groupCount="4">
-					<parameter id="epsilon.speedemon.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="epsilon" upper="0.0">1.0E-4</parameter>
+					<epsilon spec="beast.core.Function$Constant" id="epsilon.speedemon.t:$(n)">1.0E-4</epsilon>
 			</distribution>
 
             <prior id="YuleSkylineCollapseBirthRateRatePrior.t:$(n)" name="distribution" x="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)">
