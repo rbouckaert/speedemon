@@ -127,13 +127,6 @@ public class YuleSkylineCollapse extends YuleSkyline {
 
 
 
-	
-	
-	
-	
-	
-	
-	
 
 	
     @Override
