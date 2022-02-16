@@ -19,7 +19,6 @@
 	<property name="bicepsclasspath" location="../biceps/build" />
 	<property name="BEASTLabsclasspath" location="../BEASTLabs/build" />
 	<property name="speedemonclasspath" location="../speedemon/build" />
-	<property name="boosterclasspath" location="../beastbooster/build" />
 	<property name="SNAPPclasspath" location="../SNAPP/build" />
 	<property name="Add_on_dir" value="${release_dir}/add-on" />
 	<property name="speedemondir" location="." />
