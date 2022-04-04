@@ -123,6 +123,8 @@ Supplementary data for SPEEDEMON can be found at [https://github.com/jordandougl
 
 ## References
 
+**SPEEDEMON** Jordan Douglas, Remco Bouckaert. "Quantitatively defining species boundaries with more efficiency and more biological realism" [bioRxiv](https://www.biorxiv.org/content/10.1101/2022.02.14.480439v1.abstract) 2022
+
 **StarBeast3:** Douglas, Jordan, Cinthy L. Jiménez-Silva, and Remco Bouckaert. "StarBeast3: Adaptive Parallelized Bayesian Inference under the Multispecies Coalescent." Systematic Biology (2022).
 
 **SNAPPER:** Stoltz, Marnus, et al. "Bayesian inference of species trees using diffusion models." _Systematic Biology_ 70.1 (2021): 145-161.
