@@ -131,6 +131,6 @@ Supplementary data for SPEEDEMON can be found at [https://github.com/jordandougl
 
 **STACEY:** Jones, Graham. "Algorithmic improvements to species delimitation and phylogeny estimation under the multispecies coalescent." _Journal of mathematical biology_ 74.1-2 (2017): 447-467.
 
-**BICEPS:** Bouckaert, Remco R. "An efficient coalescent epoch model for Bayesian phylogenetic inference." _bioRxiv_ (2021).
+**BICEPS:** Bouckaert, Remco R. "An efficient coalescent epoch model for Bayesian phylogenetic inference." _Systematic Biology_ (2022): syac015. [DOI:10.1093/sysbio/syac015](DOI:10.1093/sysbio/syac015).
 
 **Gecko dataset:** Leaché, Adam D., et al. "Species delimitation using genome-wide SNP data." Systematic biology 63.4 (2014): 534-542.

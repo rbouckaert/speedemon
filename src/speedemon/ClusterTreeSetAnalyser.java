@@ -51,6 +51,7 @@ public class ClusterTreeSetAnalyser extends beast.core.Runnable {
 			Log.setLevel(Log.Level.error);
 		}
 		epsilon = epsilonInput.get();
+		EPSILON = epsilon;
 		max = maxInput.get();
 		if (max <= 0) {
 			max = Integer.MAX_VALUE;
