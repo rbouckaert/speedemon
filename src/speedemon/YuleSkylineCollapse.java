@@ -84,7 +84,7 @@ public class YuleSkylineCollapse extends YuleSkyline {
 				} else {
 					// nodes[i] is part of a cluster
 					Node node = nodes[i];
-					while (!node.getParent().isRoot() && node.getLength() <= epsilon) {
+					while (!node.isRoot() && node.getParent().getHeight() <= epsilon) {
 						node = node.getParent();
 					}
 					visit(node,k,map,done);
