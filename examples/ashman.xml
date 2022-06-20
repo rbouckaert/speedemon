@@ -701,7 +701,6 @@
 		<log idref="relativeDeathRate.t:Species"/>
 		<log idref="collapseWeight.t:Species"/>
 		<log idref="originHeight.t:Species"/>	
-		<log id="BirthDeathCollapseNClustersStatistic" spec="stacey.BirthDeathCollapseNClustersStatistic" bdcm="@BirthDeathCollapseModel.t:Species" smcTree="@Tree.t:Species"/>
 		<plate var="n"  range='locus001,locus002,locus003,locus004,locus005,locus006,locus007,locus008,locus009,locus010,locus011,locus012,locus013,locus014,locus015,locus016,locus017,locus018,locus019,locus020,locus021,locus022,locus023,locus024,locus025,locus026,locus027,locus028,locus029,locus030,locus031,locus032,locus033,locus034,locus035,locus036,locus037,locus038,locus039,locus040,locus041,locus042,locus043,locus044,locus045,locus046,locus047,locus048,locus049,locus051,locus052,locus053,locus054,locus055,locus056,locus057,locus058,locus059,locus060,locus061,locus062,locus063,locus064,locus065,locus066,locus067,locus068,locus069,locus070,locus071,locus072,locus073,locus074,locus075,locus076,locus077,locus078,locus079,locus080,locus081,locus082,locus083,locus084,locus085,locus086,locus087,locus088,locus089,locus090,locus091,locus092,locus093,locus094,locus095,locus096,locus097,locus098,locus099,locus100,locus101,locus102,locus103,locus104,locus105,locus106,locus107'>
 			<log id="TreeStat.t:$(n)" spec="beast.evolution.tree.TreeStatLogger" tree="@Tree.t:$(n)"/>
 			<log id="TreeDistanceUPGMA.t:$(n)" spec="beast.evolution.tree.TreeDistanceLogger" tree="@Tree.t:$(n)">
@@ -731,7 +730,6 @@
 		<log idref="collapseWeight.t:Species"/>
 		<log idref="popMean"/>
 		<log idref="TreeStat.Species" />
-		<log idref="BirthDeathCollapseNClustersStatistic.0" />
     </logger>
 	
 	

@@ -375,7 +375,6 @@ name="rawdata">
             <log idref="prior"/>
             <log id="TreeHeight.t:stacey" spec="beast.evolution.tree.TreeHeightLogger" tree="@Tree.t:stacey"/>
             <log idref="snapperCoalescentRate.t:stacey"/>
-			<log id="BirthDeathCollapseNClustersStatistic" spec="stacey.BirthDeathCollapseNClustersStatistic" bdcm="@BirthDeathCollapseModel.t:Species" smcTree="@Tree.t:Species"/>
             <log idref="bdcGrowthRateRate.t:Species"/>
             <log idref="relativeDeathRate.t:Species"/>
             <log idref="collapseWeight.t:Species"/>
