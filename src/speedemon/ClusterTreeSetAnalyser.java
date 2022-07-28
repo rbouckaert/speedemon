@@ -9,6 +9,7 @@ import beast.app.treeannotator.TreeAnnotator.FastTreeSet;
 import beast.app.util.Application;
 import beast.app.util.OutFile;
 import beast.app.util.TreeFile;
+import beast.core.Citation;
 import beast.core.Description;
 import beast.core.Input;
 import beast.core.util.Log;
@@ -24,6 +25,7 @@ import beast.evolution.tree.Tree;
 		   "(2) Probabilities of the top 20 (?) trees\n"+
 		   "(3) Whether or not the true tree is in the credible set."
 		   )
+@Citation(value="Jordan Douglas and Remco Bouckaert. Quantitatively defining species boundaries with more efficiency and more biological realism. Communications Biology 5, 755 (2022)", DOI="110.1038/s42003-022-03723-z")
 public class ClusterTreeSetAnalyser extends beast.core.Runnable {
 	public Input<TreeFile> treesInput = new Input<>("trees", "NEXUS file containing a tree set", new TreeFile("[[none]]"));
 	public Input<TreeFile> originalInput = new Input<>("original", "tree to check if it is in the 95% credible set");

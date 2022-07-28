@@ -20,7 +20,7 @@ import biceps.YuleSkyline;
 @Description("Mixture of skyline version of Yule tree prior that integrates out birth rate parameters"
 		+ " under a gamma prior"
 		+ " and spike distribution on internal node heights")
-@Citation(value="Douglas, Jordan, and Remco Bouckaert. Quantitatively defining species boundaries with more efficiency and more biological realism. bioRxiv (2022).", DOI="10.1101/2022.02.14.480439")
+@Citation(value="Jordan Douglas and Remco Bouckaert. Quantitatively defining species boundaries with more efficiency and more biological realism. Communications Biology 5, 755 (2022)", DOI="110.1038/s42003-022-03723-z")
 public class YuleSkylineCollapse extends YuleSkyline {
 
     final public Input<Function> collapseHeightInput = new Input<>("epsilon", "collapse height value below wich taxa are considered to be the same species.", Validate.REQUIRED);

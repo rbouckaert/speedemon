@@ -11,21 +11,18 @@ Species boundaries are applied under the tree collapse model, which acts as a pr
 This model describes how to prepare a BEAST 2 XML file specifying the Yule-skyline collapse model.
 
 
+SPEEDEMON is only compatible with BEAST 2.6. Compatability with the upcoming BEAST 2.7 release will follow shortly.
+
+
 ## Preparing an XML file using BEAUti
 
 
 
 1. Launch BEAUti
+
 2. Click on File -> Manage Packages
+
 3. Install SPEEDEMON
-
-If SPEEDEMON is not in the list of packages, you may need to add an extra package repository as follows:
-
-* click the `packager repositories` button. A dialog pops up.
-* click the `Add URL` button. A dialog is shown where you can enter `https://raw.githubusercontent.com/CompEvol/CBAN/master/packages-extra.xml`
-* click the `OK` button. There should be an extra entry in the list.
-* click `Done`
-* After a short delay, the SPEEDEMON package should appear in the list of packages.
 
 4. SPEEDEMON can be run on top of StarBeast3 or SNAPPER. This step depends on which data type you will be using
 
@@ -123,7 +120,7 @@ Supplementary data for SPEEDEMON can be found at [https://github.com/jordandougl
 
 ## References
 
-**SPEEDEMON** Jordan Douglas, Remco Bouckaert. "Quantitatively defining species boundaries with more efficiency and more biological realism" [bioRxiv](https://www.biorxiv.org/content/10.1101/2022.02.14.480439v1.abstract) 2022
+**SPEEDEMON** Jordan Douglas and Remco Bouckaert. Quantitatively defining species boundaries with more efficiency and more biological realism. Communications Biology 5, 755 (2022). 
 
 **StarBeast3:** Douglas, Jordan, Cinthy L. Jiménez-Silva, and Remco Bouckaert. "StarBeast3: Adaptive Parallelized Bayesian Inference under the Multispecies Coalescent." Systematic Biology (2022).
 
@@ -131,6 +128,6 @@ Supplementary data for SPEEDEMON can be found at [https://github.com/jordandougl
 
 **STACEY:** Jones, Graham. "Algorithmic improvements to species delimitation and phylogeny estimation under the multispecies coalescent." _Journal of mathematical biology_ 74.1-2 (2017): 447-467.
 
-**BICEPS:** Bouckaert, Remco R. "An efficient coalescent epoch model for Bayesian phylogenetic inference." _Systematic Biology_ (2022): syac015. [DOI:10.1093/sysbio/syac015](DOI:10.1093/sysbio/syac015).
+**BICEPS:** Bouckaert, Remco R. "An efficient coalescent epoch model for Bayesian phylogenetic inference." Systematic Biology (2022): syac015. 
 
 **Gecko dataset:** Leaché, Adam D., et al. "Species delimitation using genome-wide SNP data." Systematic biology 63.4 (2014): 534-542.
