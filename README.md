@@ -36,6 +36,8 @@ SPEEDEMON is only compatible with BEAST 2.6. Compatability with the upcoming BEA
 5. Before saving the xml template, open the 'Priors' tab and select the Yule Skyline Collapse model as the species tree prior. Two new prior distributions will appear: for the collapse weight and the birth rate *rate*. The threshold epsilon can also be adjusted here. The 'Group Count' is the number of epochs in the skyline. This can be set to 1 to attain the birth collapse model. The birth rate of the first epoch is drawn from a Gamma distribution with a shape of 'shape' and a rate of 'birth rate rate'.
 ![](figs/Fig1.png)
 
+The Yule Skyline model (without the species delimitation component) has been described [here](https://www.beast2.org/2022/06/01/yule-skyline-tree-prior.html).
+
 ## What the XML file looks like
 
 The Yule-skyline collapse model is a tree prior distribution for the species tree. For example, a Yule model prior may look like this:
