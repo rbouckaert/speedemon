@@ -14,6 +14,8 @@
 
 
     <service type="beast.base.core.BEASTInterface">
+        <provider classname="speedemon.BirthDeathSkylineCollapseModel"/>
+        <provider classname="speedemon.BirthDeathSkylineModel"/>
         <provider classname="speedemon.ClusterCounter"/>
         <provider classname="speedemon.ClusterOperator"/>
         <provider classname="speedemon.ClusterTreeSetAnalyser"/>
@@ -23,5 +25,8 @@
         <provider classname="speedemon.YuleSkylineCollapse"/>
     </service>
 
+    <service type="beastfx.app.inputeditor.InputEditor">
+        <provider classname="speedemon.inputedtitor.ConstantInputEditor"/>
+    </service>
 
 </package>

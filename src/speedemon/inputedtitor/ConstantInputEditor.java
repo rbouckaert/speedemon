@@ -1,4 +1,4 @@
-package beast.app.draw;
+package speedemon.inputedtitor;
 
 import beastfx.app.inputeditor.BeautiDoc;
 import beastfx.app.inputeditor.DoubleInputEditor;
@@ -6,10 +6,8 @@ import javafx.scene.control.Tooltip;
 import beast.base.core.BEASTInterface;
 import beast.base.core.Function;
 import beast.base.core.Input;
-import beast.base.core.Log;
 
 public class ConstantInputEditor extends DoubleInputEditor {
-	private static final long serialVersionUID = 1L;
 	
 	@Override
 	public Class<?> type() {
