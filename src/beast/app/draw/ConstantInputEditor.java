@@ -1,9 +1,12 @@
 package beast.app.draw;
 
-import beast.app.beauti.BeautiDoc;
-import beast.core.BEASTInterface;
-import beast.core.Function;
-import beast.core.Input;
+import beastfx.app.inputeditor.BeautiDoc;
+import beastfx.app.inputeditor.DoubleInputEditor;
+import javafx.scene.control.Tooltip;
+import beast.base.core.BEASTInterface;
+import beast.base.core.Function;
+import beast.base.core.Input;
+import beast.base.core.Log;
 
 public class ConstantInputEditor extends DoubleInputEditor {
 	private static final long serialVersionUID = 1L;
@@ -23,12 +26,27 @@ public class ConstantInputEditor extends DoubleInputEditor {
 		super.init(input, beastObject, itemNr, isExpandOption, addButtons);
 		m_entry.setText(((Function.Constant)m_input.get()).getValue());
 	}
+	
+	
+	@Override
+    protected void initEntry() {
+        if (m_input.get() != null) {
+            m_entry.setText(m_input.get().toString());
+        }
+    }
 
+	@Override
     protected void processEntry() {
         try {
         	((Function.Constant)m_input.get()).setValue(m_entry.getText());
-            m_entry.requestFocusInWindow();
+            validateInput();
+            m_entry.requestFocus();
         } catch (Exception ex) {
+            if (m_validateLabel != null) {
+                m_validateLabel.setVisible(true);
+                m_validateLabel.setTooltip(new Tooltip("<html><p>Parsing error: " + ex.getMessage() + ". Value was left at " + m_input.get() + ".</p></html>"));
+                m_validateLabel.setColor("orange");
+            }
             repaint();
         }
     }

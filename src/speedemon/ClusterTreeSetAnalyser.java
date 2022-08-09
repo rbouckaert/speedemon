@@ -4,17 +4,17 @@ import java.io.PrintStream;
 import java.text.DecimalFormat;
 import java.util.*;
 
-import beast.app.treeannotator.TreeAnnotator;
-import beast.app.treeannotator.TreeAnnotator.FastTreeSet;
-import beast.app.util.Application;
-import beast.app.util.OutFile;
-import beast.app.util.TreeFile;
-import beast.core.Citation;
-import beast.core.Description;
-import beast.core.Input;
-import beast.core.util.Log;
-import beast.evolution.tree.Node;
-import beast.evolution.tree.Tree;
+import beastfx.app.tools.Application;
+import beastfx.app.treeannotator.TreeAnnotator;
+import beastfx.app.treeannotator.TreeAnnotator.FastTreeSet;
+import beastfx.app.util.OutFile;
+import beastfx.app.util.TreeFile;
+import beast.base.core.Citation;
+import beast.base.core.Description;
+import beast.base.core.Input;
+import beast.base.core.Log;
+import beast.base.evolution.tree.Node;
+import beast.base.evolution.tree.Tree;
 
 @Description("Analyses the tree set, and compares with a tree if provided (e.g. the original used to simulate data from)\n" +
 		   "-tree <newick tree>: tree in newick format on command line\n" +
@@ -26,7 +26,7 @@ import beast.evolution.tree.Tree;
 		   "(3) Whether or not the true tree is in the credible set."
 		   )
 @Citation(value="Jordan Douglas and Remco Bouckaert. Quantitatively defining species boundaries with more efficiency and more biological realism. Communications Biology 5, 755 (2022)", DOI="110.1038/s42003-022-03723-z")
-public class ClusterTreeSetAnalyser extends beast.core.Runnable {
+public class ClusterTreeSetAnalyser extends beast.base.inference.Runnable {
 	public Input<TreeFile> treesInput = new Input<>("trees", "NEXUS file containing a tree set", new TreeFile("[[none]]"));
 	public Input<TreeFile> originalInput = new Input<>("original", "tree to check if it is in the 95% credible set");
 	public Input<OutFile> outputInput = new Input<>("out", "output file. Print to stdout if not specified", new OutFile("[[none]]"));

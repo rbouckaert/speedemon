@@ -1,28 +1,28 @@
 package speedemon;
 
 
-import beast.core.BEASTInterface;
-import beast.core.Citation;
-import beast.core.Description;
-import beast.core.Input;
-import beast.core.MCMC;
-import beast.core.Operator;
-import beast.core.StateNode;
-import beast.core.parameter.BooleanParameter;
-import beast.core.parameter.IntegerParameter;
-import beast.core.parameter.RealParameter;
-import beast.core.util.Log;
-import beast.evolution.alignment.Taxon;
-import beast.evolution.operators.Exchange;
-import beast.evolution.operators.ScaleOperator;
-import beast.evolution.operators.SubtreeSlide;
-import beast.evolution.operators.TipDatesRandomWalker;
-import beast.evolution.operators.WilsonBalding;
-import beast.evolution.speciation.SpeciesTreeDistribution;
-import beast.evolution.tree.Node;
-import beast.evolution.tree.Tree;
-import beast.evolution.tree.TreeInterface;
-import beast.math.distributions.Uniform;
+import beast.base.core.BEASTInterface;
+import beast.base.core.Citation;
+import beast.base.core.Description;
+import beast.base.core.Input;
+import beast.base.inference.MCMC;
+import beast.base.inference.Operator;
+import beast.base.inference.StateNode;
+import beast.base.inference.parameter.BooleanParameter;
+import beast.base.inference.parameter.IntegerParameter;
+import beast.base.inference.parameter.RealParameter;
+import beast.base.core.Log;
+import beast.base.evolution.alignment.Taxon;
+import beast.base.evolution.operator.Exchange;
+import beast.base.evolution.operator.ScaleOperator;
+import beast.base.evolution.operator.SubtreeSlide;
+import beast.base.evolution.operator.TipDatesRandomWalker;
+import beast.base.evolution.operator.WilsonBalding;
+import beast.base.evolution.speciation.SpeciesTreeDistribution;
+import beast.base.evolution.tree.Node;
+import beast.base.evolution.tree.Tree;
+import beast.base.evolution.tree.TreeInterface;
+import beast.base.inference.distribution.Uniform;
 
 import java.util.*;
 

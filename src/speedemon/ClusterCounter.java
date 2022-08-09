@@ -3,13 +3,13 @@ package speedemon;
 import java.io.PrintStream;
 import java.util.Arrays;
 
-import beast.core.BEASTObject;
-import beast.core.Description;
-import beast.core.Input;
-import beast.core.Loggable;
-import beast.core.Input.Validate;
-import beast.evolution.tree.Node;
-import beast.evolution.tree.TreeInterface;
+import beast.base.core.BEASTObject;
+import beast.base.core.Description;
+import beast.base.core.Input;
+import beast.base.core.Loggable;
+import beast.base.core.Input.Validate;
+import beast.base.evolution.tree.Node;
+import beast.base.evolution.tree.TreeInterface;
 
 @Description("Allows logging of the number of clusters")
 public class ClusterCounter extends BEASTObject implements Loggable {

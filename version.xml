@@ -1,11 +1,7 @@
-<package name='speedemon' version='1.0.0'>
-	<depends on='beast2' atleast='2.6.6'/>
-	<depends on='BEASTLabs' atleast='1.9.5'/>
-	<depends on='BICEPS' atleast='0.0.2'/>
-	<depends on='ORC' atleast='1.0.2'/>
-	<depends on='starbeast3' atleast='0.1.0'/>
-	<depends on='SNAPP' atleast='1.5.2'/>
-	<depends on='snapper' atleast='1.0.2'/>
+<package name='speedemon' version='1.1.0'>
+	<depends on='BEAST.base' atleast='2.7.0'/>
+	<depends on='BEAST.app' atleast='2.7.0'/>
+	<depends on='BICEPS' atleast='1.1.0'/>
 
 	<map from="biceps.ClusterCounter" to="speedemon.ClusterCounter"/>
 
@@ -14,6 +10,18 @@
               class="speedemon.ClusterTreeSetAnalyser"
               args=""
             />
+
+
+
+    <service type="beast.base.core.BEASTInterface">
+        <provider classname="speedemon.ClusterCounter"/>
+        <provider classname="speedemon.ClusterOperator"/>
+        <provider classname="speedemon.ClusterTreeSetAnalyser"/>
+        <provider classname="speedemon.CollapseModel"/>
+        <provider classname="speedemon.TreeAboveThreshold"/>
+        <provider classname="speedemon.UniformThresholdOperator"/>
+        <provider classname="speedemon.YuleSkylineCollapse"/>
+    </service>
 
 
 </package>

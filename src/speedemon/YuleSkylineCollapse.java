@@ -8,13 +8,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import beast.app.beauti.Beauti;
-import beast.core.*;
-import beast.core.Input.Validate;
-import beast.core.parameter.RealParameter;
-import beast.evolution.tree.Node;
-import beast.evolution.tree.Tree;
-import beast.evolution.tree.TreeInterface;
+import beast.base.core.Citation;
+import beast.base.core.Description;
+import beast.base.core.Function;
+import beast.base.core.Input;
+import beast.base.core.Input.Validate;
+import beast.base.inference.State;
+import beast.base.inference.parameter.RealParameter;
+import beastfx.app.beauti.Beauti;
+import beast.base.evolution.tree.Node;
+import beast.base.evolution.tree.Tree;
+import beast.base.evolution.tree.TreeInterface;
 import biceps.YuleSkyline;
 
 @Description("Mixture of skyline version of Yule tree prior that integrates out birth rate parameters"

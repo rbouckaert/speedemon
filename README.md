@@ -11,7 +11,7 @@ Species boundaries are applied under the tree collapse model, which acts as a pr
 This model describes how to prepare a BEAST 2 XML file specifying the Yule-skyline collapse model.
 
 
-SPEEDEMON is only compatible with BEAST 2.6. Compatability with the upcoming BEAST 2.7 release will follow shortly.
+The main repository of SPEEDEMON is compatible with BEAST 2.7. With compatability with 2.6, please see the v2.6 branch.
 
 
 ## Preparing an XML file using BEAUti
@@ -133,3 +133,4 @@ Supplementary data for SPEEDEMON can be found at [https://github.com/jordandougl
 **BICEPS:** Bouckaert, Remco R. "An efficient coalescent epoch model for Bayesian phylogenetic inference." Systematic Biology (2022): syac015. 
 
 **Gecko dataset:** Leaché, Adam D., et al. "Species delimitation using genome-wide SNP data." Systematic biology 63.4 (2014): 534-542.
+

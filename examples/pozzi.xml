@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><beast beautitemplate='StarBeast3' beautistatus='noAutoUpdateFixMeanSubstRate' namespace="beast.core:beast.evolution.alignment:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.evolution.likelihood" required="" version="2.6">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><beast beautitemplate='StarBeast3' beautistatus='noAutoUpdateFixMeanSubstRate' namespace="beast.pkgmgmt:beast.base.core:beast.base.inference:beast.base.evolution.alignment:beast.base.evolution.tree.coalescent:beast.pkgmgmt:beast.base.core:beast.base.inference.util:beast.evolution.nuc:beast.base.evolution.operator:beast.base.inference.operator:beast.base.evolution.sitemodel:beast.base.evolution.substitutionmodel:beast.base.evolution.likelihood" required="" version="2.6">
 
 	<!--
 		Multilocus primate dataset
@@ -7,17 +7,17 @@
 	-->
 
 
-	<map name="Uniform" >beast.math.distributions.Uniform</map>
-	<map name="Exponential" >beast.math.distributions.Exponential</map>
-	<map name="LogNormal" >beast.math.distributions.LogNormalDistributionModel</map>
-	<map name="Normal" >beast.math.distributions.Normal</map>
-	<map name="Beta" >beast.math.distributions.Beta</map>
-	<map name="Gamma" >beast.math.distributions.Gamma</map>
-	<map name="LaplaceDistribution" >beast.math.distributions.LaplaceDistribution</map>
-	<map name="prior" >beast.math.distributions.Prior</map>
+	<map name="Uniform" >beast.base.inference.distribution.Uniform</map>
+	<map name="Exponential" >beast.base.inference.distribution.Exponential</map>
+	<map name="LogNormal" >beast.base.inference.distribution.LogNormalDistributionModel</map>
+	<map name="Normal" >beast.base.inference.distribution.Normal</map>
+	<map name="Beta" >beast.base.inference.distribution.Beta</map>
+	<map name="Gamma" >beast.base.inference.distribution.Gamma</map>
+	<map name="LaplaceDistribution" >beast.base.inference.distribution.LaplaceDistribution</map>
+	<map name="prior" >beast.base.inference.distribution.Prior</map>
 	<map name="InverseGamma" >starbeast3.math.distributions.InverseGamma</map>
-	<map name="OneOnX" >beast.math.distributions.OneOnX</map>
-	<map name="Dirichlet" >beast.math.distributions.Dirichlet</map>
+	<map name="OneOnX" >beast.base.inference.distribution.OneOnX</map>
+	<map name="Dirichlet" >beast.base.inference.distribution.Dirichlet</map>
 
 
 
@@ -91,14 +91,14 @@
 	
 	
 
-<run id="mcmc" spec="beast.core.MCMC" chainLength="50000000">
+<run id="mcmc" spec="beast.base.inference.MCMC" chainLength="50000000">
 
 
 
    
 
 
-	<init id="SBI" spec="starbeast3.StarBeastStartState" estimate="false" popMean="@popMean" speciesTree="@Tree.t:Species">
+	<init id="SBI" spec="starbeast3.core.StarBeastStartState" estimate="false" popMean="@popMean" speciesTree="@Tree.t:Species">
 
 		<plate var="n" range="RPGRIP1,PNOC,DCTN2,GHR,BCOR,LRPPRC_171,DENND5A,FAM123b,FBN1,LUC7L,ATXN7,SIM1,POLA1,ERC2,AXIN1,ABCA1,RAG2,ZIC3,ADORA3,APP001,SCMX,AFF2,NPAS3_2,DACH1,CHRNA1,SGMS1,KCNMA1">
 			<gene idref="Tree.t:$(n)"/>
@@ -106,7 +106,7 @@
 		
 
 		
-		<speciesTreePrior id="SpeciesTreePopSize.Species" spec="starbeast3.SpeciesTreePrior" bottomPopSize="@popSize" gammaParameter="@popMean" taxonset="@taxonsuperset" tree="@Tree.t:Species">
+		<speciesTreePrior id="SpeciesTreePopSize.Species" spec="starbeast3.evolution.speciation.SpeciesTreePrior" bottomPopSize="@popSize" gammaParameter="@popMean" taxonset="@taxonsuperset" tree="@Tree.t:Species">
 			<populationModel id="speciesTreePopulationModel" spec="starbeast3.evolution.speciation.ConstantPopulations" populationSizes="@popSize" speciesTree="@Tree.t:Species"/>
 			<treePrior idref="BirthDeathCollapseModel.t:Species"/>
 		</speciesTreePrior>
@@ -132,7 +132,7 @@
 
 		
         <parameter id="popSize" spec="parameter.RealParameter" lower="0.0" name="stateNode">1.0</parameter>
-        <stateNode id="Tree.t:Species" spec="starbeast3.SpeciesTree">
+        <stateNode id="Tree.t:Species" spec="starbeast3.tree.SpeciesTree">
 			 
 		 
 				 
@@ -333,7 +333,7 @@
 		
 		
 		<plate var="n" range="RPGRIP1,PNOC,DCTN2,GHR,BCOR,LRPPRC_171,DENND5A,FAM123b,FBN1,LUC7L,ATXN7,SIM1,POLA1,ERC2,AXIN1,ABCA1,RAG2,ZIC3,ADORA3,APP001,SCMX,AFF2,NPAS3_2,DACH1,CHRNA1,SGMS1,KCNMA1">
-			 <tree id="Tree.t:$(n)" spec="beast.evolution.tree.Tree" name="stateNode">
+			 <tree id="Tree.t:$(n)" spec="beast.base.evolution.tree.Tree" name="stateNode">
 				<taxonset id="TaxonSet.$(n)" spec="TaxonSet">
 					<alignment idref="data.$(n)"/>
 				</taxonset>
@@ -349,13 +349,13 @@
 
 
 
-    <distribution id="posterior" spec="util.CompoundDistribution">
+    <distribution id="posterior" spec="beast.base.inference.CompoundDistribution">
 	
 	
 	
 		
 		
-		<distribution id="prior" spec="util.CompoundDistribution">
+		<distribution id="prior" spec="beast.base.inference.CompoundDistribution">
 		
 		
 		
@@ -364,7 +364,7 @@
 				MRCA priors
 				From table 2 of https://bmcecolevol.biomedcentral.com/track/pdf/10.1186/1471-2148-14-72.pdf
 			-->
-			<distribution id="homo.pan.prior" spec="beast.math.distributions.MRCAPrior" monophyletic="true" tree="@Tree.t:Species">
+			<distribution id="homo.pan.prior" spec="beast.base.evolution.tree.MRCAPrior" monophyletic="true" tree="@Tree.t:Species">
                 <taxonset id="homo.pan" spec="TaxonSet">
                     <taxon idref="Homo_sapiens_HSA34.species" spec="Taxon"/>
                     <taxon idref="Pan_troglodytes_PTR104.species" spec="Taxon"/>
@@ -372,7 +372,7 @@
                 <LogNormal  name="distr" meanInRealSpace="true" offset="5" M="2.5" S="0.5"  />
             </distribution>
 			
-			<distribution id="homo.pongo.prior" spec="beast.math.distributions.MRCAPrior" monophyletic="true" tree="@Tree.t:Species" >
+			<distribution id="homo.pongo.prior" spec="beast.base.evolution.tree.MRCAPrior" monophyletic="true" tree="@Tree.t:Species" >
                 <taxonset id="homo.pongo" spec="TaxonSet">
                     <taxon idref="Homo_sapiens_HSA34.species" spec="Taxon"/>
                     <taxon idref="Pongo_pygmaeus_PPY155.species" spec="Taxon"/>
@@ -382,7 +382,7 @@
             </distribution>
 			
 			
-			<distribution id="catarrhini.prior" spec="beast.math.distributions.MRCAPrior" monophyletic="true" tree="@Tree.t:Species">
+			<distribution id="catarrhini.prior" spec="beast.base.evolution.tree.MRCAPrior" monophyletic="true" tree="@Tree.t:Species">
                 <taxonset id="catarrhini" spec="TaxonSet">
                     <taxon idref="Homo_sapiens_HSA34.species" spec="Taxon"/>
                     <taxon idref="Pongo_pygmaeus_PPY155.species" spec="Taxon"/>
@@ -398,7 +398,7 @@
             
 			
 			
-			<distribution id="theropithecus.papio.prior" spec="beast.math.distributions.MRCAPrior" monophyletic="true" tree="@Tree.t:Species">
+			<distribution id="theropithecus.papio.prior" spec="beast.base.evolution.tree.MRCAPrior" monophyletic="true" tree="@Tree.t:Species">
                 <taxonset id="theropithecus.papio" spec="TaxonSet">
                     <taxon idref="Theropithecus_gelada_TGE2.species" spec="Taxon"/>
                     <taxon idref="Papio_hamadryas_PHM1.species" spec="Taxon"/>
@@ -408,7 +408,7 @@
 			
 			
 	
-			<distribution id="lorisoidea.prior" spec="beast.math.distributions.MRCAPrior" monophyletic="true" tree="@Tree.t:Species">
+			<distribution id="lorisoidea.prior" spec="beast.base.evolution.tree.MRCAPrior" monophyletic="true" tree="@Tree.t:Species">
                 <taxonset id="lorisoidea" spec="TaxonSet">
                     <taxon idref="Arctocebus_calabarensis_ACL1.species" spec="Taxon"/>
                     <taxon idref="Perodicticus_potto_PEP2.species" spec="Taxon"/>
@@ -426,7 +426,7 @@
             
 			
 			
-			<distribution id="ingroup.prior" spec="beast.math.distributions.MRCAPrior" monophyletic="true" tree="@Tree.t:Species">
+			<distribution id="ingroup.prior" spec="beast.base.evolution.tree.MRCAPrior" monophyletic="true" tree="@Tree.t:Species">
                 <taxonset id="ingroup" spec="TaxonSet">
                     <taxon idref="Arctocebus_calabarensis_ACL1.species" spec="Taxon"/>
                     <taxon idref="Perodicticus_potto_PEP2.species" spec="Taxon"/>
@@ -514,9 +514,7 @@
 			
 			
 				
-			<!--
-			<distribution id="BirthDeathCollapseModel.t:Species" spec="stacey.BirthDeathCollapseModel" birthDiffRate="@bdcGrowthRateRate.t:Species" collapseHeight="1.0E-4" collapseWeight="@collapseWeight.t:Species" originHeight="@originHeight.t:Species" relativeDeathRate="@relativeDeathRate.t:Species" tree="@Tree.t:Species"/>
-			-->
+	
 			<distribution id="BirthDeathCollapseModel.t:Species" spec="speedemon.YuleSkylineCollapse" epsilon="1.0E-4" weight="@collapseWeight.t:Species" linkedMean="true" birthRateShape="@bdcGrowthRateShape.t:Species" birthRateRate="@bdcGrowthRateRate.t:Species" equalEpochs="true" tree="@Tree.t:Species" groupCount="4"/>
 			
 			
@@ -531,7 +529,7 @@
 		
 					
 			<plate var="n" range="RPGRIP1,PNOC,DCTN2,GHR,BCOR,LRPPRC_171,DENND5A,FAM123b,FBN1,LUC7L,ATXN7,SIM1,POLA1,ERC2,AXIN1,ABCA1,RAG2,ZIC3,ADORA3,APP001,SCMX,AFF2,NPAS3_2,DACH1,CHRNA1,SGMS1,KCNMA1">
-				 <distribution id="treePrior.t:$(n)" spec="starbeast3.GeneTreeForSpeciesTreeDistribution" populationModel="@speciesTreePopulationModel" speciesTree="@Tree.t:Species" speciesTreePrior="@SpeciesTreePopSize.Species" tree="@Tree.t:$(n)"/>
+				 <distribution id="treePrior.t:$(n)" spec="starbeast3.evolution.speciation.GeneTreeForSpeciesTreeDistribution" populationModel="@speciesTreePopulationModel" speciesTree="@Tree.t:Species" speciesTreePrior="@SpeciesTreePopSize.Species" tree="@Tree.t:$(n)"/>
 			</plate>
 					
 			
@@ -562,7 +560,7 @@
 		
 		
 		
-		<distribution id="likelihood" spec="util.CompoundDistribution">
+		<distribution id="likelihood" spec="beast.base.inference.CompoundDistribution">
 			<plate var="n" range="RPGRIP1,PNOC,DCTN2,GHR,BCOR,LRPPRC_171,DENND5A,FAM123b,FBN1,LUC7L,ATXN7,SIM1,POLA1,ERC2,AXIN1,ABCA1,RAG2,ZIC3,ADORA3,APP001,SCMX,AFF2,NPAS3_2,DACH1,CHRNA1,SGMS1,KCNMA1">
 				<distribution id="treeLikelihood.$(n)" spec="TreeLikelihood" data="@data.$(n)" tree="@Tree.t:$(n)">
 					<siteModel id="SiteModel.s:$(n)" spec="SiteModel">
@@ -574,7 +572,7 @@
 						</substModel>
 					</siteModel>
 					
-					<branchRateModel id="GeneTreeClock.c:$(n)" spec="starbeast3.StarBeast3Clock" geneTree="@treePrior.t:$(n)" sharedRateModel="@branchRatesModel.Species">
+					<branchRateModel id="GeneTreeClock.c:$(n)" spec="starbeast3.evolution.branchratemodel.StarBeast3Clock" geneTree="@treePrior.t:$(n)" sharedRateModel="@branchRatesModel.Species">
 						<parameter id="@clockRate.c:$(n)" spec="parameter.RealParameter" lower="0.0" name="clock.rate">1.0</parameter>
 					</branchRateModel>
 					
@@ -607,13 +605,13 @@
 		</plate>
     </operator>
 
-    <operator id="BactrianSubtreeSlide.t:Species" spec="BactrianSubtreeSlide" size="0.002" tree="@Tree.t:Species" weight="15.0"/>
+    <operator id="BactrianSubtreeSlide.t:Species" spec="beast.base.evolution.operator.kernel.BactrianSubtreeSlide" size="0.002" tree="@Tree.t:Species" weight="15.0"/>
 
     <operator id="WilsonBalding.t:Species" spec="WilsonBalding" tree="@Tree.t:Species" weight="15.0"/>
 
     <operator id="Wide.t:Species" spec="Exchange" isNarrow="false" tree="@Tree.t:Species" weight="15.0"/>
 
-    <operator id="AdaptableTopologyOperator.tree.Species" spec="orc.operators.AdaptableOperatorSampler" weight="15.0">
+    <operator id="AdaptableTopologyOperator.tree.Species" spec="beast.base.evolution.operator.AdaptableOperatorSampler" weight="15.0">
 	
         <tree idref="Tree.t:Species"/>
 		
@@ -637,22 +635,22 @@
 			</plate>
 		</operator>
 		
-        <metric id="RNNIMetric.0" spec="beast.evolution.tree.RNNIMetric" taxonset="@taxonsuperset"/>
+        <metric id="RNNIMetric.0" spec="beastlabs.evolution.tree.RNNIMetric" taxonset="@taxonsuperset"/>
 		
     </operator>
 	
 
     <operator id="UniformOperator.t:Species" spec="Uniform" tree="@Tree.t:Species" weight="3.0"/>
 
-    <operator id="TreeRootScaler.t:Species" spec="BactrianScaleOperator" rootOnly="true" scaleFactor="0.7" tree="@Tree.t:Species" upper="10.0" weight="3.0"/>
+    <operator id="TreeRootScaler.t:Species" spec="beast.base.evolution.operator.kernel.BactrianScaleOperator" rootOnly="true" scaleFactor="0.7" tree="@Tree.t:Species" upper="10.0" weight="3.0"/>
 
-    <operator id="BactrianNodeOperator.t:Species" spec="BactrianNodeOperator" tree="@Tree.t:Species" weight="3.0"/>
+    <operator id="BactrianNodeOperator.t:Species" spec="beast.base.evolution.operator.kernel.BactrianNodeOperator" tree="@Tree.t:Species" weight="3.0"/>
 
-    <operator id="AdaptableTopologyOperator.lengths.Species" spec="orc.operators.AdaptableOperatorSampler" weight="100.0">
+    <operator id="AdaptableTopologyOperator.lengths.Species" spec="beast.base.evolution.operator.AdaptableOperatorSampler" weight="100.0">
         <tree idref="Tree.t:Species"/>
         <operator idref="UniformOperator.t:Species"/>
         <operator idref="BactrianNodeOperator.t:Species"/>
-        <operator id="TreeScaler.t:Species" spec="BactrianScaleOperator" scaleFactor="0.01" tree="@Tree.t:Species" upper="10.0" weight="1.0"/>
+        <operator id="TreeScaler.t:Species" spec="beast.base.evolution.operator.kernel.BactrianScaleOperator" scaleFactor="0.01" tree="@Tree.t:Species" upper="10.0" weight="1.0"/>
         <operator idref="CoordinatedUniform.t:Species"/>
         <operator idref="CoordinatedExponential.t:Species"/>
         <operator id="EpochOperator.t:Species" spec="starbeast3.operators.EpochOperator" scaleFactor="0.01" weight="1.0">
@@ -698,18 +696,18 @@
 		</plate>
     </operator>
 
-    <operator id="AdaptableOperatorSampler.popmean:Species" spec="orc.operators.AdaptableOperatorSampler" weight="5.0">
+    <operator id="AdaptableOperatorSampler.popmean:Species" spec="beast.base.evolution.operator.AdaptableOperatorSampler" weight="5.0">
         <parameter idref="popMean"/>
-        <operator id="Scale.popmean" spec="BactrianScaleOperator" parameter="@popMean" upper="10.0" weight="1.0"/>
+        <operator id="Scale.popmean" spec="beast.base.evolution.operator.kernel.BactrianScaleOperator" parameter="@popMean" upper="10.0" weight="1.0"/>
         <operator idref="updown.all"/>
         <operator id="SampleFromPriorOperator.popmean" spec="orc.operators.SampleFromPriorOperator" parameter="@popMean" prior2="@popMean.prior" weight="1.0"/>
     </operator>
 	
 	
 	<!-- Birth rate -->
-    <operator id="AdaptableOperatorSampler.BirthRateRate.t:Species" spec="orc.operators.AdaptableOperatorSampler" weight="5.0">
+    <operator id="AdaptableOperatorSampler.BirthRateRate.t:Species" spec="beast.base.evolution.operator.AdaptableOperatorSampler" weight="5.0">
         <parameter idref="bdcGrowthRateRate.t:Species"/>
-        <operator id="Scale.BirthDeathCollapseModel" spec="BactrianScaleOperator" parameter="@bdcGrowthRateRate.t:Species" weight="1.0"/>
+        <operator id="Scale.BirthDeathCollapseModel" spec="beast.base.evolution.operator.kernel.BactrianScaleOperator" parameter="@bdcGrowthRateRate.t:Species" weight="1.0"/>
         <operator id="SampleFromPriorOperator.BirthDeathCollapseModel" spec="orc.operators.SampleFromPriorOperator" parameter="@bdcGrowthRateRate.t:Species" prior2="@speciationRatePrior.t:Species" weight="1.0"/>
     </operator>
 	
@@ -717,25 +715,25 @@
 	
 	
 	<!-- Clock rate -->
-	<operator id="AdaptableOperatorSampler.clock.rate.t:Species" spec="orc.operators.AdaptableOperatorSampler" weight="5.0">
+	<operator id="AdaptableOperatorSampler.clock.rate.t:Species" spec="beast.base.evolution.operator.AdaptableOperatorSampler" weight="5.0">
         <parameter idref="clock.rate"/>
-        <operator id="Scale.clock.rate" spec="BactrianScaleOperator" parameter="@clock.rate" weight="1.0"/>
+        <operator id="Scale.clock.rate" spec="beast.base.evolution.operator.kernel.BactrianScaleOperator" parameter="@clock.rate" weight="1.0"/>
         <operator id="SampleFromPriorOperator.clock.rate" spec="orc.operators.SampleFromPriorOperator" parameter="@clock.rate" prior2="@clock.rate.prior" weight="1.0"/>
     </operator>
 	
 
 	
 	
-    <operator id="AdaptableOperatorSampler.rates:Species" spec="orc.operators.AdaptableOperatorSampler" weight="20.0">
+    <operator id="AdaptableOperatorSampler.rates:Species" spec="beast.base.evolution.operator.AdaptableOperatorSampler" weight="20.0">
         <parameter idref="BranchRates.Species"/>
-        <operator id="Scale.branchRates.Species" spec="BactrianScaleOperator" parameter="@BranchRates.Species" upper="10.0" weight="1.0"/>
+        <operator id="Scale.branchRates.Species" spec="beast.base.evolution.operator.kernel.BactrianScaleOperator" parameter="@BranchRates.Species" upper="10.0" weight="1.0"/>
         <operator id="SampleFromPriorOperator.branchRates.Species" spec="orc.operators.SampleFromPriorOperator" parameter="@BranchRates.Species" prior2="@FastRatePriorDistributionClock.Species" weight="1.0"/>
         <operator idref="ConstantDistanceOperatorSpeciesTree:Species"/>
     </operator>
 
-    <operator id="AdaptableOperatorSampler.ucldStdev:Species" spec="orc.operators.AdaptableOperatorSampler" weight="5.0">
+    <operator id="AdaptableOperatorSampler.ucldStdev:Species" spec="beast.base.evolution.operator.AdaptableOperatorSampler" weight="5.0">
         <parameter idref="SpeciesTreeRelaxedClockSD.Species"/>
-        <operator id="UcldStdevScale.clock.Species" spec="BactrianScaleOperator" parameter="@SpeciesTreeRelaxedClockSD.Species" scaleFactor="0.5" upper="10.0" weight="1.0"/>
+        <operator id="UcldStdevScale.clock.Species" spec="beast.base.evolution.operator.kernel.BactrianScaleOperator" parameter="@SpeciesTreeRelaxedClockSD.Species" scaleFactor="0.5" upper="10.0" weight="1.0"/>
         <operator id="SampleFromPriorOperator.c:ucldStdev.Species" spec="orc.operators.SampleFromPriorOperator" parameter="@SpeciesTreeRelaxedClockSD.Species" prior2="@ucldStdevPrior.clock.Species" weight="1.0"/>
     </operator>
 	
@@ -744,9 +742,9 @@
 
 	
 	<!-- Collapse weight -->
-	<operator id="AdaptableOperatorSampler.collapseWeight.t:Species" spec="orc.operators.AdaptableOperatorSampler" weight="5.0">
+	<operator id="AdaptableOperatorSampler.collapseWeight.t:Species" spec="beast.base.evolution.operator.AdaptableOperatorSampler" weight="5.0">
         <parameter idref="collapseWeight.t:Species"/>
-        <operator id="Scale.collapseWeight" spec="BactrianIntervalOperator" parameter="@collapseWeight.t:Species" weight="1.0"/>
+        <operator id="Scale.collapseWeight" spec="beast.base.inference.operator.kernel.BactrianIntervalOperator" parameter="@collapseWeight.t:Species" weight="1.0"/>
         <operator id="SampleFromPriorOperator.collapseWeight" spec="orc.operators.SampleFromPriorOperator" parameter="@collapseWeight.t:Species" prior2="@bdcCollapseWeight.smcTreePrior" weight="1.0"/>
     </operator>
 	
@@ -754,7 +752,7 @@
 
 
 
-	<operatorschedule id="operatorSchedule" spec="OperatorScheduleRecalculator">
+	<operatorschedule id="operatorSchedule" spec="starbeast3.core.OperatorScheduleRecalculator">
 		<subschedule id="operatorSubschedule" spec="OperatorSchedule" operatorPattern="^.*Species$" weight="99.0" weightIsPercentage="true"/>
 	</operatorschedule>
 
@@ -764,9 +762,9 @@
 		<log idref="posterior"/>
 		<log idref="likelihood"/>
 		<log idref="prior"/>
-        <log id="TreeStat.Species" spec="beast.evolution.tree.TreeStatLogger" tree="@Tree.t:Species"/>
+        <log id="TreeStat.Species" spec="beast.base.evolution.tree.TreeStatLogger" tree="@Tree.t:Species"/>
         <log idref="popMean"/>
-		<log id="RateStatLogger.Species" spec="beast.evolution.branchratemodel.RateStatistic" branchratemodel="@relaxedClockModel.Species" tree="@Tree.t:Species"/>
+		<log id="RateStatLogger.Species" spec="beast.base.evolution.RateStatistic" branchratemodel="@relaxedClockModel.Species" tree="@Tree.t:Species"/>
         <log idref="SpeciesTreeRelaxedClockSD.Species"/>
 		<log idref="clock.rate" />
 		<plate var="n" range="RPGRIP1,PNOC,DCTN2,GHR,BCOR,LRPPRC_171,DENND5A,FAM123b,FBN1,LUC7L,ATXN7,SIM1,POLA1,ERC2,AXIN1,ABCA1,RAG2,ZIC3,ADORA3,APP001,SCMX,AFF2,NPAS3_2,DACH1,CHRNA1,SGMS1,KCNMA1">
@@ -777,12 +775,12 @@
         <log idref="bdcGrowthRateRate.t:Species"/>
 		<log idref="collapseWeight.t:Species"/>
 		<plate var="n" range="RPGRIP1,PNOC,DCTN2,GHR,BCOR,LRPPRC_171,DENND5A,FAM123b,FBN1,LUC7L,ATXN7,SIM1,POLA1,ERC2,AXIN1,ABCA1,RAG2,ZIC3,ADORA3,APP001,SCMX,AFF2,NPAS3_2,DACH1,CHRNA1,SGMS1,KCNMA1">
-			<log id="TreeStat.t:$(n)" spec="beast.evolution.tree.TreeStatLogger" tree="@Tree.t:$(n)"/>
-			<log id="TreeDistanceUPGMA.t:$(n)" spec="beast.evolution.tree.TreeDistanceLogger" tree="@Tree.t:$(n)">
-				<ref clusterType="upgma" spec="beast.util.ClusterTree" taxa="@data.$(n)"/>
+			<log id="TreeStat.t:$(n)" spec="beast.base.evolution.tree.TreeStatLogger" tree="@Tree.t:$(n)"/>
+			<log id="TreeDistanceUPGMA.t:$(n)" spec="beastlabs.evolution.tree.TreeDistanceLogger" tree="@Tree.t:$(n)">
+				<ref clusterType="upgma" spec="beast.base.evolution.tree.ClusterTree" taxa="@data.$(n)"/>
 			</log>
-			<log id="TreeDistanceNJ.t:$(n)" spec="beast.evolution.tree.TreeDistanceLogger" tree="@Tree.t:$(n)">
-				<ref clusterType="neighborjoining" spec="beast.util.ClusterTree" taxa="@data.$(n)"/>
+			<log id="TreeDistanceNJ.t:$(n)" spec="beastlabs.evolution.tree.TreeDistanceLogger" tree="@Tree.t:$(n)">
+				<ref clusterType="neighborjoining" spec="beast.base.evolution.tree.ClusterTree" taxa="@data.$(n)"/>
 			</log>
 		</plate>
 		
@@ -792,8 +790,8 @@
     </logger>
 
     <logger id="speciesTreeLogger" spec="Logger" fileName="species.trees" logEvery="10000" mode="tree">
-        <log id="SpeciesTreeLoggerX" spec="starbeast3.SpeciesTreeLogger" popSize="@popSize" speciesTreePrior="@SpeciesTreePopSize.Species" tree="@Tree.t:Species">
-            <treetop id="treeTopFinder" spec="beast.evolution.speciation.TreeTopFinder">
+        <log id="SpeciesTreeLoggerX" spec="starbeast3.core.SpeciesTreeLogger" popSize="@popSize" speciesTreePrior="@SpeciesTreePopSize.Species" tree="@Tree.t:Species">
+            <treetop id="treeTopFinder" spec="beast.base.evolution.speciation.TreeTopFinder">
 				<plate var="n" range="RPGRIP1,PNOC,DCTN2,GHR,BCOR,LRPPRC_171,DENND5A,FAM123b,FBN1,LUC7L,ATXN7,SIM1,POLA1,ERC2,AXIN1,ABCA1,RAG2,ZIC3,ADORA3,APP001,SCMX,AFF2,NPAS3_2,DACH1,CHRNA1,SGMS1,KCNMA1">
 					<tree idref="Tree.t:$(n)"/>
 				</plate>
@@ -811,7 +809,7 @@
 	
 	<plate var="n" range="RPGRIP1,PNOC,DCTN2,GHR,BCOR,LRPPRC_171,DENND5A,FAM123b,FBN1,LUC7L,ATXN7,SIM1,POLA1,ERC2,AXIN1,ABCA1,RAG2,ZIC3,ADORA3,APP001,SCMX,AFF2,NPAS3_2,DACH1,CHRNA1,SGMS1,KCNMA1">
 		<logger id="treelog.t:$(n)" spec="Logger" fileName="$(tree).trees" logEvery="10000" mode="tree">
-			<log id="TreeWithMetaDataLogger.t:$(n)" spec="beast.evolution.tree.TreeWithMetaDataLogger" tree="@Tree.t:$(n)"/>
+			<log id="TreeWithMetaDataLogger.t:$(n)" spec="beast.base.evolution.TreeWithMetaDataLogger" tree="@Tree.t:$(n)"/>
 		</logger>
 	</plate>
 

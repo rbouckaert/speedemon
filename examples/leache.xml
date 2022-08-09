@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><beast beautitemplate='snapper' beautistatus='' namespace="beast.core:beast.evolution.alignment:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.evolution.likelihood" required="" version="2.6">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><beast beautitemplate='snapper' beautistatus='' namespace="beast.pkgmgmt:beast.base.core:beast.base.inference:beast.base.evolution.alignment:beast.base.evolution.tree.coalescent:beast.pkgmgmt:beast.base.core:beast.base.inference.util:beast.evolution.nuc:beast.base.evolution.operator:beast.base.inference.operator:beast.base.evolution.sitemodel:beast.base.evolution.substitutionmodel:beast.base.evolution.likelihood" required="" version="2.6">
     
 	<!--
 		Multilocus gecko SNP dataset
@@ -60,21 +60,21 @@ name="rawdata">
   
     </data>
     
-    <map name="Uniform" >beast.math.distributions.Uniform</map>
-    <map name="Exponential" >beast.math.distributions.Exponential</map>
-    <map name="LogNormal" >beast.math.distributions.LogNormalDistributionModel</map>
-    <map name="Normal" >beast.math.distributions.Normal</map>
-    <map name="Beta" >beast.math.distributions.Beta</map>
-    <map name="Gamma" >beast.math.distributions.Gamma</map>
-    <map name="LaplaceDistribution" >beast.math.distributions.LaplaceDistribution</map>
-    <map name="prior" >beast.math.distributions.Prior</map>
-    <map name="InverseGamma" >beast.math.distributions.InverseGamma</map>
-    <map name="OneOnX" >beast.math.distributions.OneOnX</map>
+    <map name="Uniform" >beast.base.inference.distribution.Uniform</map>
+    <map name="Exponential" >beast.base.inference.distribution.Exponential</map>
+    <map name="LogNormal" >beast.base.inference.distribution.LogNormalDistributionModel</map>
+    <map name="Normal" >beast.base.inference.distribution.Normal</map>
+    <map name="Beta" >beast.base.inference.distribution.Beta</map>
+    <map name="Gamma" >beast.base.inference.distribution.Gamma</map>
+    <map name="LaplaceDistribution" >beast.base.inference.distribution.LaplaceDistribution</map>
+    <map name="prior" >beast.base.inference.distribution.Prior</map>
+    <map name="InverseGamma" >beast.base.inference.distribution.InverseGamma</map>
+    <map name="OneOnX" >beast.base.inference.distribution.OneOnX</map>
     
     <run id="mcmc" spec="MCMC" chainLength="1000000">
     
         <state id="state" spec="State" storeEvery="5000">
-            <tree id="Tree.t:stacey" spec="beast.evolution.tree.Tree" name="stateNode" nodetype="snap.NodeData">
+            <tree id="Tree.t:stacey" spec="beast.base.evolution.tree.Tree" name="stateNode" nodetype="snap.NodeData">
                 <taxonset id="TaxonSet.stacey" spec="TaxonSet">
                     <alignment id="snapper.stacey" spec="snap.Data" dataType="integerdata">
                         <rawdata idref="stacey"/>
@@ -278,14 +278,14 @@ name="rawdata">
             <parameter id="originHeight.t:Species" spec="parameter.RealParameter" lower="1.0E-99" name="stateNode" upper="1.0E99">100.0</parameter>
         </state>
         
-        <init id="RandomTree.t:stacey" spec="beast.evolution.tree.RandomTree" estimate="false" initial="@Tree.t:stacey" taxa="@snapper.stacey" rootHeight="0.1">
+        <init id="RandomTree.t:stacey" spec="beast.base.evolution.tree.coalescent.RandomTree" estimate="false" initial="@Tree.t:stacey" taxa="@snapper.stacey" rootHeight="0.1">
             <populationModel id="ConstantPopulation0.t:stacey" spec="ConstantPopulation">
                 <parameter id="randomPopSize.t:stacey" spec="parameter.RealParameter" name="popSize">10.0</parameter>
             </populationModel>
         </init>
         
-        <distribution id="posterior" spec="util.CompoundDistribution">
-            <distribution id="prior" spec="util.CompoundDistribution">
+        <distribution id="posterior" spec="beast.base.inference.CompoundDistribution">
+            <distribution id="prior" spec="beast.base.inference.CompoundDistribution">
                 <prior id="SnapperCoalescentRatePrior.t:stacey" name="distribution" x="@snapperCoalescentRate.t:stacey">
                     <Gamma id="Gamma.2" name="distr">
                         <parameter id="RealParameter.4" spec="parameter.RealParameter" lower="0.0" name="alpha" upper="0.0">100.0</parameter>
@@ -326,7 +326,7 @@ name="rawdata">
 
                            
             </distribution>
-            <distribution id="likelihood" spec="util.CompoundDistribution" useThreads="true">
+            <distribution id="likelihood" spec="beast.base.inference.CompoundDistribution" useThreads="true">
                 <distribution id="snapperTreeLikelihood.stacey" spec="snapper.SnapperTreeLikelihood" data="@snapper.stacey" pattern="coalescentRate" tree="@Tree.t:stacey" non-polymorphic="true">
                     <siteModel id="SnapperSiteModel.s:stacey" spec="SiteModel">
                         <substModel id="SnapperSubstModel.s:stacey" spec="snapper.SnapSubstitutionModel" coalescentRate="@snapperCoalescentRate.t:stacey">
@@ -334,7 +334,7 @@ name="rawdata">
                             <parameter id="snapperV.s:stacey" spec="parameter.RealParameter" estimate="false" lower="0.0" name="mutationRateV">1.0</parameter>
                         </substModel>
                     </siteModel>
-                    <branchRateModel id="StrictClock.c:stacey" spec="beast.evolution.branchratemodel.StrictClockModel">
+                    <branchRateModel id="StrictClock.c:stacey" spec="beast.base.evolution.branchratemodel.StrictClockModel">
                         <parameter id="clockRate.c:stacey" spec="parameter.RealParameter" estimate="false" name="clock.rate">1.0</parameter>
                     </branchRateModel>
                 </distribution>
@@ -344,36 +344,36 @@ name="rawdata">
         <operator id="SnapperGammaMover.t:stacey" spec="snap.operators.GammaMover" coalescenceRate="@snapperCoalescentRate.t:stacey" scale="0.75" weight="10.0"/>
         <operator id="SnapperRateMixer.t:stacey" spec="snap.operators.RateMixer" coalescenceRate="@snapperCoalescentRate.t:stacey" scaleFactors="0.25" tree="@Tree.t:stacey" weight="10.0"/>
 
-        <operator id="YuleModelTreeScaler.t:stacey" spec="BactrianScaleOperator" scaleFactor="0.1" tree="@Tree.t:stacey" weight="3.0"/>
-        <operator id="YuleModelTreeRootScaler.t:stacey" spec="BactrianScaleOperator" rootOnly="true" scaleFactor="0.5" tree="@Tree.t:stacey" weight="3.0"/>
-        <operator id="YuleModelUniformOperator.t:stacey" spec="BactrianNodeOperator" tree="@Tree.t:stacey" weight="30.0"/>
-        <operator id="YuleModelSubtreeSlide.t:stacey" spec="BactrianSubtreeSlide" tree="@Tree.t:stacey" weight="15.0"/>
+        <operator id="YuleModelTreeScaler.t:stacey" spec="beast.base.evolution.operator.kernel.BactrianScaleOperator" scaleFactor="0.1" tree="@Tree.t:stacey" weight="3.0"/>
+        <operator id="YuleModelTreeRootScaler.t:stacey" spec="beast.base.evolution.operator.kernel.BactrianScaleOperator" rootOnly="true" scaleFactor="0.5" tree="@Tree.t:stacey" weight="3.0"/>
+        <operator id="YuleModelUniformOperator.t:stacey" spec="beast.base.evolution.operator.kernel.BactrianNodeOperator" tree="@Tree.t:stacey" weight="30.0"/>
+        <operator id="YuleModelSubtreeSlide.t:stacey" spec="beast.base.evolution.operator.kernel.BactrianSubtreeSlide" tree="@Tree.t:stacey" weight="15.0"/>
         <operator id="YuleModelNarrow.t:stacey" spec="Exchange" tree="@Tree.t:stacey" weight="15.0"/>
         <operator id="YuleModelWide.t:stacey" spec="Exchange" isNarrow="false" tree="@Tree.t:stacey" weight="3.0"/>
         <operator id="YuleModelWilsonBalding.t:stacey" spec="WilsonBalding" tree="@Tree.t:stacey" weight="3.0"/>
         
         
-        <operator id="bdcGrowthRateRateScaler100.t:Species" spec="BactrianScaleOperator" optimise="true" parameter="@bdcGrowthRateRate.t:Species" scaleFactor="0.1" weight="0.4"/>
+        <operator id="bdcGrowthRateRateScaler100.t:Species" spec="beast.base.evolution.operator.kernel.BactrianScaleOperator" optimise="true" parameter="@bdcGrowthRateRate.t:Species" scaleFactor="0.1" weight="0.4"/>
         <!--
-        <operator id="bdcRelativeDeathRateScaler100.t:Species" spec="BactrianScaleOperator" optimise="true" parameter="@relativeDeathRate.t:Species" scaleFactor="0.1" weight="0.2"/>
-        <operator id="bdcRelativeDeathRateRW0001.t:Species" spec="BactrianRandomWalkOperator" parameter="@relativeDeathRate.t:Species" weight="0.3" scaleFactor="1.0E-4"/>
+        <operator id="bdcRelativeDeathRateScaler100.t:Species" spec="beast.base.evolution.operator.kernel.BactrianScaleOperator" optimise="true" parameter="@relativeDeathRate.t:Species" scaleFactor="0.1" weight="0.2"/>
+        <operator id="bdcRelativeDeathRateRW0001.t:Species" spec="beast.base.inference.operator.kernel.BactrianRandomWalkOperator" parameter="@relativeDeathRate.t:Species" weight="0.3" scaleFactor="1.0E-4"/>
         -->
-        <operator id="bdcCollapseWeightScaler100.t:Species" spec="BactrianScaleOperator" optimise="true" parameter="@collapseWeight.t:Species" scaleFactor="0.1" weight="0.2"/>
-        <operator id="bdcCollapseWeightRW0001.t:Species" spec="BactrianRandomWalkOperator" parameter="@collapseWeight.t:Species" weight="0.3" scaleFactor="1.0E-4"/>
-        <operator id="updown.999.all.Species" spec="BactrianUpDownOperator" optimise="true" scaleFactor="0.1" weight="2.0">
+        <operator id="bdcCollapseWeightScaler100.t:Species" spec="beast.base.evolution.operator.kernel.BactrianScaleOperator" optimise="true" parameter="@collapseWeight.t:Species" scaleFactor="0.1" weight="0.2"/>
+        <operator id="bdcCollapseWeightRW0001.t:Species" spec="beast.base.inference.operator.kernel.BactrianRandomWalkOperator" parameter="@collapseWeight.t:Species" weight="0.3" scaleFactor="1.0E-4"/>
+        <operator id="updown.999.all.Species" spec="beast.base.inference.operator.kernel.BactrianUpDownOperator" optimise="true" scaleFactor="0.1" weight="2.0">
             <down idref="bdcGrowthRateRate.t:Species"/>
             <down idref="Tree.t:stacey"/>
             <down idref="originHeight.t:Species"/>
             <down idref="snapperCoalescentRate.t:stacey"/>
         </operator>
-        <operator id="bdcOriginHeightScaler100.t:Species" spec="BactrianScaleOperator" optimise="true" parameter="@originHeight.t:Species" scaleFactor="0.1" weight="0.4"/>
+        <operator id="bdcOriginHeightScaler100.t:Species" spec="beast.base.evolution.operator.kernel.BactrianScaleOperator" optimise="true" parameter="@originHeight.t:Species" scaleFactor="0.1" weight="0.4"/>
   
         
         <logger id="tracelog" spec="Logger" fileName="$(filebase).log" logEvery="1000" model="@posterior" sanitiseHeaders="true" sort="smart">
             <log idref="posterior"/>
             <log idref="likelihood"/>
             <log idref="prior"/>
-            <log id="TreeHeight.t:stacey" spec="beast.evolution.tree.TreeHeightLogger" tree="@Tree.t:stacey"/>
+            <log id="TreeHeight.t:stacey" spec="beast.base.evolution.tree.TreeHeightLogger" tree="@Tree.t:stacey"/>
             <log idref="snapperCoalescentRate.t:stacey"/>
             <log idref="bdcGrowthRateRate.t:Species"/>
             <log idref="relativeDeathRate.t:Species"/>
@@ -390,7 +390,7 @@ name="rawdata">
         </logger>
         
         <logger id="treelog.t:stacey" spec="Logger" fileName="species.trees" logEvery="1000" mode="tree">
-            <log id="TreeWithMetaDataLogger.t:stacey" spec="beast.evolution.tree.TreeWithMetaDataLogger" tree="@Tree.t:stacey">
+            <log id="TreeWithMetaDataLogger.t:stacey" spec="beast.base.evolution.tree.TreeWithMetaDataLogger" tree="@Tree.t:stacey">
             	<!--metadata="@snapperCoalescentRate.t:stacey">
             	
             	-->

@@ -3,16 +3,16 @@ package speedemon;
 import java.util.ArrayList;
 import java.util.List;
 
-import beast.core.BEASTInterface;
-import beast.core.Function;
-import beast.core.Input;
-import beast.core.StateNode;
-import beast.core.Input.Validate;
-import beast.core.parameter.RealParameter;
-import beast.evolution.operators.Uniform;
-import beast.evolution.tree.Node;
-import beast.evolution.tree.Tree;
-import beast.util.Randomizer;
+import beast.base.core.BEASTInterface;
+import beast.base.core.Function;
+import beast.base.core.Input;
+import beast.base.inference.StateNode;
+import beast.base.core.Input.Validate;
+import beast.base.inference.parameter.RealParameter;
+import beast.base.evolution.operator.Uniform;
+import beast.base.evolution.tree.Node;
+import beast.base.evolution.tree.Tree;
+import beast.base.util.Randomizer;
 
 
 /*
@@ -34,7 +34,7 @@ public class UniformThresholdOperator extends Uniform {
      */
     @Override
     public double proposal() {
-        Tree tree = treeInput.get(this);
+        Tree tree = treeInput.get();
         double epsilon = epsilonInput.get().getArrayValue();
 
         

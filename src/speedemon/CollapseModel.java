@@ -4,14 +4,14 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import beast.app.beauti.Beauti;
-import beast.core.Description;
-import beast.core.Input;
-import beast.core.Input.Validate;
-import beast.core.parameter.RealParameter;
-import beast.evolution.speciation.SpeciesTreeDistribution;
-import beast.evolution.tree.Tree;
-import beast.evolution.tree.TreeInterface;
+import beast.base.core.Description;
+import beast.base.core.Input;
+import beast.base.core.Input.Validate;
+import beast.base.inference.parameter.RealParameter;
+import beastfx.app.beauti.Beauti;
+import beast.base.evolution.speciation.SpeciesTreeDistribution;
+import beast.base.evolution.tree.Tree;
+import beast.base.evolution.tree.TreeInterface;
 
 @Description("Mixture of a custom tree prior to be used above threshold "
 		   + "and spike distribution on internal node heights")

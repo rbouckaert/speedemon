@@ -1,19 +1,17 @@
-package speedemon.snapper;
+package speedemon;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.*;
 
-import beast.core.Description;
-import beast.core.Input;
-import beast.core.Operator;
-import beast.core.Input.Validate;
-import beast.evolution.tree.Node;
-import beast.evolution.tree.TreeInterface;
-import beast.util.Randomizer;
-import speedemon.ClusterCounter;
-import speedemon.ClusterTreeSetAnalyser;
+import beast.base.core.Description;
+import beast.base.core.Input;
+import beast.base.inference.Operator;
+import beast.base.core.Input.Validate;
+import beast.base.evolution.tree.Node;
+import beast.base.evolution.tree.TreeInterface;
+import beast.base.util.Randomizer;
 
 @Description("Reversible jump a tree to collapse/expand its leaf branches")
 public class ClusterOperator extends Operator {
@@ -91,7 +89,7 @@ public class ClusterOperator extends Operator {
     
 	@Override
 	public double proposal() {
-        final TreeInterface tree = treeInput.get(this);
+        final TreeInterface tree = treeInput.get();
 
         List<Node> mergeCandidates = new ArrayList<>();
         List<Node> splitCandidates = new ArrayList<>();
