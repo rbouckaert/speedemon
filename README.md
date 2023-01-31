@@ -122,15 +122,15 @@ Supplementary data for SPEEDEMON can be found at [https://github.com/jordandougl
 
 ## References
 
-**SPEEDEMON** Jordan Douglas and Remco Bouckaert. Quantitatively defining species boundaries with more efficiency and more biological realism. Communications Biology 5, 755 (2022). 
+**SPEEDEMON** Jordan Douglas and Remco Bouckaert. Quantitatively defining species boundaries with more efficiency and more biological realism. Communications Biology 5, 755 (2022). [doi:10.1038/s42003-022-03723-z](https://doi.org/10.1038/s42003-022-03723-z)
 
-**StarBeast3:** Douglas, Jordan, Cinthy L. Jiménez-Silva, and Remco Bouckaert. "StarBeast3: Adaptive Parallelized Bayesian Inference under the Multispecies Coalescent." Systematic Biology (2022).
+**StarBeast3:** Douglas, Jordan, Cinthy L. Jiménez-Silva, and Remco Bouckaert. "StarBeast3: Adaptive Parallelized Bayesian Inference under the Multispecies Coalescent." Systematic Biology (2022). [doi:10.1093/sysbio/syac010](https://doi.org/10.1093/sysbio/syac010)
 
-**SNAPPER:** Stoltz, Marnus, et al. "Bayesian inference of species trees using diffusion models." _Systematic Biology_ 70.1 (2021): 145-161.
+**SNAPPER:** Stoltz, Marnus, et al. "Bayesian inference of species trees using diffusion models." _Systematic Biology_ 70.1 (2021): 145-161. [doi:10.1093/sysbio/syaa051](https://doi.org/10.1093/sysbio/syaa051)
 
 **STACEY:** Jones, Graham. "Algorithmic improvements to species delimitation and phylogeny estimation under the multispecies coalescent." _Journal of mathematical biology_ 74.1-2 (2017): 447-467.
 
-**BICEPS:** Bouckaert, Remco R. "An efficient coalescent epoch model for Bayesian phylogenetic inference." Systematic Biology (2022): syac015. 
+**BICEPS:** Bouckaert, Remco R. "An efficient coalescent epoch model for Bayesian phylogenetic inference." Systematic Biology (2022): syac015. [doi:10.1093/sysbio/syac015](https://doi.org/10.1093/sysbio/syac015)
 
 **Gecko dataset:** Leaché, Adam D., et al. "Species delimitation using genome-wide SNP data." Systematic biology 63.4 (2014): 534-542.
 
