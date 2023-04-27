@@ -31,7 +31,8 @@ The main repository of SPEEDEMON is compatible with BEAST 2.7. With compatabilit
 
 
 	#### If using SNP data (SNAPPER)
-   Open the SNAPPER template and configure your BEAUti session as described in the tutorial [here](https://github.com/BEAST2-Dev/beast-docs/releases/download/v1.0/snapper-delimitation-tutorial-2021.zip)
+   Open the SNAPPER template and configure your BEAUti session as described in the tutorial [here](https://github.com/BEAST2-Dev/beast-docs/releases/download/v1.0/snapper-delimitation-tutorial-2021.zip) 
+ (Note OS X users: to uncompress by default the in built archive utility is used which does not seem to recognise the zip format. Open a terminal and `cd Downloads` followed by `unzip snapper-delimitation-tutorial-2021.zip` should work though).
 
 5. Before saving the xml template, open the 'Priors' tab and select the Yule Skyline Collapse model as the species tree prior. Two new prior distributions will appear: for the collapse weight and the birth rate *rate*. The threshold epsilon can also be adjusted here. The 'Group Count' is the number of epochs in the skyline. This can be set to 1 to attain the birth collapse model. The birth rate of the first epoch is drawn from a Gamma distribution with a shape of 'shape' and a rate of 'birth rate rate'.
 ![](figs/Fig1.png)
