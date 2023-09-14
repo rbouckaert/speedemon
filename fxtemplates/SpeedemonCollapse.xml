@@ -124,16 +124,16 @@
             </connect>
 					 
 					 
-			<!-- BICEPS tree operators -->
-			<connect srcID='SPEEDEMONEpochTop.t:$(n)'                targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and Tree.t:$(n)/estimate=true'>Scales all internal nodes for tree t:$(n)</connect>
-            <connect srcID='SPEEDEMONEpochAll.t:$(n)'                targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and Tree.t:$(n)/estimate=true'>Scales all internal nodes for tree t:$(n)</connect>
-            <connect srcID='SPEEDEMONTreeFlex.t:$(n)'                targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and Tree.t:$(n)/estimate=true'>Scales all internal nodes for tree t:$(n)</connect>
-            <connect srcID='SPEEDEMONTreeRootScaler.t:$(n)'            targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and Tree.t:$(n)/estimate=true'>Scales root node for tree t:$(n)</connect>
-            <connect srcID='SPEEDEMONUniformOperator.t:$(n)'           targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and Tree.t:$(n)/estimate=true'>Draws new internal node heights uniformally for tree t:$(n)</connect>
-            <connect srcID='SPEEDEMONSubtreeSlide.t:$(n)'              targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and Tree.t:$(n)/estimate=true'>Performs subtree slide rearrangement of tree t:$(n)</connect>
-            <connect srcID='SPEEDEMONNarrow.t:$(n)'                    targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and Tree.t:$(n)/estimate=true'>Narrow exchange performs local rearrangement of tree t:$(n)</connect>
-            <connect srcID='SPEEDEMONWide.t:$(n)'                      targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and Tree.t:$(n)/estimate=true'>Wide exchange performs global rearrangement of tree t:$(n)</connect>
-            <connect srcID='SPEEDEMONWilsonBalding.t:$(n)'             targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and Tree.t:$(n)/estimate=true'>Performs Wilson-Balding global rearrangement of tree t:$(n)</connect>
+			<!-- SPEEDEMON tree operators -->
+			<connect srcID='SPEEDEMONEpochTop.t:$(n)'                targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Scales all internal nodes for tree t:$(n)</connect>
+            <connect srcID='SPEEDEMONEpochAll.t:$(n)'                targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Scales all internal nodes for tree t:$(n)</connect>
+            <connect srcID='SPEEDEMONTreeFlex.t:$(n)'                targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Scales all internal nodes for tree t:$(n)</connect>
+            <connect srcID='SPEEDEMONTreeRootScaler.t:$(n)'            targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Scales root node for tree t:$(n)</connect>
+            <connect srcID='SPEEDEMONUniformOperator.t:$(n)'           targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Draws new internal node heights uniformally for tree t:$(n)</connect>
+            <connect srcID='SPEEDEMONSubtreeSlide.t:$(n)'              targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Performs subtree slide rearrangement of tree t:$(n)</connect>
+            <connect srcID='SPEEDEMONNarrow.t:$(n)'                    targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Narrow exchange performs local rearrangement of tree t:$(n)</connect>
+            <connect srcID='SPEEDEMONWide.t:$(n)'                      targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Wide exchange performs global rearrangement of tree t:$(n)</connect>
+            <connect srcID='SPEEDEMONWilsonBalding.t:$(n)'             targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Performs Wilson-Balding global rearrangement of tree t:$(n)</connect>
          
 					 
 					 
@@ -203,7 +203,13 @@
                         <beta spec="parameter.RealParameter" lower="0.0">1.0</beta>
                     </Beta>
             </prior>
-
+            
+            
+			<operator id="SPEEDEMONUniformOperator.t:Species" spec="Uniform" tree="@Tree.t:Species" weight="3.0"/>
+			<operator id="SPEEDEMONWilsonBalding.t:Species" spec="WilsonBalding" tree="@Tree.t:Species" weight="15.0"/>
+			<operator id="SPEEDEMONWide.t:Species" isNarrow="false" spec="Exchange" tree="@Tree.t:Species" weight="15.0"/>
+			<operator id="SPEEDEMONNarrow.t:$(n)" isNarrow="true" spec="Exchange" tree="@Tree.t:Species" weight="1.0"/>
+			<operator id="SPEEDEMONBactrianSubtreeSlide.t:$(n)" size="0.002" spec="beast.base.evolution.operator.kernel.BactrianSubtreeSlide" tree="@Tree.t:Species" weight="15.0"/>
 			
 			<operator id="AdaptableOperatorSampler.SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" spec="beast.base.evolution.operator.AdaptableOperatorSampler" weight="3.0">
 				<parameter idref="SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)"/>
@@ -264,6 +270,28 @@
                      if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n))'>
                 Move a species tree node across the boundary at epsilon to lump/split clusters
             </connect>
+            
+            
+      		<connect srcID="SPEEDEMONUniformOperator.t:$(n)" targetID="mcmc" inputName="operator" if="inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true">
+				Operate on tree node heights
+			</connect>
+			
+			<connect srcID="SPEEDEMONWilsonBalding.t:$(n)" targetID="mcmc" inputName="operator" if="inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true">
+				Wilson Balding operator
+			</connect>
+			
+			<connect srcID="SPEEDEMONWide.t:$(n)" targetID="mcmc" inputName="operator" if="inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true">
+				Wide exchange operator
+			</connect>
+			
+			<connect srcID="SPEEDEMONNarrow.t:$(n)" targetID="mcmc" inputName="operator" if="inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true">
+				Narrow exchange operator
+			</connect>
+			
+			<connect srcID="SPEEDEMONBactrianSubtreeSlide.t:$(n)" targetID="mcmc" inputName="operator" if="inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true">
+				Bactrian subtree slide operator
+			</connect>
+            
            
 
             <connect srcID='SPEEDEMONYuleSkylineCollapse.t:$(n)' targetID='tracelog' inputName='log'
