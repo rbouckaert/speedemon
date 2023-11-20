@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><beast beautitemplate='snapper' beautistatus='' namespace="beast.core:beast.evolution.alignment:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.base.evolution.alignment:beast.pkgmgmt:beast.base.core:beast.base.inference:beast.base.evolution.tree.coalescent:beast.pkgmgmt:beast.base.core:beast.base.inference.util:beast.evolution.nuc:beast.base.evolution.operator:beast.base.inference.operator:beast.base.evolution.sitemodel:beast.base.evolution.substitutionmodel:beast.base.evolution.likelihood" required="BEAST.base v2.7.6:snapper v1.1.4:speedemon v1.1.0:SNAPP v1.6.1:ORC v1.1.2" version="2.7">
+
+    <data
+id="hemi129"
+spec="Alignment"
+dataType="integerdata"
+name="rawdata">
+        <sequence id="seq_coal_CA1_2" spec="Sequence" taxon="coal_CA1_2" totalcount="3" value="12020212202020222022222012211022-02221210210201022002202021020002122222010202020202202220020220020122012202022212020222020-200201"/>
+        <sequence id="seq_coal_CA1_3" spec="Sequence" taxon="coal_CA1_3" totalcount="3" value="220202022020102210222220222110222022202202202000220022020220220022221220202020202122002200202210100220122020222220202210200220212"/>
+        <sequence id="seq_coal_CA1_4" spec="Sequence" taxon="coal_CA1_4" totalcount="3" value="12020202202010221022222022-11022202-202202212010-2002202021022002122-22020-020202122022200202210-01220122020222120202210201220211"/>
+        <sequence id="seq_coal_CA1_5" spec="Sequence" taxon="coal_CA1_5" totalcount="3" value="120202022020102220222220222110222022202202202000220022120220220020221100212020202122012200202200002220122020222120202210200220202"/>
+        <sequence id="seq_coal_CG_6" spec="Sequence" taxon="coal_CG_6" totalcount="3" value="220202022020202220222222222121222022212202202000220022120220220020220210201020202122022200202220202220122010222220202220200220102"/>
+        <sequence id="seq_coal_GA_26" spec="Sequence" taxon="coal_GA_26" totalcount="3" value="22020222202020222022200022202022200221-2022020202200220121202200102202202020202221220222002022002022-0022020222220102220200220202"/>
+        <sequence id="seq_eng_CA2_20" spec="Sequence" taxon="eng_CA2_20" totalcount="3" value="22222222022020222022202022000022202220-222202220020212022222022202200220202222000202020022200002222222002020202202220222210220202"/>
+        <sequence id="seq_eng_EG_21" spec="Sequence" taxon="eng_EG_21" totalcount="3" value="220102222020202220202-00222-00222222122202202001221022020220220022220200202020201122022200102200000200022-20222220202222200220202"/>
+        <sequence id="seq_eng_EG_22" spec="Sequence" taxon="eng_EG_22" totalcount="3" value="220002222020222220212200222000222222222202202000211021021220220022220222202020200212022200002200001100022020221220202222100221202"/>
+        <sequence id="seq_eng_EG_23" spec="Sequence" taxon="eng_EG_23" totalcount="3" value="220202022020222220211200222000222222222202202000221021022220220022220221202020202201221200002200001200002020221220202222200221202"/>
+        <sequence id="seq_eng_EG_24" spec="Sequence" taxon="eng_EG_24" totalcount="3" value="220002122020212221222210222000222222122202202002220022020220220022220220202020202012022210112200002100022021122220202222200220202"/>
+        <sequence id="seq_eng_EG_25" spec="Sequence" taxon="eng_EG_25" totalcount="3" value="220000122120222220222-10222-0022222212220220201022102102222022002222022120202020201202220010-200000100022120221220202122200220202"/>
+        <sequence id="seq_eng_NG_1" spec="Sequence" taxon="eng_NG_1" totalcount="3" value="2-0202-22120211220222-10212-01222022202202202000220122020220220022-20220202020202121022200021100-022200220202222-0202222200220202"/>
+        <sequence id="seq_eng_NG_15" spec="Sequence" taxon="eng_NG_15" totalcount="3" value="2102021221202122202222102120002222212222022020002200220222202200221202002020200022220222001122002-1200022020222220202222200120202"/>
+        <sequence id="seq_eng_NG_18" spec="Sequence" taxon="eng_NG_18" totalcount="3" value="210202212010212220222200022-012222221222021020022200220212-0220022020200202020102121022200-12200001200012020222220202222200220202"/>
+        <sequence id="seq_fas_GH1_12" spec="Sequence" taxon="fas_GH1_12" totalcount="3" value="222222220220202220222020220000212022202222202220020222022222022202200220202222000022020022201002222222000020202202220222200220202"/>
+        <sequence id="seq_fas_GH1_13" spec="Sequence" taxon="fas_GH1_13" totalcount="3" value="222222220220202-202220202200002-2022202222202220020222022222022202200220202222000122020022200002222222000020202202220222210220202"/>
+        <sequence id="seq_fas_GH1_14" spec="Sequence" taxon="fas_GH1_14" totalcount="3" value="222222220220202120222010220000212022202222202220020222022222022202200220202222000122020022200002222222000020202202220222200220202"/>
+        <sequence id="seq_fas_GH2_10" spec="Sequence" taxon="fas_GH2_10" totalcount="3" value="222222220220202-20222020220000212022202222202220020222022222022202200220202222000022020022200002222222001020202202220222210220202"/>
+        <sequence id="seq_fas_GH2_11" spec="Sequence" taxon="fas_GH2_11" totalcount="3" value="2222222202212022202220202200002-2022202222202220020222022222022202200220202222000122020022200002222222000020202202220222210220202"/>
+        <sequence id="seq_fas_GH2_16" spec="Sequence" taxon="fas_GH2_16" totalcount="3" value="222222220220202220122020220000212022201222202220020222022222022202200220202222000022020022200002222222000020202202220222210220202"/>
+        <sequence id="seq_fas_GH2_17" spec="Sequence" taxon="fas_GH2_17" totalcount="3" value="2222222202212022202220202200002-2022202221212220020222022222022202200220202222000022020022200002222222000020202202220222210220202"/>
+        <sequence id="seq_fas_GH4_32" spec="Sequence" taxon="fas_GH4_32" totalcount="3" value="2222222202202022202220202200002-2022202222202220020222022222022202200220202222000012020022200002222222000020202202220222210220202"/>
+        <sequence id="seq_fas_GH4_33" spec="Sequence" taxon="fas_GH4_33" totalcount="3" value="2222222202212021202220202200002-2022202222202220020222022222022202200220202222000122020022200002222222000020202202220222210220202"/>
+        <sequence id="seq_fas_GH4_34" spec="Sequence" taxon="fas_GH4_34" totalcount="3" value="2222222202212021202220202200002-2022202222202220020222022222022202200220202222000022020022200002222222000020202202220222210220202"/>
+        <sequence id="seq_fas_GH4_35" spec="Sequence" taxon="fas_GH4_35" totalcount="3" value="2222222202202022202220202200002-20222022222022200202220222220222022002202022220000220200222000022222220000202022022202222-0220202"/>
+        <sequence id="seq_fas_GH4_36" spec="Sequence" taxon="fas_GH4_36" totalcount="3" value="2222222202212022202220202200002-2022202222202220020222022222022202200220202222000022020022200002222222000020202202220222210220202"/>
+        <sequence id="seq_fas_GH4_37" spec="Sequence" taxon="fas_GH4_37" totalcount="3" value="222222220220202220222020220000212022202222202220020222022222022202200220202222000022020022200002222222000020202202220222210220202"/>
+        <sequence id="seq_fas_GH4_38" spec="Sequence" taxon="fas_GH4_38" totalcount="3" value="2222222202212022202220202200002-2022202222202220020222022222022202200220202222000022020022200002222222000020202202220222210220202"/>
+        <sequence id="seq_fas_GH4_39" spec="Sequence" taxon="fas_GH4_39" totalcount="3" value="222222220221202-202220202200002-2022202222202220020222022222022202200220202212000022020022200002222222000020202202220222210220202"/>
+        <sequence id="seq_fas_GH4_40" spec="Sequence" taxon="fas_GH4_40" totalcount="3" value="222222220220202220222020220000212022202222202220020222022222022202200220202222000022020022200002222222000020202202220222210220202"/>
+        <sequence id="seq_kya_GH3_27" spec="Sequence" taxon="kya_GH3_27" totalcount="3" value="222222220220202220222020220000222022202222202220020222022222022202200220202222000202020022200002222222002020202202220222210220202"/>
+        <sequence id="seq_kya_GH3_28" spec="Sequence" taxon="kya_GH3_28" totalcount="3" value="22222222022020222022202022000022202220-222202220020222022222022202200220202222000202020022200002222222002020202202220222210220202"/>
+        <sequence id="seq_kya_GH3_29" spec="Sequence" taxon="kya_GH3_29" totalcount="3" value="222222220220202220222020220000222022202222202220020222022222022202200220202222000202020022200002222222002020202202220222210220202"/>
+        <sequence id="seq_kya_GH3_30" spec="Sequence" taxon="kya_GH3_30" totalcount="3" value="222222220220202220222020220000222022202222202220020222022222022202200220202222000202020022200002222222002020202202220222210220202"/>
+        <sequence id="seq_kya_GH3_31" spec="Sequence" taxon="kya_GH3_31" totalcount="3" value="2222222202202022202220202200001220222022222012200202220222220222022002202022220002020200222000022222220020202022022202222-0220202"/>
+        <sequence id="seq_kya_GH3_41" spec="Sequence" taxon="kya_GH3_41" totalcount="3" value="222222220220202220222020220000222022202222202220020222022222022202200220202222000202020022201002222222002020202202220222210220202"/>
+        <sequence id="seq_kya_GH3_42" spec="Sequence" taxon="kya_GH3_42" totalcount="3" value="222222220220202220222020220000222022202222202220020222022222022202200220202222000202020022200002222222002020202202220222210220202"/>
+        <sequence id="seq_kya_GH3_43" spec="Sequence" taxon="kya_GH3_43" totalcount="3" value="2222222202202022202220202200002220222022222022200202220222220222022002202022220002020200222000022222220020202022022202222-0220202"/>
+        <sequence id="seq_kya_GH3_44" spec="Sequence" taxon="kya_GH3_44" totalcount="3" value="222222220220202220222020220000222022202222202220020222022222022202200220202222000202020022201002222222002020202202220222210220202"/>
+        <sequence id="seq_kya_GH3_45" spec="Sequence" taxon="kya_GH3_45" totalcount="3" value="222222220220202220222020220000222022202222202220020222022222022202200220202222000202020022200002222222002020202202220222210220202"/>
+        <sequence id="seq_kya_GH3_46" spec="Sequence" taxon="kya_GH3_46" totalcount="3" value="222222220220202220222020220000222022202222202220020222022222022202200220202222000202020022200002222222002020202202220222210220202"/>
+        <sequence id="seq_kya_GH3_47" spec="Sequence" taxon="kya_GH3_47" totalcount="3" value="222222220220202220222020220000222022202222202220020222022222022202200220202222000202020022200002222222002020202202220222200220202"/>
+        <sequence id="seq_kya_GH3_7" spec="Sequence" taxon="kya_GH3_7" totalcount="3" value="222222220220202220222020220000221022212222202220020222022222022202200220202222000202020022200002222222002020202202220222210220202"/>
+        <sequence id="seq_kya_GH3_8" spec="Sequence" taxon="kya_GH3_8" totalcount="3" value="222222220220202220222020220000222022202222202220020222022222022202200220202222000102020022200002222222002020202202220222210220202"/>
+        <sequence id="seq_kya_GH3_9" spec="Sequence" taxon="kya_GH3_9" totalcount="3" value="22222222022020222022202022000022202-202222202220020222022222021202200220202222000202020022200002222222002020202202221222210220202"/>
+    </data>
+
+    <map name="Uniform" >beast.base.inference.distribution.Uniform</map>
+
+    <map name="Exponential" >beast.base.inference.distribution.Exponential</map>
+
+    <map name="LogNormal" >beast.base.inference.distribution.LogNormalDistributionModel</map>
+
+    <map name="Normal" >beast.base.inference.distribution.Normal</map>
+
+    <map name="Beta" >beast.base.inference.distribution.Beta</map>
+
+    <map name="Gamma" >beast.base.inference.distribution.Gamma</map>
+
+    <map name="LaplaceDistribution" >beast.base.inference.distribution.LaplaceDistribution</map>
+
+    <map name="prior" >beast.base.inference.distribution.Prior</map>
+
+    <map name="InverseGamma" >beast.base.inference.distribution.InverseGamma</map>
+
+    <map name="OneOnX" >beast.base.inference.distribution.OneOnX</map>
+
+    <run id="mcmc" spec="MCMC" chainLength="1000000">
+        <state id="state" spec="State" storeEvery="5000">
+            <tree id="Tree.t:hemi129" spec="beast.base.evolution.tree.Tree" name="stateNode" nodetype="snap.NodeData">
+                <taxonset id="TaxonSet.hemi129" spec="TaxonSet">
+                    <alignment id="snapper.hemi129" spec="snapper.Data" dataType="integerdata">
+                        <rawdata idref="hemi129"/>
+                        <taxonset id="NG_18" spec="TaxonSet">
+                            <taxon id="eng_NG_18" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH2_17" spec="TaxonSet">
+                            <taxon id="fas_GH2_17" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH3_29" spec="TaxonSet">
+                            <taxon id="kya_GH3_29" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="CG_6" spec="TaxonSet">
+                            <taxon id="coal_CG_6" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH3_28" spec="TaxonSet">
+                            <taxon id="kya_GH3_28" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH2_16" spec="TaxonSet">
+                            <taxon id="fas_GH2_16" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH3_27" spec="TaxonSet">
+                            <taxon id="kya_GH3_27" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH4_39" spec="TaxonSet">
+                            <taxon id="fas_GH4_39" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="CA1_4" spec="TaxonSet">
+                            <taxon id="coal_CA1_4" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="NG_15" spec="TaxonSet">
+                            <taxon id="eng_NG_15" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH4_38" spec="TaxonSet">
+                            <taxon id="fas_GH4_38" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="CA1_5" spec="TaxonSet">
+                            <taxon id="coal_CA1_5" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH4_37" spec="TaxonSet">
+                            <taxon id="fas_GH4_37" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH3_47" spec="TaxonSet">
+                            <taxon id="kya_GH3_47" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="CA1_2" spec="TaxonSet">
+                            <taxon id="coal_CA1_2" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="CA1_3" spec="TaxonSet">
+                            <taxon id="coal_CA1_3" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="CA2_20" spec="TaxonSet">
+                            <taxon id="eng_CA2_20" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GA_26" spec="TaxonSet">
+                            <taxon id="coal_GA_26" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="NG_1" spec="TaxonSet">
+                            <taxon id="eng_NG_1" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="EG_23" spec="TaxonSet">
+                            <taxon id="eng_EG_23" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="EG_24" spec="TaxonSet">
+                            <taxon id="eng_EG_24" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="EG_21" spec="TaxonSet">
+                            <taxon id="eng_EG_21" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="EG_22" spec="TaxonSet">
+                            <taxon id="eng_EG_22" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH2_11" spec="TaxonSet">
+                            <taxon id="fas_GH2_11" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH4_36" spec="TaxonSet">
+                            <taxon id="fas_GH4_36" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH3_46" spec="TaxonSet">
+                            <taxon id="kya_GH3_46" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH4_35" spec="TaxonSet">
+                            <taxon id="fas_GH4_35" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH3_45" spec="TaxonSet">
+                            <taxon id="kya_GH3_45" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH4_34" spec="TaxonSet">
+                            <taxon id="fas_GH4_34" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH3_44" spec="TaxonSet">
+                            <taxon id="kya_GH3_44" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH2_10" spec="TaxonSet">
+                            <taxon id="fas_GH2_10" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH4_33" spec="TaxonSet">
+                            <taxon id="fas_GH4_33" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH3_43" spec="TaxonSet">
+                            <taxon id="kya_GH3_43" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH4_32" spec="TaxonSet">
+                            <taxon id="fas_GH4_32" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH3_42" spec="TaxonSet">
+                            <taxon id="kya_GH3_42" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH3_41" spec="TaxonSet">
+                            <taxon id="kya_GH3_41" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH3_7" spec="TaxonSet">
+                            <taxon id="kya_GH3_7" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH3_8" spec="TaxonSet">
+                            <taxon id="kya_GH3_8" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH1_14" spec="TaxonSet">
+                            <taxon id="fas_GH1_14" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH3_9" spec="TaxonSet">
+                            <taxon id="kya_GH3_9" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH1_12" spec="TaxonSet">
+                            <taxon id="fas_GH1_12" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH1_13" spec="TaxonSet">
+                            <taxon id="fas_GH1_13" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="EG_25" spec="TaxonSet">
+                            <taxon id="eng_EG_25" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH3_31" spec="TaxonSet">
+                            <taxon id="kya_GH3_31" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH3_30" spec="TaxonSet">
+                            <taxon id="kya_GH3_30" spec="Taxon"/>
+                        </taxonset>
+                        <taxonset id="GH4_40" spec="TaxonSet">
+                            <taxon id="fas_GH4_40" spec="Taxon"/>
+                        </taxonset>
+                    </alignment>
+                </taxonset>
+            </tree>
+            <parameter id="snapperCoalescentRate.t:hemi129" spec="parameter.RealParameter" lower="1.0E-10" name="stateNode" upper="10.0">1.0</parameter>
+            <parameter id="SPEEDEMONYuleSkylineCollapseBirthRateRate.t:hemi129" spec="parameter.RealParameter" lower="0.0" name="stateNode">1.0</parameter>
+            <parameter id="SPEEDEMONcollapseWeight.t:hemi129" spec="parameter.RealParameter" lower="0.0" name="stateNode" upper="1.0">0.5</parameter>
+        </state>
+        <init id="RandomTree.t:hemi129" spec="RandomTree" estimate="false" initial="@Tree.t:hemi129" taxa="@snapper.hemi129">
+            <populationModel id="ConstantPopulation0.t:hemi129" spec="ConstantPopulation">
+                <parameter id="randomPopSize.t:hemi129" spec="parameter.RealParameter" name="popSize">1.0</parameter>
+            </populationModel>
+        </init>
+        <distribution id="posterior" spec="CompoundDistribution">
+            <distribution id="prior" spec="CompoundDistribution">
+                <distribution id="SPEEDEMONYuleSkylineCollapse.t:hemi129" spec="speedemon.YuleSkylineCollapse" birthRateRate="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:hemi129" equalEpochs="true" groupCount="4" linkedMean="true" tree="@Tree.t:hemi129" weight="@SPEEDEMONcollapseWeight.t:hemi129">
+                    <epsilon id="epsilon.speedemon.t:hemi129" spec="Function$Constant" value="1.0E-4"/>
+                    <parameter id="SPEEDEMONYuleSkylineCollapseBirthRateShape.t:hemi129" spec="parameter.RealParameter" estimate="false" lower="0.0" name="birthRateShape">2.0</parameter>
+                </distribution>
+                <prior id="YuleSkylineCollapseBirthRateRatePrior.t:hemi129" name="distribution" x="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:hemi129">
+                    <LogNormal id="LogNormalDistributionModel.0" meanInRealSpace="true" name="distr">
+                        <parameter id="RealParameter.2" spec="parameter.RealParameter" lower="0.0" name="M">1.0</parameter>
+                        <parameter id="RealParameter.3" spec="parameter.RealParameter" lower="0.0" name="S">1.25</parameter>
+                    </LogNormal>
+                </prior>
+                <prior id="collapseWeight.prior.t:hemi129" name="distribution" x="@SPEEDEMONcollapseWeight.t:hemi129">
+                    <Beta id="Beta.0" name="distr">
+                        <parameter id="RealParameter.4" spec="parameter.RealParameter" lower="0.0" name="alpha">3.0</parameter>
+                        <parameter id="RealParameter.5" spec="parameter.RealParameter" lower="0.0" name="beta">1.0</parameter>
+                    </Beta>
+                </prior>
+                <prior id="SnapperCoalescentRatePrior.t:hemi129" name="distribution" x="@snapperCoalescentRate.t:hemi129">
+                    <Gamma id="Gamma.2" name="distr">
+                        <parameter id="RealParameter.0" spec="parameter.RealParameter" estimate="false" name="alpha">0.01</parameter>
+                        <parameter id="RealParameter.1" spec="parameter.RealParameter" estimate="false" name="beta">100.1</parameter>
+                    </Gamma>
+                </prior>
+            </distribution>
+            <distribution id="likelihood" spec="CompoundDistribution" useThreads="true">
+                <distribution id="snapperTreeLikelihood.hemi129" spec="snapper.SnapperTreeLikelihood" data="@snapper.hemi129" pattern="coalescentRate" tree="@Tree.t:hemi129">
+                    <siteModel id="SnapperSiteModel.s:hemi129" spec="SiteModel">
+                        <substModel id="SnapperSubstModel.s:hemi129" spec="snapper.SnapSubstitutionModel" coalescentRate="@snapperCoalescentRate.t:hemi129">
+                            <parameter id="snapperU.s:hemi129" spec="parameter.RealParameter" estimate="false" lower="0.0" name="mutationRateU">1.0</parameter>
+                            <parameter id="snapperV.s:hemi129" spec="parameter.RealParameter" estimate="false" lower="0.0" name="mutationRateV">1.0</parameter>
+                        </substModel>
+                    </siteModel>
+                    <branchRateModel id="StrictClock.c:hemi129" spec="beast.base.evolution.branchratemodel.StrictClockModel">
+                        <parameter id="clockRate.c:hemi129" spec="parameter.RealParameter" estimate="false" name="clock.rate">1.0</parameter>
+                    </branchRateModel>
+                </distribution>
+            </distribution>
+        </distribution>
+        <operator id="SnapperGammaMover.t:hemi129" spec="snap.operators.GammaMover" coalescenceRate="@snapperCoalescentRate.t:hemi129" scale="0.75" weight="1.0"/>
+        <operator id="SnapperRateMixer.t:hemi129" spec="snap.operators.RateMixer" coalescenceRate="@snapperCoalescentRate.t:hemi129" scaleFactors="0.25" tree="@Tree.t:hemi129" weight="1.0"/>
+        <operator id="SPEEDEMONUniformThresholdOperator.t:hemi129" spec="speedemon.UniformThresholdOperator" epsilon="@epsilon.speedemon.t:hemi129" tree="@Tree.t:hemi129" weight="3.0"/>
+        <operator id="SPEEDEMONEpochTop.t:hemi129" spec="EpochFlexOperator" scaleFactor="0.1" tree="@Tree.t:hemi129" weight="2.0"/>
+        <operator id="SPEEDEMONEpochAll.t:hemi129" spec="EpochFlexOperator" fromOldestTipOnly="false" scaleFactor="0.1" tree="@Tree.t:hemi129" weight="2.0"/>
+        <operator id="SPEEDEMONTreeFlex.t:hemi129" spec="TreeStretchOperator" scaleFactor="0.01" tree="@Tree.t:hemi129" weight="2.0"/>
+        <operator id="SPEEDEMONTreeRootScaler.t:hemi129" spec="kernel.BactrianScaleOperator" rootOnly="true" scaleFactor="0.1" tree="@Tree.t:hemi129" upper="10.0" weight="3.0"/>
+        <operator id="SPEEDEMONUniformOperator.t:hemi129" spec="kernel.BactrianNodeOperator" tree="@Tree.t:hemi129" weight="30.0"/>
+        <operator id="SPEEDEMONSubtreeSlide.t:hemi129" spec="kernel.BactrianSubtreeSlide" tree="@Tree.t:hemi129" weight="15.0"/>
+        <operator id="SPEEDEMONNarrow.t:hemi129" spec="Exchange" tree="@Tree.t:hemi129" weight="15.0"/>
+        <operator id="SPEEDEMONWide.t:hemi129" spec="Exchange" isNarrow="false" tree="@Tree.t:hemi129" weight="3.0"/>
+        <operator id="SPEEDEMONWilsonBalding.t:hemi129" spec="WilsonBalding" tree="@Tree.t:hemi129" weight="3.0"/>
+        <operator id="AdaptableOperatorSampler.SPEEDEMONYuleSkylineCollapseBirthRateRate.t:hemi129" spec="AdaptableOperatorSampler" weight="3.0">
+            <parameter idref="SPEEDEMONYuleSkylineCollapseBirthRateRate.t:hemi129"/>
+            <operator id="Scale.BirthDeathCollapseModel.t:hemi129" spec="kernel.BactrianScaleOperator" parameter="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:hemi129" upper="10.0" weight="1.0"/>
+            <operator id="SampleFromPriorOperator.BirthDeathCollapseModel.t:hemi129" spec="orc.operators.SampleFromPriorOperator" parameter="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:hemi129" prior2="@YuleSkylineCollapseBirthRateRatePrior.t:hemi129" weight="1.0"/>
+        </operator>
+        <operator id="AdaptableOperatorSampler.SPEEDEMONcollapseWeight.t:hemi129" spec="AdaptableOperatorSampler" weight="3.0">
+            <parameter idref="SPEEDEMONcollapseWeight.t:hemi129"/>
+            <operator id="Scale.SPEEDEMONcollapseWeight.t:hemi129" spec="operator.kernel.BactrianIntervalOperator" parameter="@SPEEDEMONcollapseWeight.t:hemi129" weight="1.0"/>
+            <operator id="SampleFromPriorOperator.SPEEDEMONcollapseWeight.t:hemi129" spec="orc.operators.SampleFromPriorOperator" parameter="@SPEEDEMONcollapseWeight.t:hemi129" prior2="@collapseWeight.prior.t:hemi129" weight="1.0"/>
+        </operator>
+        <logger id="tracelog" spec="Logger" fileName="$(filebase).log" logEvery="1000" model="@posterior" sanitiseHeaders="true" sort="smart">
+            <log idref="posterior"/>
+            <log idref="likelihood"/>
+            <log idref="prior"/>
+            <log id="TreeHeight.t:hemi129" spec="beast.base.evolution.tree.TreeStatLogger" tree="@Tree.t:hemi129"/>
+            <log idref="snapperCoalescentRate.t:hemi129"/>
+            <log idref="SPEEDEMONYuleSkylineCollapse.t:hemi129"/>
+            <log idref="SPEEDEMONcollapseWeight.t:hemi129"/>
+            <log idref="SPEEDEMONYuleSkylineCollapseBirthRateRate.t:hemi129"/>
+        </logger>
+        <logger id="screenlog" spec="Logger" logEvery="1000">
+            <log idref="posterior"/>
+            <log idref="likelihood"/>
+            <log idref="prior"/>
+        </logger>
+        <logger id="treelog.t:hemi129" spec="Logger" fileName="$(filebase).trees" logEvery="1000" mode="tree">
+            <log id="TreeWithMetaDataLogger.t:hemi129" spec="beast.base.evolution.TreeWithMetaDataLogger" tree="@Tree.t:hemi129"/>
+        </logger>
+    </run>
+
+</beast>
