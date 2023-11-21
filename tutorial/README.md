@@ -168,7 +168,7 @@ Note that at the bottom of the screen is a button to `+ Add priors`. This allows
 
 This causes the operators on rates to be selected more often. Without increasing the weights this analysis will mix rather slow, since coalescent rates are not updated often enough.
 
-> Save the file to XML, say `speedemon.xml`. A copy of the file can be found [here](TODO).
+> Save the file to XML, say `speedemon.xml`. A copy of the file can be found [here](https://github.com/rbouckaert/speedemon/releases/download/publish/speedemon.xml).
 
 ```
 Topic for discussion: There is no tab for clock models, so a relaxed clock cannot be set up in BEAUti.
@@ -191,7 +191,7 @@ How would you know when and which operators to change in general?
 Unfortunately, running this analysis will take too long...
 We will use the pre-cooked log files.
 
-> Download [speedemon.log]() and [speedemon.trees]() for post-processing.
+> Download [speedemon.log](https://github.com/rbouckaert/speedemon/releases/download/publish/speedemon.log) and [speedemon.trees](https://github.com/rbouckaert/speedemon/releases/download/publish/speedemon.trees) for post-processing.
 
 ```
 Topic for discussion: running for a day is obviously too long for a tutorial.
@@ -251,7 +251,7 @@ Combining these logs is fine if you are not interested in the coalescent rates/p
 
 <figure>
 	<a id="fig:applauncher"></a>
-	<img style="width:95%;" src="figures/applauncher.png" alt="">
+	<img style="width:65%;" src="figures/applauncher.png" alt="">
 	<figcaption>Figure 13: BEAST application launcher.</figcaption>
 </figure>
 
@@ -262,7 +262,7 @@ Combining these logs is fine if you are not interested in the coalescent rates/p
 
 <figure>
 	<a id="fig:ClusterTreeSetAnalyser"></a>
-	<img style="width:95%;" src="figures/ClusterTreeSetAnalyser.png" alt="">
+	<img style="width:65%;" src="figures/ClusterTreeSetAnalyser.png" alt="">
 	<figcaption>Figure 14: Cluster Tree Set Analyser.</figcaption>
 </figure>
 
@@ -276,6 +276,16 @@ Combining these logs is fine if you are not interested in the coalescent rates/p
 
 
 Ignore the error messages at the top of the output (if any).
+
+
+Note that an alternative to run the ClusterTreeSetAnalyser from the GUI is to run it from a terminal: go to the directory containing `speedemon.trees` and run 
+
+`/path/to/applauncher ClusterTreeSetAnalyser -trees speedemon.trees -epsilon 1e-4 -b 0`
+
+where `/path/to` the path to the place where applauncher is installed (typically `/Application/BEAST\ v2.7.5/bin` for OS X, `~/beast` on Linux and `\Program Files\BEAST\bat\` for Windows). 
+The same output as above will be shown as above, but without having to point and click too much.
+
+
 
 ```
 Topic for discussion: How many species are there?
