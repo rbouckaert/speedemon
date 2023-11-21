@@ -3,7 +3,7 @@ author: Remco Bouckaert
 level: Intermediate
 title: Speedemon tutorial
 subtitle: Species delimitation with SNP data
-beastversion: 2.7.5
+beastversion: 2.7.6
 ---
 
 # Speedemon tutorial: Species delimitation with SNP data
@@ -20,6 +20,7 @@ To identify species, we use a collapse model that groups and ungroups taxa durin
 <figure>
 	<a id="fig:gecko"></a>
 	<img style="width:95%;" src="figures/gecko.png" alt="">
+![gecko](figures/gecko.png)
 </figure>
 
 ----
@@ -28,7 +29,7 @@ To identify species, we use a collapse model that groups and ungroups taxa durin
 
 ### BEAST2 - Bayesian Evolutionary Analysis Sampling Trees 2
 
-BEAST2 is a free software package for Bayesian evolutionary analysis of molecular sequences using MCMC and strictly oriented toward inference using rooted, time-measured phylogenetic trees (Bouckaert et al, 2019). This tutorial uses the BEAST2 version 2.7.5.
+BEAST2 is a free software package for Bayesian evolutionary analysis of molecular sequences using MCMC and strictly oriented toward inference using rooted, time-measured phylogenetic trees (Bouckaert et al, 2019). This tutorial uses the BEAST2 version 2.7.6.
 
 ### BEAUti2 - Bayesian Evolutionary Analysis Utility
 
@@ -64,7 +65,9 @@ BEAUti should change to show it uses the snapper template.
 <figure>
 	<a id="fig:BEAUti1"></a>
 	<img style="width:95%;" src="figures/BEAUti-snapper.png" alt="">
+ ![BEAUti-snapper](figures/BEAUti-snapper.png)
 	<img style="width:95%;" src="figures/BEAUti-snapper2.png" alt="">
+ ![BEAUti-snapper2](figures/BEAUti-snapper2.png)
 	<figcaption>Figure 1: Select the snapper template, and BEAUti changes its appearance.</figcaption>
 </figure>
 
@@ -75,26 +78,31 @@ The partition panel now shows one entry per taxon, and a mapping to species.
 <figure>
 	<a id="fig:BEAUti2"></a>
 	<img style="width:95%;" src="figures/BEAUti-partition0.png" alt="">
+ ![BEAUti-partition0](figures/BEAUti-partition0.png)
 	<figcaption>Figure 2: After loading an alignment, BEAUti attemtps to automatically map taxa to species.</figcaption>
 </figure>
 
-By default, species are assigned to taxa, but since we want to do species delimitation, we claim to have no knowledge about the species assignments and put every taxon in its own species. This can be done as follows:
-
-> Click the `Guess` button. A dialog pops up where you can select `use everything` and keep the `after first` selection with the underscore as character to separate on.
+By default, species are assigned to taxa through some heuristic based on the taxon name.
+If you click the `Guess` button, a dialog pops up where you can formulate various rules to specify the species based on the taxon name. For example, if you click `OK` when `use everything` is selected and `after first` with the underscore as character to separate on, it puts every taxon in its own species for this analysis.
 
 <figure>
 	<a id="fig:BEAUti3"></a>
 	<img style="width:45%;" src="figures/BEAUti-guess.png" alt="">
+ ![BEAUti-guess](figures/BEAUti-guess.png)
 	<figcaption>Figure 3: There are many ways to help in mapping taxa to species based on the taxon name. This includes specifying the mapping in a text file, where the file uses one line per taxon, and the first word is the taxon name followed by a tab (not space!) followed by the species name. Here, we use the defaults.</figcaption>
 </figure>
 
+Here, we have some suspicion that the taxon labelled `eng_CA2_20` may not be an `eng` species.
 
-> Click `OK`, and the species are now uniquely assigned to taxa:
+> Search for the `eng` taxa by typing `eng` in the search box.
+> Double click the entry next to `eng_CA2_20` and add a 2, so the species is labelled `eng2`.
+> Don't forget to press `return` to confirm the edit.
 
 <figure>
 	<a id="fig:BEAUti4"></a>
 	<img style="width:95%;" src="figures/BEAUti-partition1.png" alt="">
-	<figcaption>Figure 4: Species assignment after using the species configuration option under the `Guess` button.</figcaption>
+ ![BEAUti-partition1](figures/BEAUti-partition1.png)
+	<figcaption>Figure 4: Editing the species assignment.</figcaption>
 </figure>
 
 
@@ -103,6 +111,7 @@ By default, species are assigned to taxa, but since we want to do species delimi
 <figure>
 	<a id="fig:BEAUti5"></a>
 	<img style="width:95%;" src="figures/BEAUti-model-parameters.png" alt="">
+ ![BEAUti-model-parameters](figures/BEAUti-model-parameters.png)
 	<figcaption>Figure 5: Various model parameters that can be changed.</figcaption>
 </figure>
 
@@ -124,13 +133,14 @@ The following can be changed:
 <figure>
 	<a id="fig:BEAUti6"></a>
 	<img style="width:95%;" src="figures/BEAUti-priors.png" alt="">
+ ![BEAUti-priors](figures/BEAUti-priors.png)
 	<figcaption>Figure 6: Priors panel.</figcaption>
 </figure>
 
 
 The Yule Skyline Collapse is a mixture of skyline version of Yule tree prior that integrates out birth rate parameters under a gamma prior and spike distribution on internal node heights. It has the following options:
 
-* epsilon: collapse height value below wich taxa are considered to be the same species. It may be useful to run the analysis with different values to see how sensitive the species assignments are under different settings. See section `User guide for selecting threshold ϵ` of Douglas & Bouckaert, 2022 on how to set epsilon.
+* epsilon: collapse height value below wich taxa are considered to be the same species. It may be useful to run the analysis with different values to see how sensitive the species assignments are under different settings. See section `User guide for selecting threshold &epsilon;` of Douglas & Bouckaert, 2022 on how to set epsilon.
 * weight: mixture weight between Yule and spike density. Can be estimated (recommended).
 * birth Rate Shape: Shape of the gamma prior distribution on birth rates. A value of 2 is default and is used in the literature.
 * birth Rate Rate: Rate of the gamma prior distribution on birth rates. Can be estimated (recommended).
@@ -146,6 +156,7 @@ Note that at the bottom of the screen is a button to `+ Add priors`. This allows
 <figure>
 	<a id="fig:BEAUti7"></a>
 	<img style="width:95%;" src="figures/BEAUti-mcmc.png" alt="">
+ ![BEAUti-mcmc](figures/BEAUti-mcmc.png)
 	<figcaption>Figure 7: MCMC settings.</figcaption>
 </figure>
 
@@ -155,6 +166,7 @@ Note that at the bottom of the screen is a button to `+ Add priors`. This allows
 <figure>
 	<a id="fig:BEAUti8"></a>
 	<img style="width:35%;" src="figures/BEAUti-operators.png" alt="">
+ ![BEAUti-operators](figures/BEAUti-operators.png)
 	<figcaption>Figure 8: Make operators tab visible.</figcaption>
 </figure>
 
@@ -163,6 +175,7 @@ Note that at the bottom of the screen is a button to `+ Add priors`. This allows
 <figure>
 	<a id="fig:BEAUti9"></a>
 	<img style="width:95%;" src="figures/BEAUti-operators2.png" alt="">
+ ![BEAUti-operators2](figures/BEAUti-operators2.png)
 	<figcaption>Figure 9: Change weights of gamma mover and rate mixer operators to 10.</figcaption>
 </figure>
 
@@ -229,6 +242,7 @@ Are there benefits/disadvantages of this approach over the collapse model (hint 
 <figure>
 	<a id="fig:tracer"></a>
 	<img style="width:95%;" src="figures/tracer.png" alt="">
+ ![tracer](figures/tracer.png)
 	<figcaption>Figure 10: Trace of cluster count.</figcaption>
 </figure>
 
@@ -242,6 +256,7 @@ Combining these logs is fine if you are not interested in the coalescent rates/p
 <figure>
 	<a id="fig:densitree"></a>
 	<img style="width:95%;" src="figures/densitree.png" alt="">
+ ![densitree](figures/densitree.png)
 	<figcaption>Figure 11: DensiTree of gecko analysis.</figcaption>
 </figure>
 
@@ -252,6 +267,7 @@ Combining these logs is fine if you are not interested in the coalescent rates/p
 <figure>
 	<a id="fig:applauncher"></a>
 	<img style="width:65%;" src="figures/applauncher.png" alt="">
+ ![applauncher](figures/applauncher.png)
 	<figcaption>Figure 13: BEAST application launcher.</figcaption>
 </figure>
 
@@ -263,6 +279,7 @@ Combining these logs is fine if you are not interested in the coalescent rates/p
 <figure>
 	<a id="fig:ClusterTreeSetAnalyser"></a>
 	<img style="width:65%;" src="figures/ClusterTreeSetAnalyser.png" alt="">
+ ![ClusterTreeSetAnalyser](figures/ClusterTreeSetAnalyser.png)
 	<figcaption>Figure 14: Cluster Tree Set Analyser.</figcaption>
 </figure>
 
@@ -271,6 +288,7 @@ Combining these logs is fine if you are not interested in the coalescent rates/p
 <figure>
 	<a id="fig:ClusterTreeSetAnalyser2"></a>
 	<img style="width:95%;" src="figures/ClusterTreeSetAnalyser2.png" alt="">
+ ![ClusterTreeSetAnalyser2](figures/ClusterTreeSetAnalyser2.png)
 	<figcaption>Figure 15: Cluster Tree Set Analyser output.</figcaption>
 </figure>
 
