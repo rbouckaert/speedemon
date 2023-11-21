@@ -12,6 +12,7 @@ import beast.base.core.Citation;
 import beast.base.core.Description;
 import beast.base.core.Function;
 import beast.base.core.Input;
+import beast.base.core.ProgramStatus;
 import beast.base.core.Input.Validate;
 import beast.base.inference.State;
 import beast.base.inference.parameter.RealParameter;
@@ -36,7 +37,7 @@ public class YuleSkylineCollapse extends YuleSkyline {
 
     @Override
     public void initAndValidate() {
-    	if (Beauti.isInBeauti()) {
+    	if (ProgramStatus.name.equals("BEAUti")) {
     		return;
     	}
     	super.initAndValidate();

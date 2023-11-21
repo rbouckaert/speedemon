@@ -6,6 +6,7 @@ subtitle: Species delimitation with SNP data
 beastversion: 2.7.5
 ---
 
+# Speedemon tutorial: Species delimitation with SNP data
 
 # Background
 
@@ -16,6 +17,10 @@ We will use a multi-species coalescent model that integrates out the gene trees 
 
 To identify species, we use a collapse model that groups and ungroups taxa during the MCMC run (Douglas & Bouckaert, 2022), depending on how genetically close the species are.
 
+<figure>
+	<a id="fig:gecko"></a>
+	<img style="width:95%;" src="figures/gecko.png" alt="">
+</figure>
 
 ----
 
@@ -54,12 +59,12 @@ Before you begin, download the alignment from [here](https://raw.githubuserconte
 
 > Start BEAUti and select the `File => Templates => snapper` item
 
-BEAUti should change to show it uses the Fixe Tree Analysis template.
+BEAUti should change to show it uses the snapper template.
 
 <figure>
 	<a id="fig:BEAUti1"></a>
-	<img style="width:45%;" src="figures/BEAUti-snapper.png" alt="">
-	<img style="width:45%;" src="figures/BEAUti-snapper2.png" alt="">
+	<img style="width:95%;" src="figures/BEAUti-snapper.png" alt="">
+	<img style="width:95%;" src="figures/BEAUti-snapper2.png" alt="">
 	<figcaption>Figure 1: Select the snapper template, and BEAUti changes its appearance.</figcaption>
 </figure>
 
@@ -69,7 +74,7 @@ The partition panel now shows one entry per taxon, and a mapping to species.
 
 <figure>
 	<a id="fig:BEAUti2"></a>
-	<img style="width:45%;" src="figures/BEAUti-partition0.png" alt="">
+	<img style="width:95%;" src="figures/BEAUti-partition0.png" alt="">
 	<figcaption>Figure 2: After loading an alignment, BEAUti attemtps to automatically map taxa to species.</figcaption>
 </figure>
 
@@ -88,7 +93,7 @@ By default, species are assigned to taxa, but since we want to do species delimi
 
 <figure>
 	<a id="fig:BEAUti4"></a>
-	<img style="width:45%;" src="figures/BEAUti-partition1.png" alt="">
+	<img style="width:95%;" src="figures/BEAUti-partition1.png" alt="">
 	<figcaption>Figure 4: Species assignment after using the species configuration option under the `Guess` button.</figcaption>
 </figure>
 
@@ -97,7 +102,7 @@ By default, species are assigned to taxa, but since we want to do species delimi
 
 <figure>
 	<a id="fig:BEAUti5"></a>
-	<img style="width:45%;" src="figures/BEAUti-model-parameters.png" alt="">
+	<img style="width:95%;" src="figures/BEAUti-model-parameters.png" alt="">
 	<figcaption>Figure 5: Various model parameters that can be changed.</figcaption>
 </figure>
 
@@ -118,7 +123,7 @@ The following can be changed:
 
 <figure>
 	<a id="fig:BEAUti6"></a>
-	<img style="width:45%;" src="figures/BEAUti-priors.png" alt="">
+	<img style="width:95%;" src="figures/BEAUti-priors.png" alt="">
 	<figcaption>Figure 6: Priors panel.</figcaption>
 </figure>
 
@@ -140,25 +145,144 @@ Note that at the bottom of the screen is a button to `+ Add priors`. This allows
 
 <figure>
 	<a id="fig:BEAUti7"></a>
-	<img style="width:45%;" src="figures/BEAUti-mcmc.png" alt="">
+	<img style="width:95%;" src="figures/BEAUti-mcmc.png" alt="">
 	<figcaption>Figure 7: MCMC settings.</figcaption>
 </figure>
 
 
+> Select the mena `View => Show Operators panel`. A new panel appears with information of the MCMC operators. 
+
+<figure>
+	<a id="fig:BEAUti8"></a>
+	<img style="width:35%;" src="figures/BEAUti-operators.png" alt="">
+	<figcaption>Figure 8: Make operators tab visible.</figcaption>
+</figure>
+
+> Change the weight of the `Gamma Mover` and `Rate Mixer` operator to `10`. 
+
+<figure>
+	<a id="fig:BEAUti9"></a>
+	<img style="width:95%;" src="figures/BEAUti-operators2.png" alt="">
+	<figcaption>Figure 9: Change weights of gamma mover and rate mixer operators to 10.</figcaption>
+</figure>
+
+This causes the operators on rates to be selected more often. Without increasing the weights this analysis will mix rather slow, since coalescent rates are not updated often enough.
+
 > Save the file to XML, say `speedemon.xml`. A copy of the file can be found [here](TODO).
 
 ```
-Question: There is no tab for clock models, so a relaxed clock cannot be set up in BEAUti. Any idea why this is?
+Topic for discussion: There is no tab for clock models, so a relaxed clock cannot be set up in BEAUti.
+
+Why would a relaxed clock not be a good idea in combination with the snapper multi species coalescent?
 ```
 
 
+```
+Topic for discussion: here, we changed the weights of operators deviating from the defaults.
+
+How would you know when and which operators to change in general?
+```
+<!-- relaxed clocks branch rates, branch lengths and coalescent rates are interchangable, leading to unidentifiability -->
+
+----
+
 ## Running BEAST
 
-Unfortunately, running this analysis will take about a day.
-Snapper can benefit from using threads, and it depends a bit on the computer, the data
+Unfortunately, running this analysis will take too long...
+We will use the pre-cooked log files.
 
+> Download [speedemon.log]() and [speedemon.trees]() for post-processing.
+
+```
+Topic for discussion: running for a day is obviously too long for a tutorial.
+How long is too long for a real world analysis?
+```
+<!-- since rerunning is almost always required, a month is the upper limit in practice -->
+
+
+Snapper can benefit from using threads, and it depends a bit on the computer, the data, number of taxa, etc. 
+In general, increasing taxa improves performance, however, since every thread has some overhead, using too many taxa may reduce performance.
+It is not possible beforehand to predict how many threads is optimal, so you have to experiment with your data in order to find out the sweet spot where the number of threads is optimal for your analysis.
+
+
+```
+Topic for discussion: what would be the effect of putting every taxon in its own species
+and let the analysis decide which taxa group together?
+```
+<!-- more power to detect anomalies, takes a lot longer, may lead to convergence issues -->
+
+
+```
+Topic for discussion: the long runtime does not seem an improvement on running a fixed small number of hypotheses and estimating the marginal likelihoods for each of them.
+Are there benefits/disadvantages of this approach over the collapse model (hint look at taxon `eng_CA2_20` in the results).
+```
+
+<!-- many more hypotheses are tested, not just a limited number of fixed hypotheses 
+-->
+
+----
 
 ## Analysing results
+
+> Start `Tracer`, load `speedemon.log` and observe the results.
+
+<figure>
+	<a id="fig:tracer"></a>
+	<img style="width:95%;" src="figures/tracer.png" alt="">
+	<figcaption>Figure 10: Trace of cluster count.</figcaption>
+</figure>
+
+All ESSs look good, except for those of some coalescent rates. 
+This is because this is a combined log file of several other log files.
+The coalescent rates for the 5 taxa are numbered 1 to 5, and the one at the root is 9, but for the internal nodes there is no fixed numbering, so different runs can have different numberings.
+Combining these logs is fine if you are not interested in the coalescent rates/population sizes of internal branches.
+
+> Start `DensiTree`, load `speedemon.trees`
+
+<figure>
+	<a id="fig:densitree"></a>
+	<img style="width:95%;" src="figures/densitree.png" alt="">
+	<figcaption>Figure 11: DensiTree of gecko analysis.</figcaption>
+</figure>
+
+
+> Start `AppLauncher` -- this can be done in BEAUti using the `File => Launch Apps` menu.
+> Select `speedemon` in the drop-down box at the top and select `ClusterTreeSetAnalyser`
+
+<figure>
+	<a id="fig:applauncher"></a>
+	<img style="width:95%;" src="figures/applauncher.png" alt="">
+	<figcaption>Figure 13: BEAST application launcher.</figcaption>
+</figure>
+
+> Click the `Launch` button, and a window pops up with the `ClusterTreeSetAnalyser`
+> Click the `browse` button next to `Trees`, and select `speedemon.trees`.
+> Set `Burnin` to zero (since this is a combined log, no need to take away burn-in).
+> Set `Epsilon` to `1e-4`. This should be the same as used in the analysis set up in BEAUti.
+
+<figure>
+	<a id="fig:ClusterTreeSetAnalyser"></a>
+	<img style="width:95%;" src="figures/ClusterTreeSetAnalyser.png" alt="">
+	<figcaption>Figure 14: Cluster Tree Set Analyser.</figcaption>
+</figure>
+
+> Click the `OK` button. The results should appear in the terminal window.
+
+<figure>
+	<a id="fig:ClusterTreeSetAnalyser2"></a>
+	<img style="width:95%;" src="figures/ClusterTreeSetAnalyser2.png" alt="">
+	<figcaption>Figure 15: Cluster Tree Set Analyser output.</figcaption>
+</figure>
+
+
+Ignore the error messages at the top of the output (if any).
+
+```
+Topic for discussion: How many species are there?
+
+Did the eng2 species go where you expected? What could be the reason?
+```
+
 
 
 ----
