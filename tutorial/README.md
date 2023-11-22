@@ -58,35 +58,22 @@ Before you begin, download the alignment from [here](https://raw.githubuserconte
 
 BEAUti should change to show it uses the snapper template.
 
-<figure>
-	<a id="fig:BEAUti1"></a>
-	<img style="width:95%;" src="figures/BEAUti-snapper.png" alt="">
- ![BEAUti-snapper](figures/BEAUti-snapper.png)
-	<img style="width:95%;" src="figures/BEAUti-snapper2.png" alt="">
- ![BEAUti-snapper2](figures/BEAUti-snapper2.png)
+![BEAUti-snapper](figures/BEAUti-snapper.png)
+![BEAUti-snapper2](figures/BEAUti-snapper2.png)
 	<figcaption>Figure 1: Select the snapper template, and BEAUti changes its appearance.</figcaption>
-</figure>
 
 > Select `File => Add alignment`, and choose the file `hemi129.nex` you just downloaded.
 
 The partition panel now shows one entry per taxon, and a mapping to species. 
 
-<figure>
-	<a id="fig:BEAUti2"></a>
-	<img style="width:95%;" src="figures/BEAUti-partition0.png" alt="">
- ![BEAUti-partition0](figures/BEAUti-partition0.png)
+![BEAUti-partition0](figures/BEAUti-partition0.png)
 	<figcaption>Figure 2: After loading an alignment, BEAUti attemtps to automatically map taxa to species.</figcaption>
-</figure>
 
 By default, species are assigned to taxa through some heuristic based on the taxon name.
 If you click the `Guess` button, a dialog pops up where you can formulate various rules to specify the species based on the taxon name. For example, if you click `OK` when `use everything` is selected and `after first` with the underscore as character to separate on, it puts every taxon in its own species for this analysis.
 
-<figure>
-	<a id="fig:BEAUti3"></a>
-	<img style="width:45%;" src="figures/BEAUti-guess.png" alt="">
- ![BEAUti-guess](figures/BEAUti-guess.png)
+![BEAUti-guess](figures/BEAUti-guess.png)
 	<figcaption>Figure 3: There are many ways to help in mapping taxa to species based on the taxon name. This includes specifying the mapping in a text file, where the file uses one line per taxon, and the first word is the taxon name followed by a tab (not space!) followed by the species name. Here, we use the defaults.</figcaption>
-</figure>
 
 Here, we have some suspicion that the taxon labelled `eng_CA2_20` may not be an `eng` species.
 
@@ -94,22 +81,14 @@ Here, we have some suspicion that the taxon labelled `eng_CA2_20` may not be an 
 > Double click the entry next to `eng_CA2_20` and add a 2, so the species is labelled `eng2`.
 > Don't forget to press `return` to confirm the edit.
 
-<figure>
-	<a id="fig:BEAUti4"></a>
-	<img style="width:95%;" src="figures/BEAUti-partition1.png" alt="">
- ![BEAUti-partition1](figures/BEAUti-partition1.png)
+![BEAUti-partition1](figures/BEAUti-partition1.png)
 	<figcaption>Figure 4: Editing the species assignment.</figcaption>
-</figure>
 
 
 > Switch to the `Model parameters` tab.
 
-<figure>
-	<a id="fig:BEAUti5"></a>
-	<img style="width:95%;" src="figures/BEAUti-model-parameters.png" alt="">
- ![BEAUti-model-parameters](figures/BEAUti-model-parameters.png)
+![BEAUti-model-parameters](figures/BEAUti-model-parameters.png)
 	<figcaption>Figure 5: Various model parameters that can be changed.</figcaption>
-</figure>
 
 The following can be changed:
 * Coalescent rate: starting values of the coalescent rates and whether they should be estimated (recommended) or stay fixed (only use when prior information is available).
@@ -126,12 +105,8 @@ The following can be changed:
 
 > Click the triangle next toe `Yule Skyline Collapse` to show its options
 
-<figure>
-	<a id="fig:BEAUti6"></a>
-	<img style="width:95%;" src="figures/BEAUti-priors.png" alt="">
- ![BEAUti-priors](figures/BEAUti-priors.png)
+![BEAUti-priors](figures/BEAUti-priors.png)
 	<figcaption>Figure 6: Priors panel.</figcaption>
-</figure>
 
 
 The Yule Skyline Collapse is a mixture of skyline version of Yule tree prior that integrates out birth rate parameters under a gamma prior and spike distribution on internal node heights. It has the following options:
@@ -149,31 +124,19 @@ Note that at the bottom of the screen is a button to `+ Add priors`. This allows
 
 > Leave all values as is, and switch to the `MCMC` tab. Change chain length to 1 million.
 
-<figure>
-	<a id="fig:BEAUti7"></a>
-	<img style="width:95%;" src="figures/BEAUti-mcmc.png" alt="">
- ![BEAUti-mcmc](figures/BEAUti-mcmc.png)
+![BEAUti-mcmc](figures/BEAUti-mcmc.png)
 	<figcaption>Figure 7: MCMC settings.</figcaption>
-</figure>
 
 
 > Select the mena `View => Show Operators panel`. A new panel appears with information of the MCMC operators. 
 
-<figure>
-	<a id="fig:BEAUti8"></a>
-	<img style="width:35%;" src="figures/BEAUti-operators.png" alt="">
- ![BEAUti-operators](figures/BEAUti-operators.png)
+![BEAUti-operators](figures/BEAUti-operators.png)
 	<figcaption>Figure 8: Make operators tab visible.</figcaption>
-</figure>
 
 > Change the weight of the `Gamma Mover` and `Rate Mixer` operator to `10`. 
 
-<figure>
-	<a id="fig:BEAUti9"></a>
-	<img style="width:95%;" src="figures/BEAUti-operators2.png" alt="">
- ![BEAUti-operators2](figures/BEAUti-operators2.png)
+![BEAUti-operators2](figures/BEAUti-operators2.png)
 	<figcaption>Figure 9: Change weights of gamma mover and rate mixer operators to 10.</figcaption>
-</figure>
 
 This causes the operators on rates to be selected more often. Without increasing the weights this analysis will mix rather slow, since coalescent rates are not updated often enough.
 
@@ -242,12 +205,8 @@ Are there benefits/disadvantages of this approach over the collapse model
 
 > Start `Tracer`, load `speedemon.log` via the `File => Import trace file` menu, or by drag/dropping the file in the trace filea table. Observe the results.
 
-<figure>
-	<a id="fig:tracer"></a>
-	<img style="width:95%;" src="figures/tracer.png" alt="">
- ![tracer](figures/tracer.png)
+![tracer](figures/tracer.png)
 	<figcaption>Figure 10: Trace of cluster count.</figcaption>
-</figure>
 
 All ESSs look good, except for those of some coalescent rates. 
 This is because this is a combined log file of several other log files.
@@ -259,12 +218,8 @@ Combining these logs is fine if you are not interested in the coalescent rates/p
 
 > Start `DensiTree`, load `speedemon.trees` via the `File => Load` menu.
 
-<figure>
-	<a id="fig:densitree"></a>
-	<img style="width:95%;" src="figures/densitree.png" alt="">
- ![densitree](figures/densitree.png)
+![densitree](figures/densitree.png)
 	<figcaption>Figure 11: DensiTree of gecko analysis.</figcaption>
-</figure>
 
 It is already obvious that taxon `eng_CA2_20` is not part of the rest of the `eng` taxa.
 It is not yet obvious whether it is part of the `kya` species, and/or whether `kya` and `fas` form a single species.
@@ -287,21 +242,13 @@ For this, we use the `ClusterTreeSetAnalyser` app that comes with the `speedemon
 > Set `Burnin` to zero (since this is a combined log, no need to take away burn-in).
 > Set `Epsilon` to `1e-4`. This should be the same as used in the analysis set up in BEAUti.
 
-<figure>
-	<a id="fig:ClusterTreeSetAnalyser"></a>
-	<img style="width:65%;" src="figures/ClusterTreeSetAnalyser.png" alt="">
- ![ClusterTreeSetAnalyser](figures/ClusterTreeSetAnalyser.png)
+![ClusterTreeSetAnalyser](figures/ClusterTreeSetAnalyser.png)
 	<figcaption>Figure 14: Cluster Tree Set Analyser.</figcaption>
-</figure>
 
 > Click the `OK` button. The results should appear in the terminal window.
 
-<figure>
-	<a id="fig:ClusterTreeSetAnalyser2"></a>
-	<img style="width:95%;" src="figures/ClusterTreeSetAnalyser2.png" alt="">
- ![ClusterTreeSetAnalyser2](figures/ClusterTreeSetAnalyser2.png)
+![ClusterTreeSetAnalyser2](figures/ClusterTreeSetAnalyser2.png)
 	<figcaption>Figure 15: Cluster Tree Set Analyser output.</figcaption>
-</figure>
 
 
 Ignore the error messages at the top of the output (if any).
