@@ -17,11 +17,7 @@ We will use a multi-species coalescent model that integrates out the gene trees 
 
 To identify species, we use a collapse model that groups and ungroups taxa during the MCMC run (Douglas & Bouckaert, 2022), depending on how genetically close the species are.
 
-<figure>
-	<a id="fig:gecko"></a>
-	<img style="width:95%;" src="figures/gecko.png" alt="">
 ![gecko](figures/gecko.png)
-</figure>
 
 ----
 
@@ -184,15 +180,16 @@ This causes the operators on rates to be selected more often. Without increasing
 > Save the file to XML, say `speedemon.xml`. A copy of the file can be found [here](https://github.com/rbouckaert/speedemon/releases/download/publish/speedemon.xml).
 
 ```
-Topic for discussion: There is no tab for clock models, so a relaxed clock cannot be set up in BEAUti.
-
-Why would a relaxed clock not be a good idea in combination with the snapper multi species coalescent?
+Topic for discussion: There is no tab for clock models, so a relaxed clock cannot 
+be set up in BEAUti.
+Why would a relaxed clock not be a good idea in combination with the snapper multi 
+species coalescent?
 ```
 
 
 ```
-Topic for discussion: here, we changed the weights of operators deviating from the defaults.
-
+Topic for discussion: here, we changed the weights of operators deviating from 
+the defaults.
 How would you know when and which operators to change in general?
 ```
 <!-- relaxed clocks branch rates, branch lengths and coalescent rates are interchangable, leading to unidentifiability -->
@@ -219,15 +216,18 @@ It is not possible beforehand to predict how many threads is optimal, so you hav
 
 
 ```
-Topic for discussion: what would be the effect of putting every taxon in its own species
-and let the analysis decide which taxa group together?
+Topic for discussion: what would be the effect of putting every taxon in its 
+own species and let the analysis decide which taxa group together?
 ```
 <!-- more power to detect anomalies, takes a lot longer, may lead to convergence issues -->
 
 
 ```
-Topic for discussion: the long runtime does not seem an improvement on running a fixed small number of hypotheses and estimating the marginal likelihoods for each of them.
-Are there benefits/disadvantages of this approach over the collapse model (hint look at taxon `eng_CA2_20` in the results).
+Topic for discussion: the long runtime does not seem an improvement on running 
+a fixed small number of hypotheses and estimating the marginal likelihoods for 
+each of them.
+Are there benefits/disadvantages of this approach over the collapse model 
+(hint look at taxon `eng_CA2_20` in the results).
 ```
 
 <!-- many more hypotheses are tested, not just a limited number of fixed hypotheses 
@@ -237,7 +237,10 @@ Are there benefits/disadvantages of this approach over the collapse model (hint 
 
 ## Analysing results
 
-> Start `Tracer`, load `speedemon.log` and observe the results.
+
+### Checking convergence
+
+> Start `Tracer`, load `speedemon.log` via the `File => Import trace file` menu, or by drag/dropping the file in the trace filea table. Observe the results.
 
 <figure>
 	<a id="fig:tracer"></a>
@@ -251,7 +254,10 @@ This is because this is a combined log file of several other log files.
 The coalescent rates for the 5 taxa are numbered 1 to 5, and the one at the root is 9, but for the internal nodes there is no fixed numbering, so different runs can have different numberings.
 Combining these logs is fine if you are not interested in the coalescent rates/population sizes of internal branches.
 
-> Start `DensiTree`, load `speedemon.trees`
+
+### Visualise results 
+
+> Start `DensiTree`, load `speedemon.trees` via the `File => Load` menu.
 
 <figure>
 	<a id="fig:densitree"></a>
@@ -260,7 +266,12 @@ Combining these logs is fine if you are not interested in the coalescent rates/p
 	<figcaption>Figure 11: DensiTree of gecko analysis.</figcaption>
 </figure>
 
-
+It is already obvious that taxon `eng_CA2_20` is not part of the rest of the `eng` taxa.
+It is not yet obvious whether it is part of the `kya` species, and/or whether `kya` and `fas` form a single species.
+For this, we use the `ClusterTreeSetAnalyser` app that comes with the `speedemon` package.
+	
+### Testing species hypotheses
+	
 > Start `AppLauncher` -- this can be done in BEAUti using the `File => Launch Apps` menu.
 > Select `speedemon` in the drop-down box at the top and select `ClusterTreeSetAnalyser`
 
