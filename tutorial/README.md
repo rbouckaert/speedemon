@@ -53,6 +53,36 @@ We will set up an analysis in BEAUti using the snapper package and set up a mult
 ## Set up in BEAUti
 
 Before you begin, download the alignment from [here](https://raw.githubusercontent.com/BEAST2-Dev/SNAPP/master/examples/nexus/hemi129.nex).
+This data is from East African geckos of the *Hemidactylus fasciatus* species.
+The geckos in question are specifically found in rainforest environments, and their geographic distribution aligns with the major rainforest areas in West and Central Africa.
+Allopatric divergence appears to be the main driving force behind speciation in this particular group. 
+
+The alignment is stored in a nexus file with 129 columns representing the SNP data, and looks like this:
+
+```
+Begin data;
+        Dimensions ntax=46 nchar=129;
+        Format datatype=integerdata symbols="012" gap=-;
+        Matrix
+eng_NG_1        2-0202-22120211220222-10212-0122202...
+coal_CA1_2      12020212202020222022222012211022-02...
+coal_CA1_3      22020202202010221022222022211022202...
+coal_CA1_4      12020202202010221022222022-11022202...
+...
+        ;
+End;
+```
+
+Our species is diploid, so each SNP can be absent (represented by a '0'), present on both chromosomes (represented by a '2') or present on just one of the two chromosomes (represented by a '1').
+If no (reliable) data is available, a `-` is used, which is treated as missing data. 
+Thus, it has no effect on the species tree, but just increases the contribution to the uncertainty for the associated gene tree.
+
+For haploid species, a binary alignment (i.e. '0's and '1's only) can be used.
+An example can be found [here](https://raw.githubusercontent.com/BEAST2-Dev/SNAPP/master/examples/nexus/aflp_25.nex).
+
+
+
+
 
 > Start BEAUti and select the `File => Templates => snapper` item
 
