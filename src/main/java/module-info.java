@@ -3,7 +3,6 @@ open module speedemon {
     requires beast.base;
     requires static javafx.controls;
     requires static beast.fx;
-    requires static biceps;
     requires static org.apache.commons.statistics.distribution;
     requires static org.apache.commons.math4.legacy;
     
@@ -22,6 +21,8 @@ open module speedemon {
         speedemon.CollapseModel,
         speedemon.TreeAboveThreshold,
         speedemon.UniformThresholdOperator,
+        speedemon.EpochTreeDistribution,
+        speedemon.YuleSkyline,
         speedemon.YuleSkylineCollapse;
     
     

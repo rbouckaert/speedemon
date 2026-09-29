@@ -24,7 +24,6 @@ import beastfx.app.beauti.Beauti;
 import beast.base.evolution.tree.Node;
 import beast.base.evolution.tree.Tree;
 import beast.base.evolution.tree.TreeInterface;
-import biceps.spec.YuleSkyline;
 
 @Description("Mixture of skyline version of Yule tree prior that integrates out birth rate parameters"
 		+ " under a gamma prior"
@@ -32,12 +31,12 @@ import biceps.spec.YuleSkyline;
 @Citation(value="Jordan Douglas and Remco Bouckaert. Quantitatively defining species boundaries with more efficiency and more biological realism. Communications Biology 5, 755 (2022)", DOI="110.1038/s42003-022-03723-z")
 public class YuleSkylineCollapse extends YuleSkyline {
 
-    final public Input<RealScalarParam<? extends PositiveReal>> collapseHeightInput = new Input<>("epsilon", "collapse height value below wich taxa are considered to be the same species.", Validate.REQUIRED);
+    final public Input<RealScalar<? extends PositiveReal>> collapseHeightInput = new Input<>("epsilon", "collapse height value below wich taxa are considered to be the same species.", Validate.REQUIRED);
     final public Input<RealScalarParam<? extends UnitInterval>> collapseWeightInput =  new Input<>("weight", "mixture weight between Yule and spike density.", Validate.REQUIRED);
 
     
     private RealScalarParam<? extends UnitInterval> weight;
-    private RealScalarParam<? extends PositiveReal> epsilon;
+    private RealScalar<? extends PositiveReal> epsilon;
     private TreeInterface tree;
     @Override
     public void initAndValidate() {
@@ -77,6 +76,10 @@ public class YuleSkylineCollapse extends YuleSkyline {
 	
 		return logP;
     }
+	
+	public double getEpsilon() {
+		return this.epsilon.get();
+	}
 
 	
 

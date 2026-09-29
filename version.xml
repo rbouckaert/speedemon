@@ -1,9 +1,7 @@
 <package name='speedemon' version='1.2.0'>
 	<depends on='BEAST.base' atleast='2.8.0'/>
 	<depends on='BEAST.app' atleast='2.8.0'/>
-	<depends on='BICEPS' atleast='1.2.0'/>
 
-	<map from="biceps.ClusterCounter" to="speedemon.ClusterCounter"/>
 
 	<!-- for analysing trees produced under a collapse tree prior, like the birth/death collapse, or Yule skyline collapse -->
 	<packageapp description="ClusterTreeSetAnalyser"

@@ -23,7 +23,7 @@ public class UniformThresholdOperator extends Uniform {
 	
 	
 
-	final public Input<RealScalarParam<? extends PositiveReal>> epsilonInput = new Input<>("epsilon", "the threshold parameter.", Validate.REQUIRED);
+	final public Input<YuleSkylineCollapse> modelInput = new Input<>("model", "the Yule Skyline Collapse model, used to find epsilon.", Validate.REQUIRED);
 	
 	
 	
@@ -35,7 +35,7 @@ public class UniformThresholdOperator extends Uniform {
     @Override
     public double proposal() {
         Tree tree = treeInput.get();
-        double epsilon = epsilonInput.get().get();
+        double epsilon = modelInput.get().getEpsilon();
 
         
         // Select a node above or below threshold?
