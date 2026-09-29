@@ -8,19 +8,23 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import beast.base.core.ProgramStatus;
 import beast.base.core.Citation;
 import beast.base.core.Description;
-import beast.base.core.Function;
 import beast.base.core.Input;
 import beast.base.core.ProgramStatus;
 import beast.base.core.Input.Validate;
+import beast.base.core.Log;
 import beast.base.inference.State;
-import beast.base.inference.parameter.RealParameter;
+import beast.base.spec.domain.PositiveReal;
+import beast.base.spec.domain.UnitInterval;
+import beast.base.spec.inference.parameter.RealScalarParam;
+import beast.base.spec.type.RealScalar;
 import beastfx.app.beauti.Beauti;
 import beast.base.evolution.tree.Node;
 import beast.base.evolution.tree.Tree;
 import beast.base.evolution.tree.TreeInterface;
-import biceps.YuleSkyline;
+import biceps.spec.YuleSkyline;
 
 @Description("Mixture of skyline version of Yule tree prior that integrates out birth rate parameters"
 		+ " under a gamma prior"
@@ -28,21 +32,23 @@ import biceps.YuleSkyline;
 @Citation(value="Jordan Douglas and Remco Bouckaert. Quantitatively defining species boundaries with more efficiency and more biological realism. Communications Biology 5, 755 (2022)", DOI="110.1038/s42003-022-03723-z")
 public class YuleSkylineCollapse extends YuleSkyline {
 
-    final public Input<Function> collapseHeightInput = new Input<>("epsilon", "collapse height value below wich taxa are considered to be the same species.", Validate.REQUIRED);
-    final public Input<RealParameter> collapseWeightInput =  new Input<>("weight", "mixture weight between Yule and spike density.", Validate.REQUIRED);
+    final public Input<RealScalarParam<? extends PositiveReal>> collapseHeightInput = new Input<>("epsilon", "collapse height value below wich taxa are considered to be the same species.", Validate.REQUIRED);
+    final public Input<RealScalarParam<? extends UnitInterval>> collapseWeightInput =  new Input<>("weight", "mixture weight between Yule and spike density.", Validate.REQUIRED);
 
-    private RealParameter weight;
-    private Function epsilon;
+    
+    private RealScalarParam<? extends UnitInterval> weight;
+    private RealScalarParam<? extends PositiveReal> epsilon;
     private TreeInterface tree;
-
     @Override
     public void initAndValidate() {
+    	
+    	Log.warning("YuleSkylineCollapse init");
     	if (ProgramStatus.name.equals("BEAUti")) {
     		return;
     	}
     	super.initAndValidate();
     	epsilon = collapseHeightInput.get();
-    	ClusterTreeSetAnalyser.EPSILON = epsilon.getArrayValue();
+    	ClusterTreeSetAnalyser.EPSILON = epsilon.get();
     	weight = collapseWeightInput.get();
 		tree = treeInput.get() == null ?
 				treeIntervalsInput.get().treeInput.get():
@@ -53,11 +59,11 @@ public class YuleSkylineCollapse extends YuleSkyline {
     
 	@Override
 	public double calculateLogP() {
-		double epsilon = this.epsilon.getArrayValue();
+		double epsilon = this.epsilon.get();
 
 		logP = super.calculateLogPbyEqualEpochs(epsilon);
 		
-		double w = this.weight.getValue();
+		double w = this.weight.get();
 		
 		int k = 0; // number of node heights >= epsilon
 		int n = tree.getInternalNodeCount(); // number of internal nodes
@@ -127,7 +133,7 @@ public class YuleSkylineCollapse extends YuleSkyline {
 		
 		int [] map = new int[tree.getLeafNodeCount()];
 		boolean [] done = new boolean[tree.getLeafNodeCount()];
-		int clusterCount = countClusters(tree, map, done, epsilon.getArrayValue());
+		int clusterCount = countClusters(tree, map, done, epsilon.get());
 		out.append(clusterCount + "\t");
 	}
 
@@ -139,10 +145,18 @@ public class YuleSkylineCollapse extends YuleSkyline {
     public List<String> getConditions() {
     	List<String> conditions = new ArrayList<>();
     	conditions.add(treeInput.get().getID());
-    	conditions.add(birthRateShapeInput.get().getID());
-    	conditions.add(birthRateRateInput.get().getID());
+    	
+    	if (birthRateShapeInput.get() instanceof RealScalarParam<? extends PositiveReal>) {
+    		RealScalarParam<PositiveReal> param = (RealScalarParam)birthRateShapeInput.get();
+    		conditions.add(param.getID());
+    	}
+    	
+    	if (birthRateRateInput.get() instanceof RealScalarParam<? extends PositiveReal>) {
+    		RealScalarParam<PositiveReal> param = (RealScalarParam)birthRateRateInput.get();
+    		conditions.add(param.getID());
+    	}
+    	
     	conditions.add(collapseWeightInput.get().getID());
-    	// conditions.add(collapseHeightInput.get().getID());
     	return conditions;
     }
 	
@@ -178,8 +192,8 @@ public class YuleSkylineCollapse extends YuleSkyline {
         sampleConditions(state, random);
 
         Tree tree = (Tree) treeInput.get();
-        double w = collapseWeightInput.get().getValue();
-        double epsilon = collapseHeightInput.get().getArrayValue();
+        double w = collapseWeightInput.get().get();
+        double epsilon = collapseHeightInput.get().get();
 
         
         // Simulate tree conditional on new parameters
@@ -251,7 +265,7 @@ public class YuleSkylineCollapse extends YuleSkyline {
 	    // Epoch 0
 	    int epochNumber = 0;
 	    double birthRate = birthRates[epochNumber];
-        int groupSize = (int)groupSizes.getArrayValue(epochNumber);
+        int groupSize = (int)groupSizes.get(epochNumber);
 	    
 	    
         
@@ -265,7 +279,7 @@ public class YuleSkylineCollapse extends YuleSkyline {
             if (k <= groupSize) {
             	epochNumber++;
             	birthRate = birthRates[epochNumber];
-                groupSize = (int)groupSizes.getArrayValue(epochNumber);
+                groupSize = (int)groupSizes.get(epochNumber);
             }
     
     		

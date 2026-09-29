@@ -11,6 +11,7 @@
 						suppressInputs='speedemon.YuleSkylineCollapse.groupSizes,
 						speedemon.YuleSkylineCollapse.tree,
 						speedemon.YuleSkylineCollapse.treeIntervals,
+						speedemon.YuleSkylineCollapse.groupSizes,
                         speedemon.YuleSkylineCollapse.logMeans'
             hmc='
                 YuleSkylineCollapseBirthRateRatePrior/index/=Priors/BirthRateRatePrior/,
@@ -18,11 +19,13 @@
                 SPEEDEMONYuleSkylineCollapse/index/=Priors/YuleSkylineCollapse/
                 '>
 <![CDATA[
-            <parameter id="SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="stateNode">1.0</parameter>
-            <parameter id="SPEEDEMONYuleSkylineCollapseBirthRateShape.t:$(n)" estimate="false" spec="parameter.RealParameter" lower="0.0" name="stateNode">2.0</parameter>
-            <parameter id="SPEEDEMONcollapseWeight.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="stateNode" upper="1.0">0.5</parameter>
+            <parameter id="SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" spec="beast.base.spec.inference.parameter.RealScalarParam" domain="PositiveReal" name="stateNode">1.0</parameter>
+            <parameter id="SPEEDEMONYuleSkylineCollapseBirthRateShape.t:$(n)" estimate="false" spec="beast.base.spec.inference.parameter.RealScalarParam" domain="PositiveReal" name="stateNode">2.0</parameter>
+            <parameter id="SPEEDEMONcollapseWeight.t:$(n)" spec="beast.base.spec.inference.parameter.RealScalarParam" domain="UnitInterval" name="stateNode" >0.5</parameter>
+            <alpha spec="beast.base.spec.inference.parameter.RealScalarParam" domain="PositiveReal" value="0.01" estimate="false"/>
 
-             
+
+	             
             <distribution id="SPEEDEMONYuleSkylineCollapse.t:$(n)" spec="speedemon.YuleSkylineCollapse" 
                         weight="@SPEEDEMONcollapseWeight.t:$(n)"
                         linkedMean="true"
@@ -30,51 +33,37 @@
                         birthRateRate="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)"
                         equalEpochs="true" tree="@Tree.t:$(n)"                       
                         groupCount="4">
-					<epsilon spec="beast.base.core.Function$Constant" id="epsilon.speedemon.t:$(n)">1.0E-4</epsilon>
+                        <epsilon id="epsilon.speedemon.t:$(n)" spec="beast.base.spec.inference.parameter.RealScalarParam" domain="PositiveReal" estimate="false">0.0001</epsilon>
 			</distribution>
 
-            <prior id="YuleSkylineCollapseBirthRateRatePrior.t:$(n)" name="distribution" x="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)">
-                    <LogNormal meanInRealSpace="true" name="distr">
-                        <M spec="parameter.RealParameter" lower="0.0">1.0</M>
-                        <S spec="parameter.RealParameter" lower="0.0">1.25</S>
-                    </LogNormal>
+            <prior id="YuleSkylineCollapseBirthRateRatePrior.t:$(n)" name="distribution" spec="beast.base.spec.inference.distribution.LogNormal" param="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" meanInRealSpace="true">
+                <M spec="beast.base.spec.inference.parameter.RealScalarParam" domain="PositiveReal" >1.0</M>
+                <S spec="beast.base.spec.inference.parameter.RealScalarParam" domain="PositiveReal" >1.25</S>
             </prior>
 
-            <prior id="collapseWeight.prior.t:$(n)" name="distribution" x="@SPEEDEMONcollapseWeight.t:$(n)">
-                    <Beta name="distr">
-                        <alpha spec="parameter.RealParameter" lower="0.0">3.0</alpha>
-                        <beta spec="parameter.RealParameter" lower="0.0">1.0</beta>
-                    </Beta>
+            <prior id="collapseWeight.prior.t:$(n)" name="distribution" spec="beast.base.spec.inference.distribution.Beta" param="@SPEEDEMONcollapseWeight.t:$(n)">
+                <alpha spec="beast.base.spec.inference.parameter.RealScalarParam" domain="PositiveReal" >3.0</alpha>
+                <beta spec="beast.base.spec.inference.parameter.RealScalarParam" domain="PositiveReal" >1.0</beta>
             </prior>
 
 			
-			<operator id="AdaptableOperatorSampler.SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" spec="beast.base.evolution.operator.AdaptableOperatorSampler" weight="3.0">
-				<parameter idref="SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)"/>
-				<operator id="Scale.BirthDeathCollapseModel.t:$(n)" spec="beast.base.evolution.operator.kernel.BactrianScaleOperator" parameter="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" weight="1.0"/>
-				<operator id="SampleFromPriorOperator.BirthDeathCollapseModel.t:$(n)" spec="orc.operators.SampleFromPriorOperator" parameter="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" prior2="@YuleSkylineCollapseBirthRateRatePrior.t:$(n)" weight="1.0"/>
-			</operator>
-			
-			<operator id="AdaptableOperatorSampler.SPEEDEMONcollapseWeight.t:$(n)" spec="beast.base.evolution.operator.AdaptableOperatorSampler" weight="3.0">
-				<parameter idref="SPEEDEMONcollapseWeight.t:$(n)"/>
-				<operator id="Scale.SPEEDEMONcollapseWeight.t:$(n)" spec="beast.base.inference.operator.kernel.BactrianIntervalOperator" parameter="@SPEEDEMONcollapseWeight.t:$(n)" weight="1.0"/>
-				<operator id="SampleFromPriorOperator.SPEEDEMONcollapseWeight.t:$(n)" spec="orc.operators.SampleFromPriorOperator" parameter="@SPEEDEMONcollapseWeight.t:$(n)" prior2="@collapseWeight.prior.t:$(n)" weight="1.0"/>
-			</operator>
-			
+            <operator id="Scale.BirthDeathCollapseModel.t:$(n)" spec="beast.base.spec.inference.operator.ScaleOperator" parameter="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" weight="3.0"/>
+            <operator id="Scale.SPEEDEMONcollapseWeight.t:$(n)" spec="beast.base.spec.inference.operator.uniform.IntervalOperator" parameter="@SPEEDEMONcollapseWeight.t:$(n)" weight="3.0"/>
+
+
+
 			
 			<operator id="SPEEDEMONUniformThresholdOperator.t:$(n)" spec="speedemon.UniformThresholdOperator" epsilon="@epsilon.speedemon.t:$(n)" tree="@Tree.t:$(n)" weight="3.0"/>
 			
-	    	<operator id="SPEEDEMONEpochTop.t:$(n)" spec="beast.base.evolution.operator.EpochFlexOperator" tree="@Tree.t:$(n)" weight="2.0" scaleFactor="0.1"/>
-	    	<operator id="SPEEDEMONEpochAll.t:$(n)" spec="beast.base.evolution.operator.EpochFlexOperator" tree="@Tree.t:$(n)" weight="2.0" scaleFactor="0.1" fromOldestTipOnly="false"/>      
-    		<operator id="SPEEDEMONTreeFlex.t:$(n)" spec="beast.base.evolution.operator.TreeStretchOperator" scaleFactor="0.01" tree="@Tree.t:$(n)" weight="2.0"/>
+	    	<operator id="SPEEDEMONEpochTop.t:$(n)" spec="beast.base.spec.evolution.operator.IntervalScaleOperator" tree="@Tree.t:$(n)" weight="2.0" scaleFactor="0.1"/>
 
-            <operator id='SPEEDEMONTreeRootScaler.t:$(n)' spec='beast.base.evolution.operator.kernel.BactrianScaleOperator' scaleFactor="0.1" weight="3" tree="@Tree.t:$(n)" rootOnly='true'/>
-            <operator id='SPEEDEMONUniformOperator.t:$(n)' spec='beast.base.evolution.operator.kernel.BactrianNodeOperator' weight="30" tree="@Tree.t:$(n)"/>
-            <operator id='SPEEDEMONSubtreeSlide.t:$(n)' spec='beast.base.evolution.operator.kernel.BactrianSubtreeSlide' weight="15" size="1.0" tree="@Tree.t:$(n)"/>
+            <operator id='SPEEDEMONTreeRootScaler.t:$(n)' spec='kernel.BactrianScaleOperator' scaleFactor="0.1" weight="3" tree="@Tree.t:$(n)" rootOnly='true'/>
+            <operator id='SPEEDEMONUniformOperator.t:$(n)' spec='kernel.BactrianNodeOperator' weight="30" tree="@Tree.t:$(n)"/>
+            <operator id='SPEEDEMONSubtreeSlide.t:$(n)' spec='kernel.BactrianSubtreeSlide' weight="15" size="1.0" tree="@Tree.t:$(n)"/>
             <operator id='SPEEDEMONNarrow.t:$(n)' spec='Exchange' isNarrow='true' weight="15" tree="@Tree.t:$(n)"/>
             <operator id='SPEEDEMONWide.t:$(n)' spec='Exchange' isNarrow='false' weight="3" tree="@Tree.t:$(n)"/>
             <operator id='SPEEDEMONWilsonBalding.t:$(n)' spec='WilsonBalding' weight="3" tree="@Tree.t:$(n)"/>
 	
-			
 			
 ]]>
 
@@ -126,8 +115,6 @@
 					 
 			<!-- SPEEDEMON tree operators -->
 			<connect srcID='SPEEDEMONEpochTop.t:$(n)'                targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Scales all internal nodes for tree t:$(n)</connect>
-            <connect srcID='SPEEDEMONEpochAll.t:$(n)'                targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Scales all internal nodes for tree t:$(n)</connect>
-            <connect srcID='SPEEDEMONTreeFlex.t:$(n)'                targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Scales all internal nodes for tree t:$(n)</connect>
             <connect srcID='SPEEDEMONTreeRootScaler.t:$(n)'            targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Scales root node for tree t:$(n)</connect>
             <connect srcID='SPEEDEMONUniformOperator.t:$(n)'           targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Draws new internal node heights uniformally for tree t:$(n)</connect>
             <connect srcID='SPEEDEMONSubtreeSlide.t:$(n)'              targetID='mcmc' inputName='operator' if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and Tree.t:$(n)/estimate=true'>Performs subtree slide rearrangement of tree t:$(n)</connect>
@@ -138,13 +125,13 @@
 					 
 					 
 			<!-- Tree prior operators -->
-			<connect srcID='AdaptableOperatorSampler.SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)' targetID='mcmc' inputName='operator'
+			<connect srcID='Scale.BirthDeathCollapseModel.t:$(n)' targetID='mcmc' inputName='operator'
                      if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)/estimate=true'>
-                Adaptively operate on speciation rate gamma-rate for Yule Skyline Collapse prior of tree t:$(n)
+                Scale the speciation rate gamma-rate for Yule Skyline Collapse prior of tree t:$(n)
             </connect>
-			<connect srcID='AdaptableOperatorSampler.SPEEDEMONcollapseWeight.t:$(n)' targetID='mcmc' inputName='operator'
+			<connect srcID='Scale.SPEEDEMONcollapseWeight.t:$(n)' targetID='mcmc' inputName='operator'
                      if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and SPEEDEMONcollapseWeight.t:$(n)/estimate=true'>
-                Adaptively operate on collapse weight for Yule Skyline Collapse prior of tree t:$(n)
+                Scale the collapse weight for Yule Skyline Collapse prior of tree t:$(n)
             </connect>
 			
 			
@@ -177,8 +164,8 @@
                 SPEEDEMONYuleSkylineCollapse/index/=Priors/YuleSkylineCollapse/
                 '>
 <![CDATA[
-            <parameter id="SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="stateNode">1.0</parameter>
-            <parameter id="SPEEDEMONcollapseWeight.t:$(n)" spec="parameter.RealParameter" lower="0.0" name="stateNode" upper="1.0">0.5</parameter>
+            <parameter id="SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" spec="beast.base.spec.inference.parameter.RealScalarParam" domain="PositiveReal" name="stateNode">1.0</parameter>
+            <parameter id="SPEEDEMONcollapseWeight.t:$(n)" spec="beast.base.spec.inference.parameter.RealScalarParam" domain="UnitInterval" name="stateNode" >0.5</parameter>
              
             <distribution id="SPEEDEMONYuleSkylineCollapse.t:$(n)" spec="speedemon.YuleSkylineCollapse" 
                         weight="@SPEEDEMONcollapseWeight.t:$(n)"
@@ -187,42 +174,27 @@
                         birthRateRate="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)"
                         equalEpochs="true" tree="@Tree.t:$(n)"                       
                         groupCount="4">
-					<epsilon spec="beast.base.core.Function$Constant" id="epsilon.speedemon.t:$(n)">1.0E-4</epsilon>
+						<epsilon id="epsilon.speedemon.t:$(n)" spec="beast.base.spec.inference.parameter.RealScalarParam" domain="PositiveReal" estimate="false">0.0001</epsilon>
 			</distribution>
 
-            <prior id="YuleSkylineCollapseBirthRateRatePrior.t:$(n)" name="distribution" x="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)">
-                    <LogNormal meanInRealSpace="true" name="distr">
-                        <M spec="parameter.RealParameter" lower="0.0">1.0</M>
-                        <S spec="parameter.RealParameter" lower="0.0">1.25</S>
-                    </LogNormal>
+            <prior id="YuleSkylineCollapseBirthRateRatePrior.t:$(n)" name="distribution" spec="beast.base.spec.inference.distribution.LogNormal" param="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" meanInRealSpace="true">
+                <M spec="beast.base.spec.inference.parameter.RealScalarParam" domain="PositiveReal" >1.0</M>
+                <S spec="beast.base.spec.inference.parameter.RealScalarParam" domain="PositiveReal" >1.25</S>
             </prior>
 
-            <prior id="collapseWeight.prior.t:$(n)" name="distribution" x="@SPEEDEMONcollapseWeight.t:$(n)">
-                    <Beta name="distr">
-                        <alpha spec="parameter.RealParameter" lower="0.0">3.0</alpha>
-                        <beta spec="parameter.RealParameter" lower="0.0">1.0</beta>
-                    </Beta>
+            <prior id="collapseWeight.prior.t:$(n)" name="distribution" spec="beast.base.spec.inference.distribution.Beta"  param="@SPEEDEMONcollapseWeight.t:$(n)">
+                <alpha spec="beast.base.spec.inference.parameter.RealScalarParam" domain="PositiveReal" >3.0</alpha>
+                <beta spec="beast.base.spec.inference.parameter.RealScalarParam" domain="PositiveReal" >1.0</beta>
             </prior>
             
             
-			<operator id="SPEEDEMONUniformOperator.t:Species" spec="Uniform" tree="@Tree.t:Species" weight="3.0"/>
+			<operator id="SPEEDEMONUniformOperator.t:Species" spec="kernel.BactrianNodeOperator" tree="@Tree.t:Species" weight="3.0"/>
 			<operator id="SPEEDEMONWilsonBalding.t:Species" spec="WilsonBalding" tree="@Tree.t:Species" weight="15.0"/>
 			<operator id="SPEEDEMONWide.t:Species" isNarrow="false" spec="Exchange" tree="@Tree.t:Species" weight="15.0"/>
 			<operator id="SPEEDEMONNarrow.t:$(n)" isNarrow="true" spec="Exchange" tree="@Tree.t:Species" weight="1.0"/>
-			<operator id="SPEEDEMONBactrianSubtreeSlide.t:$(n)" size="0.002" spec="beast.base.evolution.operator.kernel.BactrianSubtreeSlide" tree="@Tree.t:Species" weight="15.0"/>
+			<operator id="SPEEDEMONBactrianSubtreeSlide.t:$(n)" size="0.002" spec="kernel.BactrianSubtreeSlide" tree="@Tree.t:Species" weight="15.0"/>
 			
-			<operator id="AdaptableOperatorSampler.SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" spec="beast.base.evolution.operator.AdaptableOperatorSampler" weight="3.0">
-				<parameter idref="SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)"/>
-				<operator id="Scale.BirthDeathCollapseModel.t:$(n)" spec="beast.base.evolution.operator.kernel.BactrianScaleOperator" parameter="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" weight="1.0"/>
-				<operator id="SampleFromPriorOperator.BirthDeathCollapseModel.t:$(n)" spec="orc.operators.SampleFromPriorOperator" parameter="@SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)" prior2="@YuleSkylineCollapseBirthRateRatePrior.t:$(n)" weight="1.0"/>
-			</operator>
-			
-			<operator id="AdaptableOperatorSampler.SPEEDEMONcollapseWeight.t:$(n)" spec="beast.base.evolution.operator.AdaptableOperatorSampler" weight="3.0">
-				<parameter idref="SPEEDEMONcollapseWeight.t:$(n)"/>
-				<operator id="Scale.SPEEDEMONcollapseWeight.t:$(n)" spec="beast.base.inference.operator.kernel.BactrianIntervalOperator" parameter="@SPEEDEMONcollapseWeight.t:$(n)" weight="1.0"/>
-				<operator id="SampleFromPriorOperator.SPEEDEMONcollapseWeight.t:$(n)" spec="orc.operators.SampleFromPriorOperator" parameter="@SPEEDEMONcollapseWeight.t:$(n)" prior2="@collapseWeight.prior.t:$(n)" weight="1.0"/>
-			</operator>
-			
+
 			
 			<operator id="UniformThresholdOperator.speedemon.t:$(n)" spec="speedemon.UniformThresholdOperator" epsilon="@epsilon.speedemon.t:$(n)" tree="@Tree.t:$(n)" weight="10.0"/>
 	
@@ -257,13 +229,13 @@
                 Yule Skyline Collapse weight prior of t:$(n)
             </connect>
 			
-            <connect srcID='AdaptableOperatorSampler.SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)' targetID='mcmc' inputName='operator'
+            <connect srcID='Scale.BirthDeathCollapseModel.t:$(n)' targetID='mcmc' inputName='operator'
                      if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and SPEEDEMONYuleSkylineCollapseBirthRateRate.t:$(n)/estimate=true'>
-                Adaptively operate on speciation rate gamma-rate for Yule Skyline Collapse prior of tree t:$(n)
+                Scale the speciation rate gamma-rate for Yule Skyline Collapse prior of tree t:$(n)
             </connect>
-			<connect srcID='AdaptableOperatorSampler.SPEEDEMONcollapseWeight.t:$(n)' targetID='mcmc' inputName='operator'
+			<connect srcID='Scale.SPEEDEMONcollapseWeight.t:$(n)' targetID='mcmc' inputName='operator'
                      if='inposterior(SPEEDEMONYuleSkylineCollapse.t:$(n)) and inposterior(Tree.t:$(n)) and SPEEDEMONcollapseWeight.t:$(n)/estimate=true'>
-                Adaptively operate on collapse weight for Yule Skyline Collapse prior of tree t:$(n)
+                Scale the collapse weight for Yule Skyline Collapse prior of tree t:$(n)
             </connect>
 			
 			<connect srcID='UniformThresholdOperator.speedemon.t:$(n)' targetID='mcmc' inputName='operator'

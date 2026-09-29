@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beast.base.core.BEASTInterface;
-import beast.base.core.Function;
 import beast.base.core.Input;
 import beast.base.inference.StateNode;
 import beast.base.core.Input.Validate;
-import beast.base.inference.parameter.RealParameter;
+import beast.base.spec.domain.PositiveReal;
+import beast.base.spec.inference.parameter.RealScalarParam;
 import beast.base.evolution.operator.Uniform;
 import beast.base.evolution.tree.Node;
 import beast.base.evolution.tree.Tree;
@@ -23,7 +23,7 @@ public class UniformThresholdOperator extends Uniform {
 	
 	
 
-	final public Input<Function> epsilonInput = new Input<>("epsilon", "the threshold parameter.", Validate.REQUIRED);
+	final public Input<RealScalarParam<? extends PositiveReal>> epsilonInput = new Input<>("epsilon", "the threshold parameter.", Validate.REQUIRED);
 	
 	
 	
@@ -35,7 +35,7 @@ public class UniformThresholdOperator extends Uniform {
     @Override
     public double proposal() {
         Tree tree = treeInput.get();
-        double epsilon = epsilonInput.get().getArrayValue();
+        double epsilon = epsilonInput.get().get();
 
         
         // Select a node above or below threshold?

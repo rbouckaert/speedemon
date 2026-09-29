@@ -1,4 +1,4 @@
-package speedemon.inputedtitor;
+package speedemon.inputeditor;
 
 import beastfx.app.inputeditor.BeautiDoc;
 import beastfx.app.inputeditor.DoubleInputEditor;
@@ -12,6 +12,10 @@ public class ConstantInputEditor extends DoubleInputEditor {
 	@Override
 	public Class<?> type() {
 		return Function.Constant.class;
+	}
+	
+	public ConstantInputEditor() {
+		
 	}
 
 	public ConstantInputEditor(BeautiDoc doc) {
