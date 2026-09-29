@@ -8,7 +8,6 @@ open module speedemon {
     
 
     exports speedemon;
-    exports speedemon.inputeditor;
 
 
     provides beast.base.core.BEASTInterface with
@@ -26,8 +25,5 @@ open module speedemon {
         speedemon.YuleSkylineCollapse;
     
     
-    provides beastfx.app.inputeditor.InputEditor with
-    	speedemon.inputeditor.ConstantInputEditor;
- 
 
 }
