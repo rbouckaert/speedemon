@@ -11,7 +11,7 @@ Species boundaries are applied under the tree collapse model, which acts as a pr
 This model describes how to prepare a BEAST 2 XML file specifying the Yule-skyline collapse model.
 
 
-The main repository of SPEEDEMON is compatible with BEAST 2.7. With compatability with 2.6, please see the v2.6 branch.
+The main repository of SPEEDEMON is compatible with BEAST 2.8. With compatability with 2.6 or 2.7, please see the v2.6 and v2.7 branches.
 
 
 ## Preparing an XML file using BEAUti
